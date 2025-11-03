@@ -148,3 +148,49 @@ def delete_conversation(conversation_id):
             return True
     finally:
         conn.close()
+
+def update_conversation_title(conversation_id, new_title):
+    """Update a conversation's title."""
+    conn = get_db_connection()
+    try:
+        with conn.cursor() as cur:
+            cur.execute(
+                "UPDATE conversations SET title = %s, updated_at = CURRENT_TIMESTAMP WHERE id = %s RETURNING id, title",
+                (new_title, conversation_id)
+            )
+            result = cur.fetchone()
+            conn.commit()
+            return dict(result) if result else None
+    finally:
+        conn.close()
+
+def update_project_name(project_id, new_name):
+    """Update a project's name."""
+    conn = get_db_connection()
+    try:
+        with conn.cursor() as cur:
+            cur.execute(
+                "UPDATE projects SET name = %s WHERE id = %s RETURNING id, name, color",
+                (new_name, project_id)
+            )
+            result = cur.fetchone()
+            conn.commit()
+            return dict(result) if result else None
+    finally:
+        conn.close()
+
+def delete_project(project_id):
+    """Delete a project and all its conversations (cascade)."""
+    conn = get_db_connection()
+    try:
+        with conn.cursor() as cur:
+            # Check how many conversations will be deleted
+            cur.execute("SELECT COUNT(*) FROM conversations WHERE project_id = %s", (project_id,))
+            count = cur.fetchone()[0]
+            
+            # Delete the project (conversations will cascade delete)
+            cur.execute("DELETE FROM projects WHERE id = %s", (project_id,))
+            conn.commit()
+            return {'deleted_conversations': count}
+    finally:
+        conn.close()
