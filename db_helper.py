@@ -34,8 +34,22 @@ def initialize_database():
                     name VARCHAR(255) NOT NULL,
                     email VARCHAR(255) UNIQUE NOT NULL,
                     password_hash VARCHAR(255) NOT NULL,
+                    nickname VARCHAR(100) DEFAULT 'knucklehead',
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 );
+            """)
+            
+            # Add nickname column to existing users table (migration)
+            cur.execute("""
+                DO $$
+                BEGIN
+                    IF NOT EXISTS (
+                        SELECT 1 FROM information_schema.columns 
+                        WHERE table_name = 'users' AND column_name = 'nickname'
+                    ) THEN
+                        ALTER TABLE users ADD COLUMN nickname VARCHAR(100) DEFAULT 'knucklehead';
+                    END IF;
+                END $$;
             """)
             
             # Create projects table
