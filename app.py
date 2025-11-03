@@ -81,6 +81,33 @@ def rosie_test():
             'error': str(e)
         }), 500
 
+@app.route('/', methods=['GET'])
+def index():
+    return jsonify({
+        'assistant': 'Rosie',
+        'version': '1.0.0',
+        'message': 'Welcome to the Rosie AI Assistant API!',
+        'endpoints': {
+            '/rosie-test': {
+                'method': 'POST',
+                'description': 'Chat with Rosie',
+                'required_fields': ['message'],
+                'optional_fields': ['history'],
+                'example': {
+                    'message': 'Hello Rosie!',
+                    'history': [
+                        {'role': 'user', 'content': 'Previous message'},
+                        {'role': 'assistant', 'content': 'Previous response'}
+                    ]
+                }
+            },
+            '/health': {
+                'method': 'GET',
+                'description': 'Check API health status'
+            }
+        }
+    }), 200
+
 @app.route('/health', methods=['GET'])
 def health():
     return jsonify({
