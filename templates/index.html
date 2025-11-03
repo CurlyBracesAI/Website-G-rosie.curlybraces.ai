@@ -51,6 +51,104 @@
             margin-top: 5px;
         }
         
+        .toolbar {
+            background: white;
+            padding: 12px 20px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .toolbar select, .toolbar button {
+            padding: 8px 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 13px;
+            background: white;
+            cursor: pointer;
+        }
+        
+        .toolbar button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            font-weight: 600;
+        }
+        
+        .toolbar button:hover {
+            opacity: 0.9;
+        }
+        
+        .toolbar select {
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 400px;
+            width: 90%;
+        }
+        
+        .modal-content h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .modal-content input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+        
+        .modal-buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .btn-cancel {
+            background: #e0e0e0;
+            color: #333;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
         .chat-messages {
             flex: 1;
             overflow-y: auto;
@@ -195,6 +293,16 @@
             <p>Andy's AI Assistant</p>
         </div>
         
+        <div class="toolbar">
+            <select id="projectSelector">
+                <option value="">Select Project...</option>
+            </select>
+            <button id="newProjectBtn">+ New Project</button>
+            <button id="saveConversationBtn">💾 Save</button>
+            <button id="loadConversationBtn">📂 Load</button>
+            <button id="newChatBtn">🆕 New Chat</button>
+        </div>
+        
         <div class="chat-messages" id="chatMessages">
             <div class="message assistant">
                 <div class="message-label">Rosie</div>
@@ -215,12 +323,52 @@
         </div>
     </div>
 
+    <!-- New Project Modal -->
+    <div id="newProjectModal" class="modal">
+        <div class="modal-content">
+            <h2>Create New Project</h2>
+            <input type="text" id="newProjectName" placeholder="Project name (e.g., Marketing Emails)">
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closeModal('newProjectModal')">Cancel</button>
+                <button class="btn-primary" onclick="createProject()">Create</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Save Conversation Modal -->
+    <div id="saveConversationModal" class="modal">
+        <div class="modal-content">
+            <h2>Save Conversation</h2>
+            <input type="text" id="conversationTitle" placeholder="Conversation title">
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closeModal('saveConversationModal')">Cancel</button>
+                <button class="btn-primary" onclick="saveConversation()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load Conversation Modal -->
+    <div id="loadConversationModal" class="modal">
+        <div class="modal-content">
+            <h2>Load Conversation</h2>
+            <select id="conversationSelector" size="8" style="width: 100%; margin-bottom: 15px;">
+                <option value="">Select a conversation...</option>
+            </select>
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closeModal('loadConversationModal')">Cancel</button>
+                <button class="btn-primary" onclick="loadSelectedConversation()">Load</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         const chatMessages = document.getElementById('chatMessages');
         const messageInput = document.getElementById('messageInput');
         const sendButton = document.getElementById('sendButton');
+        const projectSelector = document.getElementById('projectSelector');
         
         let conversationHistory = [];
+        let currentProjectId = null;
         
         function formatResponse(text) {
             // For assistant messages, add line breaks before bullet points
@@ -345,6 +493,190 @@
             }
         });
         
+        // Modal management
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+        
+        // Load all projects on page load
+        async function loadProjects() {
+            try {
+                const response = await fetch('/projects');
+                const data = await response.json();
+                
+                if (data.success) {
+                    projectSelector.innerHTML = '<option value="">Select Project...</option>';
+                    data.projects.forEach(project => {
+                        const option = document.createElement('option');
+                        option.value = project.id;
+                        option.textContent = project.name;
+                        projectSelector.appendChild(option);
+                    });
+                }
+            } catch (error) {
+                console.error('Failed to load projects:', error);
+            }
+        }
+        
+        // Create new project
+        async function createProject() {
+            const name = document.getElementById('newProjectName').value.trim();
+            if (!name) {
+                alert('Please enter a project name');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/projects', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    closeModal('newProjectModal');
+                    document.getElementById('newProjectName').value = '';
+                    await loadProjects();
+                    projectSelector.value = data.project.id;
+                    currentProjectId = data.project.id;
+                } else {
+                    alert('Error creating project: ' + data.error);
+                }
+            } catch (error) {
+                alert('Failed to create project: ' + error.message);
+            }
+        }
+        
+        // Save conversation
+        async function saveConversation() {
+            const title = document.getElementById('conversationTitle').value.trim();
+            if (!title) {
+                alert('Please enter a conversation title');
+                return;
+            }
+            
+            if (!currentProjectId) {
+                alert('Please select a project first');
+                return;
+            }
+            
+            if (conversationHistory.length === 0) {
+                alert('No conversation to save');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/conversations', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        project_id: currentProjectId,
+                        title: title,
+                        messages: conversationHistory
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    closeModal('saveConversationModal');
+                    document.getElementById('conversationTitle').value = '';
+                    alert('Conversation saved successfully!');
+                } else {
+                    alert('Error saving conversation: ' + data.error);
+                }
+            } catch (error) {
+                alert('Failed to save conversation: ' + error.message);
+            }
+        }
+        
+        // Load conversations for selected project
+        async function loadConversationsForProject() {
+            const projectId = projectSelector.value;
+            if (!projectId) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/projects/${projectId}/conversations`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    const conversationSelector = document.getElementById('conversationSelector');
+                    conversationSelector.innerHTML = '<option value="">Select a conversation...</option>';
+                    
+                    data.conversations.forEach(conv => {
+                        const option = document.createElement('option');
+                        option.value = conv.id;
+                        option.textContent = `${conv.title} (${new Date(conv.updated_at).toLocaleDateString()})`;
+                        conversationSelector.appendChild(option);
+                    });
+                    
+                    openModal('loadConversationModal');
+                }
+            } catch (error) {
+                alert('Failed to load conversations: ' + error.message);
+            }
+        }
+        
+        // Load selected conversation
+        async function loadSelectedConversation() {
+            const conversationId = document.getElementById('conversationSelector').value;
+            if (!conversationId) {
+                alert('Please select a conversation');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/conversations/${conversationId}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Clear current chat
+                    chatMessages.innerHTML = '';
+                    conversationHistory = data.conversation.messages;
+                    
+                    // Display all messages
+                    conversationHistory.forEach(msg => {
+                        addMessage(msg.role, msg.content);
+                    });
+                    
+                    closeModal('loadConversationModal');
+                } else {
+                    alert('Error loading conversation: ' + data.error);
+                }
+            } catch (error) {
+                alert('Failed to load conversation: ' + error.message);
+            }
+        }
+        
+        // New chat
+        function startNewChat() {
+            if (confirm('Start a new chat? Current conversation will be cleared unless saved.')) {
+                chatMessages.innerHTML = '<div class="message assistant"><div class="message-label">Rosie</div><div class="message-content">Oi Collecott, Rosie here! What do you want knucklehead?</div></div>';
+                conversationHistory = [];
+                messageInput.focus();
+            }
+        }
+        
+        // Event listeners
+        document.getElementById('newProjectBtn').addEventListener('click', () => openModal('newProjectModal'));
+        document.getElementById('saveConversationBtn').addEventListener('click', () => openModal('saveConversationModal'));
+        document.getElementById('loadConversationBtn').addEventListener('click', loadConversationsForProject);
+        document.getElementById('newChatBtn').addEventListener('click', startNewChat);
+        
+        projectSelector.addEventListener('change', (e) => {
+            currentProjectId = e.target.value || null;
+        });
+        
+        // Load projects on page load
+        loadProjects();
         messageInput.focus();
     </script>
 </body>
