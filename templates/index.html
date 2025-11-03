@@ -14,11 +14,27 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: #000000;
-            height: 100vh;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .outer-header {
+            max-width: 600px;
+            margin: 0 auto 20px;
+            padding: 0 10px;
+        }
+        
+        .outer-header .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #06b6d4;
+            margin-bottom: 10px;
+        }
+        
+        .page-wrapper {
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
         }
         
         .chat-container {
@@ -43,15 +59,8 @@
         }
         
         .chat-header h1 {
-            font-size: 24px;
+            font-size: 36px;
             font-weight: 600;
-            color: #06b6d4;
-        }
-        
-        .chat-header .logo {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 8px;
             color: #06b6d4;
         }
         
@@ -354,12 +363,16 @@
     </style>
 </head>
 <body>
-    <div class="chat-container">
-        <div class="chat-header">
-            <div class="logo">{curlybraces.ai}</div>
-            <h1>Rosie AI Assistant</h1>
-            <p>Agentic AI Automation</p>
-        </div>
+    <div class="outer-header">
+        <div class="logo">{curlybraces.ai}</div>
+    </div>
+    
+    <div class="page-wrapper">
+        <div class="chat-container">
+            <div class="chat-header">
+                <h1>Rosie AI Assistant</h1>
+                <p>Agentic AI Automation</p>
+            </div>
         
         <div class="toolbar">
             <div style="display: flex; align-items: center; gap: 8px; flex: 1;">
@@ -767,5 +780,7 @@
         loadProjects();
         messageInput.focus();
     </script>
+        </div>
+    </div>
 </body>
 </html>
