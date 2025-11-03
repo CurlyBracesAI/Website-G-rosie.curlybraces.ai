@@ -29,7 +29,7 @@ Rosie is transitioning from Make.com into a stable Flask API layer, allowing fle
 
 ### Tech Stack
 - **Backend**: Flask 3.1.2 (Python)
-- **AI Provider**: OpenAI API (gpt-4o-mini)
+- **AI Provider**: Multi-provider LLM router (currently OpenAI gpt-4o-mini)
 - **Authentication**: Basic HTTP Authentication (Flask-HTTPAuth)
 - **Hosting**: Replit
 - **CORS**: Flask-CORS for cross-origin requests
@@ -55,6 +55,7 @@ Rosie is transitioning from Make.com into a stable Flask API layer, allowing fle
 ```
 .
 ├── app.py                  # Main Flask application
+├── llm_router.py          # Multi-provider LLM routing layer
 ├── templates/
 │   └── index.html         # Web chat interface
 ├── .env.example           # Example environment variables
@@ -94,9 +95,15 @@ This persona is optimized for business automation and CRM workflows.
   "history": [
     {"role": "user", "content": "Previous message"},
     {"role": "assistant", "content": "Previous response"}
-  ]
+  ],
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "temperature": 0.7,
+  "max_tokens": 500
 }
 ```
+
+*Note: All parameters except `message` are optional. Defaults: provider=openai, model=gpt-4o-mini, temperature=0.7, max_tokens=500*
 
 **Response:**
 ```json
@@ -105,6 +112,7 @@ This persona is optimized for business automation and CRM workflows.
   "assistant": "Rosie",
   "message": "Rosie's response",
   "model": "gpt-4o-mini-2024-07-18",
+  "provider": "openai",
   "usage": {
     "prompt_tokens": 85,
     "completion_tokens": 15,
@@ -189,6 +197,13 @@ Each endpoint will:
 - Consider migration to AWS/Render when stable
 
 ## Recent Changes
+
+- **2025-11-03**: Implemented multi-provider LLM router
+  - Created `llm_router.py` module for provider abstraction
+  - Updated `/rosie-test` to accept optional `provider`, `model`, `temperature`, and `max_tokens` parameters
+  - OpenAI is default provider (gpt-4o-mini)
+  - Architecture ready for Anthropic (Claude) and Google (Gemini) integration
+  - Future-proofed for easy provider switching without code changes
 
 - **2025-11-03**: Added Basic HTTP Authentication
   - Installed flask-httpauth package

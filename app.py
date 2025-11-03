@@ -1,17 +1,15 @@
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 from flask_httpauth import HTTPBasicAuth
-from openai import OpenAI
 import os
 from dotenv import load_dotenv
+from llm_router import call_llm
 
 load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
 auth = HTTPBasicAuth()
-
-client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
 @auth.verify_password
 def verify_password(username, password):
@@ -52,6 +50,10 @@ def rosie_test():
             }), 400
         
         history = data.get('history', [])
+        provider = data.get('provider', 'openai')
+        model = data.get('model', None)
+        temperature = data.get('temperature', 0.7)
+        max_tokens = data.get('max_tokens', 500)
         
         if not isinstance(history, list):
             return jsonify({
@@ -63,36 +65,35 @@ def rosie_test():
                 return jsonify({
                     'error': 'Each history item must have "role" and "content" fields'
                 }), 400
-            if msg['role'] not in ['user', 'assistant']:
+            if msg['role'] not in ['user', 'assistant', 'system']:
                 return jsonify({
-                    'error': 'History role must be either "user" or "assistant"'
+                    'error': 'History role must be "user", "assistant", or "system"'
                 }), 400
         
-        messages = [{'role': 'system', 'content': ROSIE_SYSTEM_PROMPT}]
-        messages.extend(history)
-        messages.append({'role': 'user', 'content': user_message})
-        
-        response = client.chat.completions.create(
-            model='gpt-4o-mini',
-            messages=messages,
-            temperature=0.7,
-            max_tokens=500
+        result = call_llm(
+            user_message=user_message,
+            system_prompt=ROSIE_SYSTEM_PROMPT,
+            history=history,
+            provider=provider,
+            model=model,
+            temperature=temperature,
+            max_tokens=max_tokens
         )
-        
-        assistant_message = response.choices[0].message.content
         
         return jsonify({
             'success': True,
             'assistant': 'Rosie',
-            'message': assistant_message,
-            'model': response.model,
-            'usage': {
-                'prompt_tokens': response.usage.prompt_tokens,
-                'completion_tokens': response.usage.completion_tokens,
-                'total_tokens': response.usage.total_tokens
-            }
+            'message': result['message'],
+            'model': result['model'],
+            'provider': result['provider'],
+            'usage': result['usage']
         }), 200
         
+    except ValueError as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 400
     except Exception as e:
         return jsonify({
             'success': False,
