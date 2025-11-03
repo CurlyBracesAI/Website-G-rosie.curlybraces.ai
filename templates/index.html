@@ -22,13 +22,33 @@
             max-width: 900px;
             margin: 0 auto 20px;
             padding: 0 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
         .outer-header .logo {
             font-size: 24px;
             font-weight: 700;
             color: #6f3050;
-            margin-bottom: 10px;
+        }
+        
+        #logoutBtn {
+            background: transparent;
+            border: 1px solid #3a3a3a;
+            padding: 6px 12px;
+            border-radius: 6px;
+            color: #888;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 400;
+            transition: all 0.2s;
+        }
+        
+        #logoutBtn:hover {
+            background: #1a1a1a;
+            border-color: #4a4a4a;
+            color: #aaa;
         }
         
         .page-wrapper {
@@ -369,7 +389,7 @@
 <body>
     <div class="outer-header">
         <div class="logo">{curlybraces.ai}</div>
-        <button id="logoutBtn" style="background: #991b1b; padding: 8px 16px; border: none; border-radius: 6px; color: white; cursor: pointer; font-weight: 600;" onclick="handleLogout()">Logout</button>
+        <button id="logoutBtn" onclick="handleLogout()">Logout</button>
     </div>
     
     <div class="page-wrapper">
