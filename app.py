@@ -1,6 +1,5 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, session, redirect, url_for
 from flask_cors import CORS
-from flask_httpauth import HTTPBasicAuth
 import os
 from dotenv import load_dotenv
 from llm_router import call_llm
@@ -9,14 +8,16 @@ from db_helper import (
     create_project, get_all_projects, 
     save_conversation, get_conversations_by_project,
     load_conversation, delete_conversation,
-    update_conversation_title, update_project_name, delete_project
+    update_conversation_title, update_project_name, delete_project,
+    create_user, authenticate_user, get_user_by_id
 )
+from functools import wraps
 
 load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
-auth = HTTPBasicAuth()
+app.secret_key = os.getenv('SESSION_SECRET', 'dev-secret-change-in-production')
 
 # Initialize database tables on startup
 try:
@@ -24,17 +25,20 @@ try:
 except Exception as e:
     print(f"Warning: Database initialization failed: {e}")
 
-@auth.verify_password
-def verify_password(username, password):
-    expected_username = os.getenv('AUTH_USERNAME')
-    expected_password = os.getenv('AUTH_PASSWORD')
-    
-    if not expected_username or not expected_password:
-        return False
-    
-    if username == expected_username and password == expected_password:
-        return username
-    return False
+# Login required decorator
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            return jsonify({'error': 'Authentication required'}), 401
+        return f(*args, **kwargs)
+    return decorated_function
+
+def get_current_user():
+    """Get the current logged-in user."""
+    if 'user_id' in session:
+        return get_user_by_id(session['user_id'])
+    return None
 
 ROSIE_SYSTEM_PROMPT = """You are Rosie, an AI assistant built for real-world business automation.
 
@@ -53,8 +57,89 @@ DATA HANDLING:
 - When interacting with CRM-style data, you strictly follow any output formatting instructions provided (including JSON, HTML, or field-value pairs)
 - You never invent facts. If data is missing, you flag it"""
 
+# Authentication endpoints
+
+@app.route('/api/signup', methods=['POST'])
+def signup():
+    """User signup endpoint."""
+    try:
+        data = request.get_json()
+        
+        if not data or not isinstance(data, dict):
+            return jsonify({'success': False, 'error': 'Invalid request'}), 400
+        
+        name = data.get('name')
+        email = data.get('email')
+        password = data.get('password')
+        
+        if not name or not email or not password:
+            return jsonify({'success': False, 'error': 'Name, email, and password are required'}), 400
+        
+        # Create user
+        user = create_user(name, email, password)
+        if not user:
+            return jsonify({'success': False, 'error': 'Email already exists'}), 409
+        
+        # Log user in automatically
+        session['user_id'] = user['id']
+        session['user_name'] = user['name']
+        
+        return jsonify({
+            'success': True,
+            'user': {'id': user['id'], 'name': user['name'], 'email': user['email']}
+        }), 201
+    except Exception as e:
+        print(f"Error in signup: {e}")
+        return jsonify({'success': False, 'error': 'Failed to create account'}), 500
+
+@app.route('/api/login', methods=['POST'])
+def login():
+    """User login endpoint."""
+    try:
+        data = request.get_json()
+        
+        if not data or not isinstance(data, dict):
+            return jsonify({'success': False, 'error': 'Invalid request'}), 400
+        
+        email = data.get('email')
+        password = data.get('password')
+        
+        if not email or not password:
+            return jsonify({'success': False, 'error': 'Email and password are required'}), 400
+        
+        user = authenticate_user(email, password)
+        if not user:
+            return jsonify({'success': False, 'error': 'Invalid email or password'}), 401
+        
+        # Store user in session
+        session['user_id'] = user['id']
+        session['user_name'] = user['name']
+        
+        return jsonify({
+            'success': True,
+            'user': {'id': user['id'], 'name': user['name'], 'email': user['email']}
+        }), 200
+    except Exception as e:
+        print(f"Error in login: {e}")
+        return jsonify({'success': False, 'error': 'Login failed'}), 500
+
+@app.route('/api/logout', methods=['POST'])
+def logout():
+    """User logout endpoint."""
+    session.clear()
+    return jsonify({'success': True, 'message': 'Logged out'}), 200
+
+@app.route('/api/me', methods=['GET'])
+@login_required
+def get_current_user_info():
+    """Get current user information."""
+    user = get_current_user()
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+    return jsonify({'success': True, 'user': user}), 200
+
 @app.route('/rosie-test', methods=['POST'])
-@auth.login_required
+@login_required
 def rosie_test():
     try:
         data = request.get_json()
@@ -125,12 +210,17 @@ def rosie_test():
         }), 500
 
 @app.route('/', methods=['GET'])
-@auth.login_required
 def index():
-    return render_template('index.html')
+    """Serve the appropriate page based on authentication status."""
+    if 'user_id' in session:
+        # User is logged in, show the chat interface
+        return render_template('index.html')
+    else:
+        # User is not logged in, show the login page
+        return render_template('login.html')
 
 @app.route('/health', methods=['GET'])
-@auth.login_required
+@login_required
 def health():
     return jsonify({
         'status': 'healthy',
@@ -139,11 +229,12 @@ def health():
     }), 200
 
 @app.route('/projects', methods=['GET'])
-@auth.login_required
+@login_required
 def list_projects():
-    """Get all project folders."""
+    """Get all project folders for the current user."""
     try:
-        projects = get_all_projects()
+        user_id = session['user_id']
+        projects = get_all_projects(user_id)
         return jsonify({
             'success': True,
             'projects': projects
@@ -156,9 +247,9 @@ def list_projects():
         }), 500
 
 @app.route('/projects', methods=['POST'])
-@auth.login_required
+@login_required
 def create_new_project():
-    """Create a new project folder."""
+    """Create a new project folder for the current user."""
     try:
         data = request.get_json()
         
@@ -176,7 +267,8 @@ def create_new_project():
                 'error': 'Project name is required'
             }), 400
         
-        project = create_project(name)
+        user_id = session['user_id']
+        project = create_project(name, user_id)
         return jsonify({
             'success': True,
             'project': project
@@ -189,9 +281,9 @@ def create_new_project():
         }), 500
 
 @app.route('/conversations', methods=['POST'])
-@auth.login_required
+@login_required
 def save_new_conversation():
-    """Save a conversation to a project."""
+    """Save a conversation to a project for the current user."""
     try:
         data = request.get_json()
         
@@ -211,7 +303,8 @@ def save_new_conversation():
                 'error': 'project_id, title, and messages are required'
             }), 400
         
-        conversation = save_conversation(project_id, title, messages)
+        user_id = session['user_id']
+        conversation = save_conversation(project_id, title, messages, user_id)
         return jsonify({
             'success': True,
             'conversation': conversation
@@ -224,11 +317,12 @@ def save_new_conversation():
         }), 500
 
 @app.route('/projects/<int:project_id>/conversations', methods=['GET'])
-@auth.login_required
+@login_required
 def list_project_conversations(project_id):
-    """Get all conversations for a project."""
+    """Get all conversations for a project (filtered by user)."""
     try:
-        conversations = get_conversations_by_project(project_id)
+        user_id = session['user_id']
+        conversations = get_conversations_by_project(project_id, user_id)
         return jsonify({
             'success': True,
             'conversations': conversations
@@ -241,7 +335,7 @@ def list_project_conversations(project_id):
         }), 500
 
 @app.route('/conversations/<int:conversation_id>', methods=['GET'])
-@auth.login_required
+@login_required
 def get_conversation(conversation_id):
     """Load a specific conversation."""
     try:
@@ -264,7 +358,7 @@ def get_conversation(conversation_id):
         }), 500
 
 @app.route('/conversations/<int:conversation_id>', methods=['DELETE'])
-@auth.login_required
+@login_required
 def remove_conversation(conversation_id):
     """Delete a conversation."""
     try:
@@ -281,7 +375,7 @@ def remove_conversation(conversation_id):
         }), 500
 
 @app.route('/conversations/<int:conversation_id>', methods=['PATCH'])
-@auth.login_required
+@login_required
 def rename_conversation(conversation_id):
     """Rename a conversation."""
     try:
@@ -320,7 +414,7 @@ def rename_conversation(conversation_id):
         }), 500
 
 @app.route('/projects/<int:project_id>', methods=['PATCH'])
-@auth.login_required
+@login_required
 def rename_project(project_id):
     """Rename a project."""
     try:
@@ -359,7 +453,7 @@ def rename_project(project_id):
         }), 500
 
 @app.route('/projects/<int:project_id>', methods=['DELETE'])
-@auth.login_required
+@login_required
 def remove_project(project_id):
     """Delete a project and all its conversations."""
     try:

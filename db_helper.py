@@ -3,6 +3,7 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 import json
 import random
+from werkzeug.security import generate_password_hash, check_password_hash
 
 # CurlyBracesAI color palette - subtle panel colors from website
 PROJECT_COLORS = [
@@ -26,31 +27,83 @@ def initialize_database():
     conn = get_db_connection()
     try:
         with conn.cursor() as cur:
+            # Create users table
+            cur.execute("""
+                CREATE TABLE IF NOT EXISTS users (
+                    id SERIAL PRIMARY KEY,
+                    name VARCHAR(255) NOT NULL,
+                    email VARCHAR(255) UNIQUE NOT NULL,
+                    password_hash VARCHAR(255) NOT NULL,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                );
+            """)
+            
+            # Create projects table
             cur.execute("""
                 CREATE TABLE IF NOT EXISTS projects (
                     id SERIAL PRIMARY KEY,
-                    name VARCHAR(255) NOT NULL UNIQUE,
+                    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+                    name VARCHAR(255) NOT NULL,
                     color VARCHAR(7) DEFAULT '#06b6d4',
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 );
-                
+            """)
+            
+            # Create conversations table
+            cur.execute("""
                 CREATE TABLE IF NOT EXISTS conversations (
                     id SERIAL PRIMARY KEY,
                     project_id INTEGER REFERENCES projects(id) ON DELETE CASCADE,
+                    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
                     title VARCHAR(255) NOT NULL,
                     messages JSONB NOT NULL,
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 );
-                
+            """)
+            
+            # Add indexes
+            cur.execute("""
                 CREATE INDEX IF NOT EXISTS idx_conversations_project_id 
                 ON conversations(project_id);
+                
+                CREATE INDEX IF NOT EXISTS idx_conversations_user_id 
+                ON conversations(user_id);
+                
+                CREATE INDEX IF NOT EXISTS idx_projects_user_id 
+                ON projects(user_id);
             """)
+            
+            # Add user_id columns if they don't exist (migration for existing data)
+            cur.execute("""
+                DO $$ 
+                BEGIN 
+                    IF NOT EXISTS (
+                        SELECT 1 FROM information_schema.columns 
+                        WHERE table_name='projects' AND column_name='user_id'
+                    ) THEN
+                        ALTER TABLE projects ADD COLUMN user_id INTEGER REFERENCES users(id) ON DELETE CASCADE;
+                    END IF;
+                END $$;
+            """)
+            
+            cur.execute("""
+                DO $$ 
+                BEGIN 
+                    IF NOT EXISTS (
+                        SELECT 1 FROM information_schema.columns 
+                        WHERE table_name='conversations' AND column_name='user_id'
+                    ) THEN
+                        ALTER TABLE conversations ADD COLUMN user_id INTEGER REFERENCES users(id) ON DELETE CASCADE;
+                    END IF;
+                END $$;
+            """)
+            
             conn.commit()
     finally:
         conn.close()
 
-def create_project(name):
+def create_project(name, user_id):
     """Create a new project folder with a random color from the CurlyBracesAI palette."""
     conn = get_db_connection()
     try:
@@ -58,8 +111,8 @@ def create_project(name):
             # Assign a random color from the palette
             color = random.choice(PROJECT_COLORS)
             cur.execute(
-                "INSERT INTO projects (name, color) VALUES (%s, %s) RETURNING id, name, color, created_at",
-                (name, color)
+                "INSERT INTO projects (name, color, user_id) VALUES (%s, %s, %s) RETURNING id, name, color, created_at",
+                (name, color, user_id)
             )
             result = cur.fetchone()
             conn.commit()
@@ -67,29 +120,30 @@ def create_project(name):
     finally:
         conn.close()
 
-def get_all_projects():
-    """Get all project folders with their assigned colors."""
+def get_all_projects(user_id):
+    """Get all project folders for a specific user with their assigned colors."""
     conn = get_db_connection()
     try:
         with conn.cursor() as cur:
             cur.execute(
-                "SELECT id, name, color, created_at FROM projects ORDER BY name"
+                "SELECT id, name, color, created_at FROM projects WHERE user_id = %s ORDER BY name",
+                (user_id,)
             )
             results = cur.fetchall()
             return [dict(row) for row in results]
     finally:
         conn.close()
 
-def save_conversation(project_id, title, messages):
+def save_conversation(project_id, title, messages, user_id):
     """Save a conversation to a project."""
     conn = get_db_connection()
     try:
         with conn.cursor() as cur:
             cur.execute(
-                """INSERT INTO conversations (project_id, title, messages, updated_at)
-                   VALUES (%s, %s, %s, CURRENT_TIMESTAMP)
+                """INSERT INTO conversations (project_id, title, messages, user_id, updated_at)
+                   VALUES (%s, %s, %s, %s, CURRENT_TIMESTAMP)
                    RETURNING id, project_id, title, created_at, updated_at""",
-                (project_id, title, json.dumps(messages))
+                (project_id, title, json.dumps(messages), user_id)
             )
             result = cur.fetchone()
             conn.commit()
@@ -97,17 +151,17 @@ def save_conversation(project_id, title, messages):
     finally:
         conn.close()
 
-def get_conversations_by_project(project_id):
-    """Get all conversations for a specific project."""
+def get_conversations_by_project(project_id, user_id):
+    """Get all conversations for a specific project (filtered by user)."""
     conn = get_db_connection()
     try:
         with conn.cursor() as cur:
             cur.execute(
                 """SELECT id, project_id, title, created_at, updated_at
                    FROM conversations
-                   WHERE project_id = %s
+                   WHERE project_id = %s AND user_id = %s
                    ORDER BY updated_at DESC""",
-                (project_id,)
+                (project_id, user_id)
             )
             results = cur.fetchall()
             return [dict(row) for row in results]
@@ -197,5 +251,57 @@ def delete_project(project_id):
             cur.execute("DELETE FROM projects WHERE id = %s", (project_id,))
             conn.commit()
             return {'deleted_conversations': count}
+    finally:
+        conn.close()
+
+# User authentication functions
+
+def create_user(name, email, password):
+    """Create a new user account."""
+    conn = get_db_connection()
+    try:
+        with conn.cursor() as cur:
+            password_hash = generate_password_hash(password)
+            cur.execute(
+                "INSERT INTO users (name, email, password_hash) VALUES (%s, %s, %s) RETURNING id, name, email, created_at",
+                (name, email, password_hash)
+            )
+            result = cur.fetchone()
+            conn.commit()
+            return dict(result) if result else None
+    except psycopg2.IntegrityError:
+        # Email already exists
+        return None
+    finally:
+        conn.close()
+
+def authenticate_user(email, password):
+    """Authenticate a user by email and password."""
+    conn = get_db_connection()
+    try:
+        with conn.cursor() as cur:
+            cur.execute(
+                "SELECT id, name, email, password_hash FROM users WHERE email = %s",
+                (email,)
+            )
+            user = cur.fetchone()
+            if user and check_password_hash(user['password_hash'], password):
+                # Return user without password_hash
+                return {'id': user['id'], 'name': user['name'], 'email': user['email']}
+            return None
+    finally:
+        conn.close()
+
+def get_user_by_id(user_id):
+    """Get user by ID."""
+    conn = get_db_connection()
+    try:
+        with conn.cursor() as cur:
+            cur.execute(
+                "SELECT id, name, email FROM users WHERE id = %s",
+                (user_id,)
+            )
+            user = cur.fetchone()
+            return dict(user) if user else None
     finally:
         conn.close()
