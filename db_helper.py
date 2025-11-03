@@ -184,6 +184,11 @@ def delete_project(project_id):
     conn = get_db_connection()
     try:
         with conn.cursor() as cur:
+            # Check if project exists
+            cur.execute("SELECT id FROM projects WHERE id = %s", (project_id,))
+            if not cur.fetchone():
+                return None
+            
             # Check how many conversations will be deleted
             cur.execute("SELECT COUNT(*) FROM conversations WHERE project_id = %s", (project_id,))
             count = cur.fetchone()[0]
