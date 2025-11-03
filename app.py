@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 from openai import OpenAI
 import os
@@ -83,30 +83,7 @@ def rosie_test():
 
 @app.route('/', methods=['GET'])
 def index():
-    return jsonify({
-        'assistant': 'Rosie',
-        'version': '1.0.0',
-        'message': 'Welcome to the Rosie AI Assistant API!',
-        'endpoints': {
-            '/rosie-test': {
-                'method': 'POST',
-                'description': 'Chat with Rosie',
-                'required_fields': ['message'],
-                'optional_fields': ['history'],
-                'example': {
-                    'message': 'Hello Rosie!',
-                    'history': [
-                        {'role': 'user', 'content': 'Previous message'},
-                        {'role': 'assistant', 'content': 'Previous response'}
-                    ]
-                }
-            },
-            '/health': {
-                'method': 'GET',
-                'description': 'Check API health status'
-            }
-        }
-    }), 200
+    return render_template('index.html')
 
 @app.route('/health', methods=['GET'])
 def health():
