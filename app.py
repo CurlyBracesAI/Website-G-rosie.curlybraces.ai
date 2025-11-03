@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
+from flask_httpauth import HTTPBasicAuth
 from openai import OpenAI
 import os
 from dotenv import load_dotenv
@@ -8,8 +9,21 @@ load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
+auth = HTTPBasicAuth()
 
 client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+
+@auth.verify_password
+def verify_password(username, password):
+    expected_username = os.getenv('AUTH_USERNAME')
+    expected_password = os.getenv('AUTH_PASSWORD')
+    
+    if not expected_username or not expected_password:
+        return False
+    
+    if username == expected_username and password == expected_password:
+        return username
+    return False
 
 ROSIE_SYSTEM_PROMPT = """You are Rosie, an AI assistant built for real-world business automation.
 - You are efficient, precise, and helpful, but your default tone is dry, slightly sarcastic, and impatient with ambiguity.
@@ -20,6 +34,7 @@ ROSIE_SYSTEM_PROMPT = """You are Rosie, an AI assistant built for real-world bus
 - You never invent facts. If data is missing, you flag it."""
 
 @app.route('/rosie-test', methods=['POST'])
+@auth.login_required
 def rosie_test():
     try:
         data = request.get_json()
@@ -85,10 +100,12 @@ def rosie_test():
         }), 500
 
 @app.route('/', methods=['GET'])
+@auth.login_required
 def index():
     return render_template('index.html')
 
 @app.route('/health', methods=['GET'])
+@auth.login_required
 def health():
     return jsonify({
         'status': 'healthy',
