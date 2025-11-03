@@ -286,6 +286,13 @@ def rename_conversation(conversation_id):
     """Rename a conversation."""
     try:
         data = request.get_json()
+        
+        if not data or not isinstance(data, dict):
+            return jsonify({
+                'success': False,
+                'error': 'Invalid JSON payload'
+            }), 400
+        
         new_title = data.get('title')
         
         if not new_title:
@@ -318,6 +325,13 @@ def rename_project(project_id):
     """Rename a project."""
     try:
         data = request.get_json()
+        
+        if not data or not isinstance(data, dict):
+            return jsonify({
+                'success': False,
+                'error': 'Invalid JSON payload'
+            }), 400
+        
         new_name = data.get('name')
         
         if not new_name:
@@ -350,6 +364,12 @@ def remove_project(project_id):
     """Delete a project and all its conversations."""
     try:
         result = delete_project(project_id)
+        if not result:
+            return jsonify({
+                'success': False,
+                'error': 'Project not found'
+            }), 404
+        
         return jsonify({
             'success': True,
             'message': 'Project deleted',
