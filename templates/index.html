@@ -382,6 +382,7 @@
                 </select>
             </div>
             <button id="newProjectBtn">+ New Project</button>
+            <button id="manageProjectsBtn">⚙️ Manage Projects</button>
             <button id="saveConversationBtn">💾 Save</button>
             <button id="loadConversationBtn">📂 Load</button>
             <button id="newChatBtn">🆕 New Chat</button>
@@ -440,8 +441,24 @@
             </select>
             <div class="modal-buttons">
                 <button class="btn-cancel" onclick="closeModal('loadConversationModal')">Cancel</button>
+                <button class="btn-cancel" onclick="renameSelectedConversation()" style="background: #1f4d7a; color: white;">✏️ Rename</button>
                 <button class="btn-cancel" onclick="deleteSelectedConversation()" style="background: #991b1b; color: white;">🗑️ Delete</button>
                 <button class="btn-primary" onclick="loadSelectedConversation()">Load</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Manage Projects Modal -->
+    <div id="manageProjectsModal" class="modal">
+        <div class="modal-content">
+            <h2>Manage Projects</h2>
+            <select id="manageProjectSelector" size="8" style="width: 100%; margin-bottom: 15px;">
+                <option value="">Select a project...</option>
+            </select>
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closeModal('manageProjectsModal')">Cancel</button>
+                <button class="btn-cancel" onclick="renameSelectedProject()" style="background: #1f4d7a; color: white;">✏️ Rename</button>
+                <button class="btn-cancel" onclick="deleteSelectedProject()" style="background: #991b1b; color: white;">🗑️ Delete</button>
             </div>
         </div>
     </div>
@@ -750,6 +767,41 @@
             }
         }
         
+        // Rename selected conversation
+        async function renameSelectedConversation() {
+            const conversationId = document.getElementById('conversationSelector').value;
+            if (!conversationId) {
+                alert('Please select a conversation to rename');
+                return;
+            }
+            
+            const currentTitle = document.getElementById('conversationSelector').selectedOptions[0].textContent;
+            const newTitle = prompt('Enter new conversation title:', currentTitle);
+            
+            if (!newTitle || newTitle === currentTitle) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/conversations/${conversationId}`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title: newTitle })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert('Conversation renamed successfully');
+                    closeModal('loadConversationModal');
+                } else {
+                    alert('Error renaming conversation: ' + data.error);
+                }
+            } catch (error) {
+                alert('Failed to rename conversation: ' + error.message);
+            }
+        }
+        
         // Delete selected conversation
         async function deleteSelectedConversation() {
             const conversationId = document.getElementById('conversationSelector').value;
@@ -774,12 +826,107 @@
                 if (data.success) {
                     alert('Conversation deleted successfully');
                     closeModal('loadConversationModal');
-                    // Optionally reload the conversation list
                 } else {
                     alert('Error deleting conversation: ' + data.error);
                 }
             } catch (error) {
                 alert('Failed to delete conversation: ' + error.message);
+            }
+        }
+        
+        // Open manage projects modal
+        async function openManageProjectsModal() {
+            try {
+                const response = await fetch('/projects');
+                const data = await response.json();
+                
+                if (data.success) {
+                    const selector = document.getElementById('manageProjectSelector');
+                    selector.innerHTML = '<option value="">Select a project...</option>';
+                    
+                    data.projects.forEach(proj => {
+                        const option = document.createElement('option');
+                        option.value = proj.id;
+                        option.textContent = proj.name;
+                        selector.appendChild(option);
+                    });
+                    
+                    openModal('manageProjectsModal');
+                } else {
+                    alert('Error loading projects: ' + data.error);
+                }
+            } catch (error) {
+                alert('Failed to load projects: ' + error.message);
+            }
+        }
+        
+        // Rename selected project
+        async function renameSelectedProject() {
+            const projectId = document.getElementById('manageProjectSelector').value;
+            if (!projectId) {
+                alert('Please select a project to rename');
+                return;
+            }
+            
+            const currentName = document.getElementById('manageProjectSelector').selectedOptions[0].textContent;
+            const newName = prompt('Enter new project name:', currentName);
+            
+            if (!newName || newName === currentName) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/projects/${projectId}`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: newName })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert('Project renamed successfully');
+                    closeModal('manageProjectsModal');
+                    loadProjects(); // Refresh the main project selector
+                } else {
+                    alert('Error renaming project: ' + data.error);
+                }
+            } catch (error) {
+                alert('Failed to rename project: ' + error.message);
+            }
+        }
+        
+        // Delete selected project
+        async function deleteSelectedProject() {
+            const projectId = document.getElementById('manageProjectSelector').value;
+            if (!projectId) {
+                alert('Please select a project to delete');
+                return;
+            }
+            
+            const projectName = document.getElementById('manageProjectSelector').selectedOptions[0].textContent;
+            
+            if (!confirm(`⚠️ WARNING: Delete project "${projectName}"?\n\nThis will permanently delete the project AND all conversations inside it.\n\nThis action cannot be undone!`)) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/projects/${projectId}`, {
+                    method: 'DELETE'
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    const conversationCount = data.deleted_conversations;
+                    alert(`Project deleted successfully.\n${conversationCount} conversation(s) were also deleted.`);
+                    closeModal('manageProjectsModal');
+                    loadProjects(); // Refresh the main project selector
+                } else {
+                    alert('Error deleting project: ' + data.error);
+                }
+            } catch (error) {
+                alert('Failed to delete project: ' + error.message);
             }
         }
         
@@ -794,6 +941,7 @@
         
         // Event listeners
         document.getElementById('newProjectBtn').addEventListener('click', () => openModal('newProjectModal'));
+        document.getElementById('manageProjectsBtn').addEventListener('click', openManageProjectsModal);
         document.getElementById('saveConversationBtn').addEventListener('click', () => openModal('saveConversationModal'));
         document.getElementById('loadConversationBtn').addEventListener('click', loadConversationsForProject);
         document.getElementById('newChatBtn').addEventListener('click', startNewChat);
