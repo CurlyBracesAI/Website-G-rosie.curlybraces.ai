@@ -118,7 +118,7 @@ def login():
         
         return jsonify({
             'success': True,
-            'user': {'id': user['id'], 'name': user['name'], 'email': user['email']}
+            'user': {'id': user['id'], 'name': user['name'], 'email': user['email'], 'nickname': user.get('nickname', 'knucklehead')}
         }), 200
     except Exception as e:
         print(f"Error in login: {e}")
