@@ -128,7 +128,8 @@ def load_conversation(conversation_id):
             result = cur.fetchone()
             if result:
                 conversation = dict(result)
-                conversation['messages'] = json.loads(conversation['messages'])
+                # RealDictCursor automatically deserializes JSONB, no need to parse again
+                # conversation['messages'] is already a list
                 return conversation
             return None
     finally:
