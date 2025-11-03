@@ -331,11 +331,10 @@
         
         .project-badge {
             display: inline-block;
-            width: 8px;
-            height: 8px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            margin-right: 8px;
-            vertical-align: middle;
+            flex-shrink: 0;
         }
     </style>
 </head>
@@ -348,9 +347,12 @@
         </div>
         
         <div class="toolbar">
-            <select id="projectSelector">
-                <option value="">Select Project...</option>
-            </select>
+            <div style="display: flex; align-items: center; gap: 8px; flex: 1;">
+                <span id="projectColorBadge" class="project-badge" style="display: none;"></span>
+                <select id="projectSelector" style="flex: 1;">
+                    <option value="">Select Project...</option>
+                </select>
+            </div>
             <button id="newProjectBtn">+ New Project</button>
             <button id="saveConversationBtn">💾 Save</button>
             <button id="loadConversationBtn">📂 Load</button>
@@ -735,6 +737,15 @@
         
         projectSelector.addEventListener('change', (e) => {
             currentProjectId = e.target.value || null;
+            
+            // Update color badge to show selected project's color
+            const badge = document.getElementById('projectColorBadge');
+            if (currentProjectId && projectColors[currentProjectId]) {
+                badge.style.backgroundColor = projectColors[currentProjectId];
+                badge.style.display = 'inline-block';
+            } else {
+                badge.style.display = 'none';
+            }
         });
         
         // Load projects on page load
