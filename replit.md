@@ -25,7 +25,14 @@ This project creates a simple, clean API endpoint for interacting with a custom 
 ```
 
 ## Current Features
-- **POST /rosie-test**: Main endpoint for interacting with Rosie
+- **Web UI (/)**: Interactive chat interface
+  - Beautiful, responsive chat interface
+  - Real-time messaging with Rosie
+  - Automatic conversation history tracking
+  - Typing indicators and smooth animations
+  - Accessible and mobile-friendly design
+
+- **POST /rosie-test**: Main API endpoint for interacting with Rosie
   - Accepts JSON with a "message" field (required)
   - Accepts optional "history" array to maintain conversation context
   - Returns structured JSON with assistant's response
@@ -75,6 +82,13 @@ POST /rosie-test
 Requires `OPENAI_API_KEY` environment variable to be set.
 
 ## Recent Changes
+- 2025-11-03: Added interactive web UI
+  - Created beautiful chat interface with gradient design
+  - Implemented real-time messaging with typing indicators
+  - Added automatic conversation history tracking
+  - Integrated Enter key support and auto-scroll
+  - Added error handling for network issues
+
 - 2025-11-03: Added conversation history support
   - Updated /rosie-test endpoint to accept optional "history" array
   - Added validation for history format
