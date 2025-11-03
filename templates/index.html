@@ -416,7 +416,7 @@
         <div class="chat-messages" id="chatMessages">
             <div class="message assistant">
                 <div class="message-label">Rosie</div>
-                <div class="message-content" id="initialGreeting">Hey there, Rosie here! How can I help knucklehead?</div>
+                <div class="message-content" id="initialGreeting">Hey there, Rosie here! How can I help you knucklehead?</div>
             </div>
         </div>
         
@@ -996,7 +996,7 @@
                     const lastName = nameParts[nameParts.length - 1];
                     const nickname = data.user.nickname || 'knucklehead';
                     document.getElementById('userGreeting').textContent = `${firstName}'s Agentic AI Automation`;
-                    document.getElementById('initialGreeting').textContent = `Hey ${firstName}, Rosie here! How can I help ${nickname}?`;
+                    document.getElementById('initialGreeting').textContent = `Hey ${firstName}, Rosie here! How can I help you ${nickname}?`;
                 } else {
                     document.getElementById('userGreeting').textContent = "Agentic AI Automation";
                 }
