@@ -213,6 +213,16 @@ Each endpoint will:
 
 ## Recent Changes
 
+- **2025-11-03**: Implemented CurlyBracesAI brand theme and randomized project colors
+  - Updated entire UI to dark theme matching CurlyBracesAI website
+  - Cyan/blue brand color (#06b6d4) for primary elements and logo
+  - Cyan-to-blue gradient on all buttons, matching website aesthetic
+  - Added randomized color assignment for projects using full CurlyBracesAI palette:
+    - Green (#10b981), Blue (#3b82f6), Purple (#8b5cf6), Orange (#f97316), Pink (#ec4899), Yellow (#eab308)
+  - Each project gets a random color automatically on creation
+  - Colored bullet indicators in project selector and conversation lists
+  - Dark theme with black/dark gray backgrounds for professional look
+
 - **2025-11-03**: Added project folder & conversation management
   - Created PostgreSQL database with `projects` and `conversations` tables
   - Implemented 6 new API endpoints for creating/saving/loading projects and conversations
