@@ -4,7 +4,7 @@
 A Flask-based REST API that provides access to Rosie, a custom AI assistant powered by OpenAI's GPT models. The API accepts JSON input via POST requests and returns structured JSON responses.
 
 ## Purpose
-This project creates a simple, clean API endpoint for interacting with a custom AI assistant named Rosie. Rosie is configured with a specific persona to be helpful, friendly, and professional.
+This project creates an API and web interface for Rosie, an AI assistant built for real-world business automation. Rosie has a dry, efficient, and slightly sarcastic personality - impatient with ambiguity and corporate speak, but empathetic when it matters.
 
 ## Architecture
 
@@ -82,6 +82,12 @@ POST /rosie-test
 Requires `OPENAI_API_KEY` environment variable to be set.
 
 ## Recent Changes
+- 2025-11-03: Updated Rosie's personality
+  - Changed from friendly/warm to dry, efficient, and slightly sarcastic
+  - Optimized for business automation use cases
+  - Maintains empathy for sensitive topics (health, grief, legal, crisis)
+  - Strict about data accuracy and formatting requirements
+
 - 2025-11-03: Added interactive web UI
   - Created beautiful chat interface with gradient design
   - Implemented real-time messaging with typing indicators
