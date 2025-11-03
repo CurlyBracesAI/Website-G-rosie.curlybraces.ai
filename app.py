@@ -305,6 +305,13 @@ def save_new_conversation():
         
         user_id = session['user_id']
         conversation = save_conversation(project_id, title, messages, user_id)
+        
+        if not conversation:
+            return jsonify({
+                'success': False,
+                'error': 'Project not found or access denied'
+            }), 404
+        
         return jsonify({
             'success': True,
             'conversation': conversation
@@ -337,9 +344,10 @@ def list_project_conversations(project_id):
 @app.route('/conversations/<int:conversation_id>', methods=['GET'])
 @login_required
 def get_conversation(conversation_id):
-    """Load a specific conversation."""
+    """Load a specific conversation (user ownership verified)."""
     try:
-        conversation = load_conversation(conversation_id)
+        user_id = session['user_id']
+        conversation = load_conversation(conversation_id, user_id)
         if not conversation:
             return jsonify({
                 'success': False,
@@ -360,9 +368,16 @@ def get_conversation(conversation_id):
 @app.route('/conversations/<int:conversation_id>', methods=['DELETE'])
 @login_required
 def remove_conversation(conversation_id):
-    """Delete a conversation."""
+    """Delete a conversation (user ownership verified)."""
     try:
-        delete_conversation(conversation_id)
+        user_id = session['user_id']
+        success = delete_conversation(conversation_id, user_id)
+        if not success:
+            return jsonify({
+                'success': False,
+                'error': 'Conversation not found'
+            }), 404
+        
         return jsonify({
             'success': True,
             'message': 'Conversation deleted'
@@ -377,7 +392,7 @@ def remove_conversation(conversation_id):
 @app.route('/conversations/<int:conversation_id>', methods=['PATCH'])
 @login_required
 def rename_conversation(conversation_id):
-    """Rename a conversation."""
+    """Rename a conversation (user ownership verified)."""
     try:
         data = request.get_json()
         
@@ -395,7 +410,8 @@ def rename_conversation(conversation_id):
                 'error': 'Title is required'
             }), 400
         
-        result = update_conversation_title(conversation_id, new_title)
+        user_id = session['user_id']
+        result = update_conversation_title(conversation_id, new_title, user_id)
         if not result:
             return jsonify({
                 'success': False,
@@ -416,7 +432,7 @@ def rename_conversation(conversation_id):
 @app.route('/projects/<int:project_id>', methods=['PATCH'])
 @login_required
 def rename_project(project_id):
-    """Rename a project."""
+    """Rename a project (user ownership verified)."""
     try:
         data = request.get_json()
         
@@ -434,7 +450,8 @@ def rename_project(project_id):
                 'error': 'Name is required'
             }), 400
         
-        result = update_project_name(project_id, new_name)
+        user_id = session['user_id']
+        result = update_project_name(project_id, new_name, user_id)
         if not result:
             return jsonify({
                 'success': False,
@@ -455,9 +472,10 @@ def rename_project(project_id):
 @app.route('/projects/<int:project_id>', methods=['DELETE'])
 @login_required
 def remove_project(project_id):
-    """Delete a project and all its conversations."""
+    """Delete a project and all its conversations (user ownership verified)."""
     try:
-        result = delete_project(project_id)
+        user_id = session['user_id']
+        result = delete_project(project_id, user_id)
         if not result:
             return jsonify({
                 'success': False,
