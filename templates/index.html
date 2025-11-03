@@ -511,6 +511,12 @@
             // Clean up any excessive newlines (more than 2)
             formatted = formatted.replace(/\n{3,}/g, '\n\n');
             
+            // Convert markdown bold to HTML
+            formatted = formatted.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+            
+            // Convert newlines to <br> tags for HTML display
+            formatted = formatted.replace(/\n/g, '<br>');
+            
             return formatted.trim();
         }
         
@@ -525,9 +531,9 @@
             const contentDiv = document.createElement('div');
             contentDiv.className = 'message-content';
             
-            // Format assistant messages to add line breaks before bullets
+            // Format assistant messages to add line breaks before bullets and render markdown
             if (role === 'assistant') {
-                contentDiv.textContent = formatResponse(content);
+                contentDiv.innerHTML = formatResponse(content);
             } else {
                 contentDiv.textContent = content;
             }
