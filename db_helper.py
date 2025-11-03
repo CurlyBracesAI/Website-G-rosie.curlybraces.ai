@@ -2,6 +2,17 @@ import os
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import json
+import random
+
+# CurlyBracesAI color palette for projects
+PROJECT_COLORS = [
+    '#10b981',  # Green - Agent A
+    '#3b82f6',  # Blue - Agent B
+    '#8b5cf6',  # Purple - Agent C
+    '#f97316',  # Orange - Agent D
+    '#ec4899',  # Pink - Agent E
+    '#eab308',  # Yellow - Agent F
+]
 
 def get_db_connection():
     """Get a connection to the PostgreSQL database."""
@@ -19,6 +30,7 @@ def initialize_database():
                 CREATE TABLE IF NOT EXISTS projects (
                     id SERIAL PRIMARY KEY,
                     name VARCHAR(255) NOT NULL UNIQUE,
+                    color VARCHAR(7) DEFAULT '#06b6d4',
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 );
                 
@@ -39,13 +51,15 @@ def initialize_database():
         conn.close()
 
 def create_project(name):
-    """Create a new project folder."""
+    """Create a new project folder with a random color from the CurlyBracesAI palette."""
     conn = get_db_connection()
     try:
         with conn.cursor() as cur:
+            # Assign a random color from the palette
+            color = random.choice(PROJECT_COLORS)
             cur.execute(
-                "INSERT INTO projects (name) VALUES (%s) RETURNING id, name, created_at",
-                (name,)
+                "INSERT INTO projects (name, color) VALUES (%s, %s) RETURNING id, name, color, created_at",
+                (name, color)
             )
             result = cur.fetchone()
             conn.commit()
@@ -54,12 +68,12 @@ def create_project(name):
         conn.close()
 
 def get_all_projects():
-    """Get all project folders."""
+    """Get all project folders with their assigned colors."""
     conn = get_db_connection()
     try:
         with conn.cursor() as cur:
             cur.execute(
-                "SELECT id, name, created_at FROM projects ORDER BY name"
+                "SELECT id, name, color, created_at FROM projects ORDER BY name"
             )
             results = cur.fetchall()
             return [dict(row) for row in results]
