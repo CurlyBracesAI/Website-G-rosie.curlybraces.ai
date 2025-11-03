@@ -224,6 +224,22 @@
         
         let conversationHistory = [];
         
+        function formatResponse(text) {
+            // For assistant messages, add line breaks before bullet points
+            let formatted = text;
+            
+            // Add newline before " - **" patterns (bullet points with bold headers)
+            formatted = formatted.replace(/( - \*\*)/g, '\n\n$1');
+            
+            // Add newline before standalone " - " patterns
+            formatted = formatted.replace(/([.!?]) - /g, '$1\n\n- ');
+            
+            // Clean up any excessive newlines
+            formatted = formatted.replace(/\n{3,}/g, '\n\n');
+            
+            return formatted.trim();
+        }
+        
         function addMessage(role, content) {
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${role}`;
@@ -234,7 +250,13 @@
             
             const contentDiv = document.createElement('div');
             contentDiv.className = 'message-content';
-            contentDiv.textContent = content;
+            
+            // Format assistant messages to add line breaks before bullets
+            if (role === 'assistant') {
+                contentDiv.textContent = formatResponse(content);
+            } else {
+                contentDiv.textContent = content;
+            }
             
             messageDiv.appendChild(label);
             messageDiv.appendChild(contentDiv);
