@@ -228,13 +228,13 @@
             // For assistant messages, add line breaks before bullet points
             let formatted = text;
             
-            // Add newline before " - **" patterns (bullet points with bold headers)
-            formatted = formatted.replace(/( - \*\*)/g, '\n\n$1');
+            // Add newline before bullets that come after colons: " - **Item**:"
+            formatted = formatted.replace(/(:\s+-\s+)/g, ':\n\n- ');
             
-            // Add newline before standalone " - " patterns
-            formatted = formatted.replace(/([.!?]) - /g, '$1\n\n- ');
+            // Add newline before bullets that come after periods: ". - **Item**:"
+            formatted = formatted.replace(/(\.\s+-\s+)/g, '.\n\n- ');
             
-            // Clean up any excessive newlines
+            // Clean up any excessive newlines (more than 2)
             formatted = formatted.replace(/\n{3,}/g, '\n\n');
             
             return formatted.trim();
