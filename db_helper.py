@@ -275,15 +275,15 @@ def delete_project(project_id, user_id):
 
 # User authentication functions
 
-def create_user(name, email, password):
+def create_user(name, email, password, nickname='knucklehead'):
     """Create a new user account."""
     conn = get_db_connection()
     try:
         with conn.cursor() as cur:
             password_hash = generate_password_hash(password)
             cur.execute(
-                "INSERT INTO users (name, email, password_hash) VALUES (%s, %s, %s) RETURNING id, name, email, created_at",
-                (name, email, password_hash)
+                "INSERT INTO users (name, email, password_hash, nickname) VALUES (%s, %s, %s, %s) RETURNING id, name, email, nickname, created_at",
+                (name, email, password_hash, nickname)
             )
             result = cur.fetchone()
             conn.commit()
@@ -300,13 +300,13 @@ def authenticate_user(email, password):
     try:
         with conn.cursor() as cur:
             cur.execute(
-                "SELECT id, name, email, password_hash FROM users WHERE email = %s",
+                "SELECT id, name, email, nickname, password_hash FROM users WHERE email = %s",
                 (email,)
             )
             user = cur.fetchone()
             if user and check_password_hash(user['password_hash'], password):
                 # Return user without password_hash
-                return {'id': user['id'], 'name': user['name'], 'email': user['email']}
+                return {'id': user['id'], 'name': user['name'], 'email': user['email'], 'nickname': user.get('nickname', 'knucklehead')}
             return None
     finally:
         conn.close()
@@ -317,7 +317,7 @@ def get_user_by_id(user_id):
     try:
         with conn.cursor() as cur:
             cur.execute(
-                "SELECT id, name, email FROM users WHERE id = %s",
+                "SELECT id, name, email, nickname FROM users WHERE id = %s",
                 (user_id,)
             )
             user = cur.fetchone()

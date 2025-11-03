@@ -71,12 +71,13 @@ def signup():
         name = data.get('name')
         email = data.get('email')
         password = data.get('password')
+        nickname = data.get('nickname', 'knucklehead')
         
         if not name or not email or not password:
             return jsonify({'success': False, 'error': 'Name, email, and password are required'}), 400
         
         # Create user
-        user = create_user(name, email, password)
+        user = create_user(name, email, password, nickname)
         if not user:
             return jsonify({'success': False, 'error': 'Email already exists'}), 409
         
@@ -86,7 +87,7 @@ def signup():
         
         return jsonify({
             'success': True,
-            'user': {'id': user['id'], 'name': user['name'], 'email': user['email']}
+            'user': {'id': user['id'], 'name': user['name'], 'email': user['email'], 'nickname': user.get('nickname', 'knucklehead')}
         }), 201
     except Exception as e:
         print(f"Error in signup: {e}")
