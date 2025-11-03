@@ -33,12 +33,30 @@ def rosie_test():
                 'error': 'Missing "message" field in request'
             }), 400
         
+        history = data.get('history', [])
+        
+        if not isinstance(history, list):
+            return jsonify({
+                'error': 'History must be an array of message objects'
+            }), 400
+        
+        for msg in history:
+            if not isinstance(msg, dict) or 'role' not in msg or 'content' not in msg:
+                return jsonify({
+                    'error': 'Each history item must have "role" and "content" fields'
+                }), 400
+            if msg['role'] not in ['user', 'assistant']:
+                return jsonify({
+                    'error': 'History role must be either "user" or "assistant"'
+                }), 400
+        
+        messages = [{'role': 'system', 'content': ROSIE_SYSTEM_PROMPT}]
+        messages.extend(history)
+        messages.append({'role': 'user', 'content': user_message})
+        
         response = client.chat.completions.create(
             model='gpt-4o-mini',
-            messages=[
-                {'role': 'system', 'content': ROSIE_SYSTEM_PROMPT},
-                {'role': 'user', 'content': user_message}
-            ],
+            messages=messages,
             temperature=0.7,
             max_tokens=500
         )
