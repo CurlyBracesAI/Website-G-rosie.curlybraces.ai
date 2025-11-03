@@ -205,8 +205,9 @@ All data is completely isolated by user_id for complete multi-tenant security.
 - OpenAI API key securely stored
 - Rosie's full persona implemented in system prompt
 - CORS support for external integrations
-- Basic HTTP Authentication protecting all endpoints
-- Configured for autoscale deployment (ready to publish)
+- Session-based multi-user authentication
+- **LIVE IN PRODUCTION** at **rosie.curlybraces.ai** 🎉
+- Configured for autoscale deployment with custom domain
 
 ### 🔜 Next Steps
 - Build first production endpoint (`/rosie-email` or `/rosie-triage`)
@@ -215,6 +216,14 @@ All data is completely isolated by user_id for complete multi-tenant security.
 - Consider migration to AWS/Render when stable
 
 ## Recent Changes
+
+- **2025-11-03**: 🚀 **DEPLOYED TO PRODUCTION at rosie.curlybraces.ai**
+  - Successfully linked custom domain via Replit Deployments → Domains tab
+  - Added DNS A record: `rosie.curlybraces.ai` → Replit's IP
+  - Added TXT record for domain verification
+  - DNS propagated successfully - site is live!
+  - Subtle logout button redesigned: transparent background, gray border, top-right corner
+  - App is now accessible to beta testers at professional custom domain
 
 - **2025-11-03**: Implemented complete multi-user authentication system
   - Replaced Basic HTTP Auth with session-based authentication
