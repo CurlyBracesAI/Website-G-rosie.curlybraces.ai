@@ -29,6 +29,7 @@ Rosie is transitioning from Make.com into a stable Flask API layer, allowing fle
 
 ### Tech Stack
 - **Backend**: Flask 3.1.2 (Python)
+- **Database**: PostgreSQL (Replit-hosted)
 - **AI Provider**: Multi-provider LLM router (currently OpenAI gpt-4o-mini)
 - **Authentication**: Basic HTTP Authentication (Flask-HTTPAuth)
 - **Hosting**: Replit
@@ -56,8 +57,9 @@ Rosie is transitioning from Make.com into a stable Flask API layer, allowing fle
 .
 ├── app.py                  # Main Flask application
 ├── llm_router.py          # Multi-provider LLM routing layer
+├── db_helper.py           # Database operations (projects & conversations)
 ├── templates/
-│   └── index.html         # Web chat interface
+│   └── index.html         # Web chat interface with project management
 ├── .env.example           # Example environment variables
 ├── .gitignore             # Git ignore rules
 ├── pyproject.toml         # Python dependencies
@@ -133,6 +135,17 @@ This persona is optimized for business automation and CRM workflows.
 }
 ```
 
+### Project & Conversation Management Endpoints
+
+**`GET /projects`** — List all project folders  
+**`POST /projects`** — Create new project (body: `{"name": "Project Name"}`)  
+**`POST /conversations`** — Save conversation (body: `{"project_id": 1, "title": "Title", "messages": [...]}`)  
+**`GET /projects/{id}/conversations`** — List conversations in a project  
+**`GET /conversations/{id}`** — Load a specific conversation  
+**`DELETE /conversations/{id}`** — Delete a conversation
+
+These endpoints power the web UI's ability to organize conversations into project folders (e.g., "Marketing Emails", "Customer Support", "Inventory Management") and save/load conversation history from PostgreSQL.
+
 ## Planned Production Endpoints
 
 These specialized endpoints will be added for specific business automation tasks:
@@ -184,6 +197,8 @@ Each endpoint will:
 - Flask app scaffolded and deployed on Replit
 - `/rosie-test` endpoint working with conversation history
 - Web chat UI for interactive testing
+- **Project folder & conversation management** (save/organize chats by project)
+- **PostgreSQL database** for persistent conversation storage
 - OpenAI API key securely stored
 - Rosie's full persona implemented in system prompt
 - CORS support for external integrations
@@ -197,6 +212,15 @@ Each endpoint will:
 - Consider migration to AWS/Render when stable
 
 ## Recent Changes
+
+- **2025-11-03**: Added project folder & conversation management
+  - Created PostgreSQL database with `projects` and `conversations` tables
+  - Implemented 6 new API endpoints for creating/saving/loading projects and conversations
+  - Updated web UI with toolbar controls: project selector, save/load buttons, new chat
+  - Added modal dialogs for creating projects, saving conversations, and loading conversations
+  - All conversations are now persistent and organized by project folder
+  - Database tables auto-initialize on startup
+  - Production-ready with secure error handling and sanitized error messages
 
 - **2025-11-03**: Implemented multi-provider LLM router
   - Created `llm_router.py` module for provider abstraction
