@@ -4,12 +4,24 @@ from flask_httpauth import HTTPBasicAuth
 import os
 from dotenv import load_dotenv
 from llm_router import call_llm
+from db_helper import (
+    initialize_database,
+    create_project, get_all_projects, 
+    save_conversation, get_conversations_by_project,
+    load_conversation, delete_conversation
+)
 
 load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
 auth = HTTPBasicAuth()
+
+# Initialize database tables on startup
+try:
+    initialize_database()
+except Exception as e:
+    print(f"Warning: Database initialization failed: {e}")
 
 @auth.verify_password
 def verify_password(username, password):
@@ -99,14 +111,16 @@ def rosie_test():
         }), 200
         
     except ValueError as e:
+        print(f"ValueError in rosie_test: {e}")
         return jsonify({
             'success': False,
-            'error': str(e)
+            'error': 'Invalid request parameters'
         }), 400
     except Exception as e:
+        print(f"Error in rosie_test: {e}")
         return jsonify({
             'success': False,
-            'error': str(e)
+            'error': 'Failed to process request'
         }), 500
 
 @app.route('/', methods=['GET'])
@@ -122,6 +136,148 @@ def health():
         'assistant': 'Rosie',
         'version': '1.0.0'
     }), 200
+
+@app.route('/projects', methods=['GET'])
+@auth.login_required
+def list_projects():
+    """Get all project folders."""
+    try:
+        projects = get_all_projects()
+        return jsonify({
+            'success': True,
+            'projects': projects
+        }), 200
+    except Exception as e:
+        print(f"Error listing projects: {e}")
+        return jsonify({
+            'success': False,
+            'error': 'Failed to retrieve projects'
+        }), 500
+
+@app.route('/projects', methods=['POST'])
+@auth.login_required
+def create_new_project():
+    """Create a new project folder."""
+    try:
+        data = request.get_json()
+        
+        if not data or not isinstance(data, dict):
+            return jsonify({
+                'success': False,
+                'error': 'Invalid JSON payload'
+            }), 400
+        
+        name = data.get('name')
+        
+        if not name:
+            return jsonify({
+                'success': False,
+                'error': 'Project name is required'
+            }), 400
+        
+        project = create_project(name)
+        return jsonify({
+            'success': True,
+            'project': project
+        }), 201
+    except Exception as e:
+        print(f"Error creating project: {e}")
+        return jsonify({
+            'success': False,
+            'error': 'Failed to create project'
+        }), 500
+
+@app.route('/conversations', methods=['POST'])
+@auth.login_required
+def save_new_conversation():
+    """Save a conversation to a project."""
+    try:
+        data = request.get_json()
+        
+        if not data or not isinstance(data, dict):
+            return jsonify({
+                'success': False,
+                'error': 'Invalid JSON payload'
+            }), 400
+        
+        project_id = data.get('project_id')
+        title = data.get('title')
+        messages = data.get('messages')
+        
+        if not all([project_id, title, messages]):
+            return jsonify({
+                'success': False,
+                'error': 'project_id, title, and messages are required'
+            }), 400
+        
+        conversation = save_conversation(project_id, title, messages)
+        return jsonify({
+            'success': True,
+            'conversation': conversation
+        }), 201
+    except Exception as e:
+        print(f"Error saving conversation: {e}")
+        return jsonify({
+            'success': False,
+            'error': 'Failed to save conversation'
+        }), 500
+
+@app.route('/projects/<int:project_id>/conversations', methods=['GET'])
+@auth.login_required
+def list_project_conversations(project_id):
+    """Get all conversations for a project."""
+    try:
+        conversations = get_conversations_by_project(project_id)
+        return jsonify({
+            'success': True,
+            'conversations': conversations
+        }), 200
+    except Exception as e:
+        print(f"Error listing conversations for project {project_id}: {e}")
+        return jsonify({
+            'success': False,
+            'error': 'Failed to retrieve conversations'
+        }), 500
+
+@app.route('/conversations/<int:conversation_id>', methods=['GET'])
+@auth.login_required
+def get_conversation(conversation_id):
+    """Load a specific conversation."""
+    try:
+        conversation = load_conversation(conversation_id)
+        if not conversation:
+            return jsonify({
+                'success': False,
+                'error': 'Conversation not found'
+            }), 404
+        
+        return jsonify({
+            'success': True,
+            'conversation': conversation
+        }), 200
+    except Exception as e:
+        print(f"Error loading conversation {conversation_id}: {e}")
+        return jsonify({
+            'success': False,
+            'error': 'Failed to load conversation'
+        }), 500
+
+@app.route('/conversations/<int:conversation_id>', methods=['DELETE'])
+@auth.login_required
+def remove_conversation(conversation_id):
+    """Delete a conversation."""
+    try:
+        delete_conversation(conversation_id)
+        return jsonify({
+            'success': True,
+            'message': 'Conversation deleted'
+        }), 200
+    except Exception as e:
+        print(f"Error deleting conversation {conversation_id}: {e}")
+        return jsonify({
+            'success': False,
+            'error': 'Failed to delete conversation'
+        }), 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=False)
