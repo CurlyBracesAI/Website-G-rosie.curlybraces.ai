@@ -8,7 +8,8 @@ from db_helper import (
     initialize_database,
     create_project, get_all_projects, 
     save_conversation, get_conversations_by_project,
-    load_conversation, delete_conversation
+    load_conversation, delete_conversation,
+    update_conversation_title, update_project_name, delete_project
 )
 
 load_dotenv()
@@ -277,6 +278,88 @@ def remove_conversation(conversation_id):
         return jsonify({
             'success': False,
             'error': 'Failed to delete conversation'
+        }), 500
+
+@app.route('/conversations/<int:conversation_id>', methods=['PATCH'])
+@auth.login_required
+def rename_conversation(conversation_id):
+    """Rename a conversation."""
+    try:
+        data = request.get_json()
+        new_title = data.get('title')
+        
+        if not new_title:
+            return jsonify({
+                'success': False,
+                'error': 'Title is required'
+            }), 400
+        
+        result = update_conversation_title(conversation_id, new_title)
+        if not result:
+            return jsonify({
+                'success': False,
+                'error': 'Conversation not found'
+            }), 404
+        
+        return jsonify({
+            'success': True,
+            'conversation': result
+        }), 200
+    except Exception as e:
+        print(f"Error renaming conversation {conversation_id}: {e}")
+        return jsonify({
+            'success': False,
+            'error': 'Failed to rename conversation'
+        }), 500
+
+@app.route('/projects/<int:project_id>', methods=['PATCH'])
+@auth.login_required
+def rename_project(project_id):
+    """Rename a project."""
+    try:
+        data = request.get_json()
+        new_name = data.get('name')
+        
+        if not new_name:
+            return jsonify({
+                'success': False,
+                'error': 'Name is required'
+            }), 400
+        
+        result = update_project_name(project_id, new_name)
+        if not result:
+            return jsonify({
+                'success': False,
+                'error': 'Project not found'
+            }), 404
+        
+        return jsonify({
+            'success': True,
+            'project': result
+        }), 200
+    except Exception as e:
+        print(f"Error renaming project {project_id}: {e}")
+        return jsonify({
+            'success': False,
+            'error': 'Failed to rename project'
+        }), 500
+
+@app.route('/projects/<int:project_id>', methods=['DELETE'])
+@auth.login_required
+def remove_project(project_id):
+    """Delete a project and all its conversations."""
+    try:
+        result = delete_project(project_id)
+        return jsonify({
+            'success': True,
+            'message': 'Project deleted',
+            'deleted_conversations': result['deleted_conversations']
+        }), 200
+    except Exception as e:
+        print(f"Error deleting project {project_id}: {e}")
+        return jsonify({
+            'success': False,
+            'error': 'Failed to delete project'
         }), 500
 
 if __name__ == '__main__':
