@@ -689,6 +689,7 @@
         async function loadConversationsForProject() {
             const projectId = projectSelector.value;
             if (!projectId) {
+                alert('Please select a project first to view saved conversations');
                 return;
             }
             
