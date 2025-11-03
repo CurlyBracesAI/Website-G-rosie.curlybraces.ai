@@ -95,7 +95,7 @@
             font-weight: 500;
         }
         
-        input {
+        input, select {
             width: 100%;
             padding: 12px 15px;
             background: #0f0f0f;
@@ -106,7 +106,12 @@
             transition: border-color 0.2s;
         }
         
-        input:focus {
+        select option {
+            background: #0f0f0f;
+            color: #e0e0e0;
+        }
+        
+        input:focus, select:focus {
             outline: none;
             border-color: #6f3050;
         }
