@@ -135,10 +135,19 @@ def get_all_projects(user_id):
         conn.close()
 
 def save_conversation(project_id, title, messages, user_id):
-    """Save a conversation to a project."""
+    """Save a conversation to a project (only if project belongs to user)."""
     conn = get_db_connection()
     try:
         with conn.cursor() as cur:
+            # Verify project belongs to user before allowing save
+            cur.execute(
+                "SELECT id FROM projects WHERE id = %s AND user_id = %s",
+                (project_id, user_id)
+            )
+            if not cur.fetchone():
+                return None  # Project doesn't exist or doesn't belong to user
+            
+            # Save the conversation
             cur.execute(
                 """INSERT INTO conversations (project_id, title, messages, user_id, updated_at)
                    VALUES (%s, %s, %s, %s, CURRENT_TIMESTAMP)
@@ -168,16 +177,16 @@ def get_conversations_by_project(project_id, user_id):
     finally:
         conn.close()
 
-def load_conversation(conversation_id):
-    """Load a specific conversation with its messages."""
+def load_conversation(conversation_id, user_id):
+    """Load a specific conversation with its messages (filtered by user for security)."""
     conn = get_db_connection()
     try:
         with conn.cursor() as cur:
             cur.execute(
                 """SELECT id, project_id, title, messages, created_at, updated_at
                    FROM conversations
-                   WHERE id = %s""",
-                (conversation_id,)
+                   WHERE id = %s AND user_id = %s""",
+                (conversation_id, user_id)
             )
             result = cur.fetchone()
             if result:
@@ -189,28 +198,37 @@ def load_conversation(conversation_id):
     finally:
         conn.close()
 
-def delete_conversation(conversation_id):
-    """Delete a conversation."""
+def delete_conversation(conversation_id, user_id):
+    """Delete a conversation (only if owned by user)."""
     conn = get_db_connection()
     try:
         with conn.cursor() as cur:
+            # Check if conversation exists and belongs to user
             cur.execute(
-                "DELETE FROM conversations WHERE id = %s",
-                (conversation_id,)
+                "SELECT id FROM conversations WHERE id = %s AND user_id = %s",
+                (conversation_id, user_id)
+            )
+            if not cur.fetchone():
+                return False
+            
+            # Delete the conversation
+            cur.execute(
+                "DELETE FROM conversations WHERE id = %s AND user_id = %s",
+                (conversation_id, user_id)
             )
             conn.commit()
             return True
     finally:
         conn.close()
 
-def update_conversation_title(conversation_id, new_title):
-    """Update a conversation's title."""
+def update_conversation_title(conversation_id, new_title, user_id):
+    """Update a conversation's title (only if owned by user)."""
     conn = get_db_connection()
     try:
         with conn.cursor() as cur:
             cur.execute(
-                "UPDATE conversations SET title = %s, updated_at = CURRENT_TIMESTAMP WHERE id = %s RETURNING id, title",
-                (new_title, conversation_id)
+                "UPDATE conversations SET title = %s, updated_at = CURRENT_TIMESTAMP WHERE id = %s AND user_id = %s RETURNING id, title",
+                (new_title, conversation_id, user_id)
             )
             result = cur.fetchone()
             conn.commit()
@@ -218,14 +236,14 @@ def update_conversation_title(conversation_id, new_title):
     finally:
         conn.close()
 
-def update_project_name(project_id, new_name):
-    """Update a project's name."""
+def update_project_name(project_id, new_name, user_id):
+    """Update a project's name (only if owned by user)."""
     conn = get_db_connection()
     try:
         with conn.cursor() as cur:
             cur.execute(
-                "UPDATE projects SET name = %s WHERE id = %s RETURNING id, name, color",
-                (new_name, project_id)
+                "UPDATE projects SET name = %s WHERE id = %s AND user_id = %s RETURNING id, name, color",
+                (new_name, project_id, user_id)
             )
             result = cur.fetchone()
             conn.commit()
@@ -233,22 +251,23 @@ def update_project_name(project_id, new_name):
     finally:
         conn.close()
 
-def delete_project(project_id):
-    """Delete a project and all its conversations (cascade)."""
+def delete_project(project_id, user_id):
+    """Delete a project and all its conversations (only if owned by user)."""
     conn = get_db_connection()
     try:
         with conn.cursor() as cur:
-            # Check if project exists
-            cur.execute("SELECT id FROM projects WHERE id = %s", (project_id,))
+            # Check if project exists and belongs to user
+            cur.execute("SELECT id FROM projects WHERE id = %s AND user_id = %s", (project_id, user_id))
             if not cur.fetchone():
                 return None
             
-            # Check how many conversations will be deleted
-            cur.execute("SELECT COUNT(*) FROM conversations WHERE project_id = %s", (project_id,))
-            count = cur.fetchone()[0]
+            # Check how many conversations will be deleted (use column alias for RealDictCursor)
+            cur.execute("SELECT COUNT(*) as count FROM conversations WHERE project_id = %s AND user_id = %s", (project_id, user_id))
+            result = cur.fetchone()
+            count = result['count'] if result else 0
             
             # Delete the project (conversations will cascade delete)
-            cur.execute("DELETE FROM projects WHERE id = %s", (project_id,))
+            cur.execute("DELETE FROM projects WHERE id = %s AND user_id = %s", (project_id, user_id))
             conn.commit()
             return {'deleted_conversations': count}
     finally:
