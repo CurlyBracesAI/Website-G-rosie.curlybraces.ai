@@ -440,6 +440,7 @@
             </select>
             <div class="modal-buttons">
                 <button class="btn-cancel" onclick="closeModal('loadConversationModal')">Cancel</button>
+                <button class="btn-cancel" onclick="deleteSelectedConversation()" style="background: #991b1b; color: white;">🗑️ Delete</button>
                 <button class="btn-primary" onclick="loadSelectedConversation()">Load</button>
             </div>
         </div>
@@ -746,6 +747,39 @@
                 }
             } catch (error) {
                 alert('Failed to load conversation: ' + error.message);
+            }
+        }
+        
+        // Delete selected conversation
+        async function deleteSelectedConversation() {
+            const conversationId = document.getElementById('conversationSelector').value;
+            if (!conversationId) {
+                alert('Please select a conversation to delete');
+                return;
+            }
+            
+            const conversationTitle = document.getElementById('conversationSelector').selectedOptions[0].textContent;
+            
+            if (!confirm(`Are you sure you want to delete "${conversationTitle}"? This cannot be undone.`)) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/conversations/${conversationId}`, {
+                    method: 'DELETE'
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert('Conversation deleted successfully');
+                    closeModal('loadConversationModal');
+                    // Optionally reload the conversation list
+                } else {
+                    alert('Error deleting conversation: ' + data.error);
+                }
+            } catch (error) {
+                alert('Failed to delete conversation: ' + error.message);
             }
         }
         
