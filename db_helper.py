@@ -4,14 +4,14 @@ from psycopg2.extras import RealDictCursor
 import json
 import random
 
-# CurlyBracesAI color palette for projects (muted versions)
+# CurlyBracesAI color palette for projects (subtle, professional tones)
 PROJECT_COLORS = [
-    '#059669',  # Green - Agent A (darker, less bright)
-    '#2563eb',  # Blue - Agent B (deeper blue)
-    '#7c3aed',  # Purple - Agent C (richer purple)
-    '#ea580c',  # Orange - Agent D (warmer, less neon)
-    '#db2777',  # Pink - Agent E (deeper magenta)
-    '#ca8a04',  # Yellow - Agent F (golden, less bright)
+    '#14b8a6',  # Teal/Emerald - Agent A
+    '#3b82f6',  # Blue - Agent B  
+    '#a855f7',  # Purple - Agent C
+    '#f97316',  # Orange - Agent D
+    '#ec4899',  # Pink - Agent E
+    '#eab308',  # Amber/Yellow - Agent F
 ]
 
 def get_db_connection():
