@@ -30,6 +30,7 @@ Rosie is transitioning from Make.com into a stable Flask API layer, allowing fle
 ### Tech Stack
 - **Backend**: Flask 3.1.2 (Python)
 - **AI Provider**: OpenAI API (gpt-4o-mini)
+- **Authentication**: Basic HTTP Authentication (Flask-HTTPAuth)
 - **Hosting**: Replit
 - **CORS**: Flask-CORS for cross-origin requests
 - **Secrets**: Replit environment variables
@@ -145,6 +146,8 @@ Each endpoint will:
 
 ### Required Environment Variables
 - `OPENAI_API_KEY` — Your OpenAI API key (stored in Replit Secrets)
+- `AUTH_USERNAME` — Username for Basic HTTP Authentication
+- `AUTH_PASSWORD` — Password for Basic HTTP Authentication
 
 ### Optional Environment Variables
 - `SESSION_SECRET` — Flask session secret (auto-generated if not provided)
@@ -176,6 +179,8 @@ Each endpoint will:
 - OpenAI API key securely stored
 - Rosie's full persona implemented in system prompt
 - CORS support for external integrations
+- Basic HTTP Authentication protecting all endpoints
+- Configured for autoscale deployment (ready to publish)
 
 ### 🔜 Next Steps
 - Build first production endpoint (`/rosie-email` or `/rosie-triage`)
@@ -184,6 +189,12 @@ Each endpoint will:
 - Consider migration to AWS/Render when stable
 
 ## Recent Changes
+
+- **2025-11-03**: Added Basic HTTP Authentication
+  - Installed flask-httpauth package
+  - Protected all endpoints (/, /rosie-test, /health) with username/password authentication
+  - Credentials stored securely in Replit Secrets (AUTH_USERNAME, AUTH_PASSWORD)
+  - Configured for secure production deployment with HTTPS
 
 - **2025-11-03**: Added comprehensive project documentation
   - Documented full vision and architecture
