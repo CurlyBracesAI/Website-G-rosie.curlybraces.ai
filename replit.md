@@ -31,7 +31,7 @@ Rosie is transitioning from Make.com into a stable Flask API layer, allowing fle
 - **Backend**: Flask 3.1.2 (Python)
 - **Database**: PostgreSQL (Replit-hosted)
 - **AI Provider**: Multi-provider LLM router (currently OpenAI gpt-4o-mini)
-- **Authentication**: Basic HTTP Authentication (Flask-HTTPAuth)
+- **Authentication**: Session-based multi-user authentication with password hashing
 - **Hosting**: Replit
 - **CORS**: Flask-CORS for cross-origin requests
 - **Secrets**: Replit environment variables
@@ -167,11 +167,14 @@ Each endpoint will:
 
 ### Required Environment Variables
 - `OPENAI_API_KEY` — Your OpenAI API key (stored in Replit Secrets)
-- `AUTH_USERNAME` — Username for Basic HTTP Authentication
-- `AUTH_PASSWORD` — Password for Basic HTTP Authentication
+- `SESSION_SECRET` — Flask session secret for secure authentication (auto-generated if not provided)
 
-### Optional Environment Variables
-- `SESSION_SECRET` — Flask session secret (auto-generated if not provided)
+### Database Schema
+- **users** — name, email (unique), hashed_password, created_at
+- **projects** — name, color, user_id (foreign key), created_at
+- **conversations** — project_id (foreign key), title, messages (JSONB), user_id (foreign key), created_at, updated_at
+
+All data is completely isolated by user_id for complete multi-tenant security.
 
 ## Integration Examples
 
@@ -212,6 +215,19 @@ Each endpoint will:
 - Consider migration to AWS/Render when stable
 
 ## Recent Changes
+
+- **2025-11-03**: Implemented complete multi-user authentication system
+  - Replaced Basic HTTP Auth with session-based authentication
+  - Created `users` table with secure password hashing (werkzeug)
+  - Added `user_id` foreign keys to `projects` and `conversations` tables
+  - Built login/signup page with CurlyBracesAI dark theme styling
+  - Personalized greeting displays each user's name in header ("[Name]'s Agentic AI Automation")
+  - Complete data isolation - users can only access their own projects and conversations
+  - All CRUD operations verify user ownership before allowing access (prevents cross-tenant data leaks)
+  - Added rename and delete functionality for conversations and projects
+  - Added "Manage Projects" button (magenta) for project administration
+  - Logout functionality included
+  - Ready for beta testing with complete multi-tenant security
 
 - **2025-11-03**: Implemented CurlyBracesAI brand theme and randomized project colors
   - Updated entire UI to dark theme matching CurlyBracesAI website
