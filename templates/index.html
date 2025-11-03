@@ -972,8 +972,9 @@
                 
                 if (data.success && data.user) {
                     const firstName = data.user.name.split(' ')[0];
+                    const fullName = data.user.name;
                     document.getElementById('userGreeting').textContent = `${firstName}'s Agentic AI Automation`;
-                    document.getElementById('initialGreeting').textContent = `Oi ${firstName}, Rosie here! What do you want knucklehead?`;
+                    document.getElementById('initialGreeting').textContent = `Oi ${fullName}, Rosie here! What do you want knucklehead?`;
                 } else {
                     document.getElementById('userGreeting').textContent = "Agentic AI Automation";
                 }
