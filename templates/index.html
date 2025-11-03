@@ -369,13 +369,14 @@
 <body>
     <div class="outer-header">
         <div class="logo">{curlybraces.ai}</div>
+        <button id="logoutBtn" style="background: #991b1b; padding: 8px 16px; border: none; border-radius: 6px; color: white; cursor: pointer; font-weight: 600;" onclick="handleLogout()">Logout</button>
     </div>
     
     <div class="page-wrapper">
         <div class="chat-container">
             <div class="chat-header">
                 <h1>Rosie AI Assistant</h1>
-                <p>Andy's Agentic AI Automation</p>
+                <p id="userGreeting">Loading...</p>
             </div>
         
         <div class="toolbar">
@@ -395,7 +396,7 @@
         <div class="chat-messages" id="chatMessages">
             <div class="message assistant">
                 <div class="message-label">Rosie</div>
-                <div class="message-content">Oi Collecott, Rosie here! What do you want knucklehead?</div>
+                <div class="message-content" id="initialGreeting">Oi there, Rosie here! What do you want knucklehead?</div>
             </div>
         </div>
         
@@ -963,7 +964,41 @@
             }
         });
         
-        // Load projects on page load
+        // Load current user and personalize greeting
+        async function loadCurrentUser() {
+            try {
+                const response = await fetch('/api/me');
+                const data = await response.json();
+                
+                if (data.success && data.user) {
+                    const firstName = data.user.name.split(' ')[0];
+                    document.getElementById('userGreeting').textContent = `${firstName}'s Agentic AI Automation`;
+                    document.getElementById('initialGreeting').textContent = `Oi ${firstName}, Rosie here! What do you want knucklehead?`;
+                } else {
+                    document.getElementById('userGreeting').textContent = "Agentic AI Automation";
+                }
+            } catch (error) {
+                console.error('Failed to load user:', error);
+                document.getElementById('userGreeting').textContent = "Agentic AI Automation";
+            }
+        }
+        
+        // Handle logout
+        async function handleLogout() {
+            if (!confirm('Are you sure you want to logout?')) {
+                return;
+            }
+            
+            try {
+                await fetch('/api/logout', { method: 'POST' });
+                window.location.href = '/';
+            } catch (error) {
+                alert('Logout failed. Please try again.');
+            }
+        }
+        
+        // Load user info and projects on page load
+        loadCurrentUser();
         loadProjects();
         messageInput.focus();
     </script>
