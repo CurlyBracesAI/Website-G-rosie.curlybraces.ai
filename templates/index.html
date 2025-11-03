@@ -328,6 +328,15 @@
                 opacity: 1;
             }
         }
+        
+        .project-badge {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
     </style>
 </head>
 <body>
@@ -414,6 +423,7 @@
         
         let conversationHistory = [];
         let currentProjectId = null;
+        let projectColors = {}; // Store project colors
         
         function formatResponse(text) {
             // For assistant messages, add line breaks before bullet points
@@ -556,9 +566,13 @@
                 if (data.success) {
                     projectSelector.innerHTML = '<option value="">Select Project...</option>';
                     data.projects.forEach(project => {
+                        // Store project color
+                        projectColors[project.id] = project.color || '#06b6d4';
+                        
                         const option = document.createElement('option');
                         option.value = project.id;
-                        option.textContent = project.name;
+                        option.textContent = `● ${project.name}`;
+                        option.style.color = project.color || '#06b6d4';
                         projectSelector.appendChild(option);
                     });
                 }
@@ -656,10 +670,13 @@
                     const conversationSelector = document.getElementById('conversationSelector');
                     conversationSelector.innerHTML = '<option value="">Select a conversation...</option>';
                     
+                    const currentColor = projectColors[projectId] || '#06b6d4';
+                    
                     data.conversations.forEach(conv => {
                         const option = document.createElement('option');
                         option.value = conv.id;
-                        option.textContent = `${conv.title} (${new Date(conv.updated_at).toLocaleDateString()})`;
+                        option.textContent = `● ${conv.title} (${new Date(conv.updated_at).toLocaleDateString()})`;
+                        option.style.color = currentColor;
                         conversationSelector.appendChild(option);
                     });
                     
