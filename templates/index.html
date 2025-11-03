@@ -511,6 +511,11 @@
             // Clean up any excessive newlines (more than 2)
             formatted = formatted.replace(/\n{3,}/g, '\n\n');
             
+            // Convert markdown headers to HTML (before converting ** to avoid conflicts)
+            formatted = formatted.replace(/^### (.+)$/gm, '<h3 style="font-size: 16px; font-weight: 600; margin: 10px 0 5px 0;">$1</h3>');
+            formatted = formatted.replace(/^## (.+)$/gm, '<h2 style="font-size: 18px; font-weight: 600; margin: 12px 0 6px 0;">$1</h2>');
+            formatted = formatted.replace(/^# (.+)$/gm, '<h1 style="font-size: 20px; font-weight: 700; margin: 15px 0 8px 0;">$1</h1>');
+            
             // Convert markdown bold to HTML
             formatted = formatted.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
             
