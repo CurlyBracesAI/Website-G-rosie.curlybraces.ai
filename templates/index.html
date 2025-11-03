@@ -974,8 +974,9 @@
                     const nameParts = data.user.name.split(' ');
                     const firstName = nameParts[0];
                     const lastName = nameParts[nameParts.length - 1];
+                    const nickname = data.user.nickname || 'knucklehead';
                     document.getElementById('userGreeting').textContent = `${firstName}'s Agentic AI Automation`;
-                    document.getElementById('initialGreeting').textContent = `Oi ${lastName}, Rosie here! What do you want knucklehead?`;
+                    document.getElementById('initialGreeting').textContent = `Oi ${lastName}, Rosie here! What do you want ${nickname}?`;
                 } else {
                     document.getElementById('userGreeting').textContent = "Agentic AI Automation";
                 }
