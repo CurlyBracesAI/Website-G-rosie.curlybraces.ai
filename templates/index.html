@@ -476,9 +476,6 @@
         
         <!-- Agent Selector -->
         <div class="agent-selector">
-            <div class="agent-selector-text">
-                <span id="agentModeText">You can ask me a question — or select one of the Agents below to start a workflow.</span>
-            </div>
             <div class="agent-buttons">
                 <button class="agent-btn purple" data-agent="shortlist">
                     <span>🟣</span>
@@ -510,7 +507,7 @@
         <div class="chat-messages" id="chatMessages">
             <div class="message assistant">
                 <div class="message-label">Rosie</div>
-                <div class="message-content" id="initialGreeting">Hey there, Rosie here! How can I help you knucklehead?</div>
+                <div class="message-content" id="initialGreeting">Hey there, Rosie here! How can I help you knucklehead?<br><br>You can ask me a question, or select one of the Agents below to start a workflow.</div>
             </div>
         </div>
         
@@ -1111,7 +1108,7 @@
                     const lastName = nameParts[nameParts.length - 1];
                     const nickname = data.user.nickname || 'knucklehead';
                     document.getElementById('userGreeting').textContent = `${firstName}'s Agentic AI Automation`;
-                    document.getElementById('initialGreeting').textContent = `Hey ${firstName}, Rosie here! How can I help you ${nickname}?`;
+                    document.getElementById('initialGreeting').innerHTML = `Hey ${firstName}, Rosie here! How can I help you ${nickname}?<br><br>You can ask me a question, or select one of the Agents below to start a workflow.`;
                 } else {
                     document.getElementById('userGreeting').textContent = "Agentic AI Automation";
                 }
@@ -1139,9 +1136,6 @@
                     });
                     buttonElement.classList.add('active');
                     
-                    // Update text
-                    document.getElementById('agentModeText').textContent = `Agent Mode: ${agentName} — Ready to assist!`;
-                    
                     // Add confirmation message
                     addMessage('assistant', `Switched to **${agentName}** mode. I'm ready to help with this workflow!`);
                 }
@@ -1163,8 +1157,6 @@
                         const activeButton = document.querySelector(`.agent-btn[data-agent="${data.agent}"]`);
                         if (activeButton) {
                             activeButton.classList.add('active');
-                            const agentName = activeButton.textContent.trim().substring(2);
-                            document.getElementById('agentModeText').textContent = `Agent Mode: ${agentName} — Ready to assist!`;
                         }
                     }
                 }
