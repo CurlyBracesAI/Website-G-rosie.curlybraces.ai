@@ -201,6 +201,7 @@ All data is completely isolated by user_id for complete multi-tenant security.
 - Flask app scaffolded and deployed on Replit
 - `/rosie-test` endpoint working with conversation history
 - **Live web search capability** via Serper.dev API (optional, user-controlled)
+- **Make.com Agent Mode connectors** — 6 specialized workflow agents with custom system prompts
 - Web chat UI for interactive testing with markdown formatting support
 - **Project folder & conversation management** (save/organize chats by project)
 - **PostgreSQL database** for persistent conversation storage
@@ -218,6 +219,17 @@ All data is completely isolated by user_id for complete multi-tenant security.
 - Consider migration to AWS/Render when stable
 
 ## Recent Changes
+
+- **2025-11-04**: 🤖 **Added Make.com Agent Mode Connectors**
+  - Implemented 6 specialized agent modes with dedicated system prompts
+  - Agent types: Client Shortlist, Intros & Tours, Daily Triage, Partner Updates, Sync Updater, Building Inventory
+  - Color-coded buttons matching CurlyBracesAI palette (purple, green, blue, orange, yellow, gray)
+  - Agent selection persists in session across page reloads
+  - Each agent has specialized instructions for structured workflow output
+  - API endpoints: `/api/set-agent` (POST) and `/api/get-agent` (GET)
+  - When agent is selected, system prompt combines base Rosie personality with agent-specific context
+  - UI updates dynamically to show active agent with confirmation message
+  - Designed for Make.com webhook integrations and automated workflow triggers
 
 - **2025-11-04**: 🌐 **Added Live Web Search Capability**
   - Integrated Serper.dev API for real-time web data retrieval
