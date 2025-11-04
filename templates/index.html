@@ -406,20 +406,36 @@
         }
         
         .agent-btn {
-            padding: 10px 12px;
+            padding: 8px 12px;
             border-radius: 8px;
             border: 2px solid;
             color: white;
-            font-weight: 600;
-            font-size: 12px;
             cursor: pointer;
             transition: all 0.2s;
             text-align: left;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             white-space: nowrap;
             flex-shrink: 0;
+        }
+        
+        .agent-btn-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            line-height: 1.2;
+        }
+        
+        .agent-btn-title {
+            font-weight: 600;
+            font-size: 12px;
+        }
+        
+        .agent-btn-label {
+            font-weight: 400;
+            font-size: 11px;
+            opacity: 0.8;
         }
         
         .agent-btn:hover {
@@ -489,27 +505,45 @@
             <div class="agent-buttons">
                 <button class="agent-btn purple" data-agent="shortlist">
                     <span>🟣</span>
-                    <span>Client Shortlist Proposal</span>
+                    <div class="agent-btn-content">
+                        <div class="agent-btn-title">Client Shortlist Proposal</div>
+                        <div class="agent-btn-label">Agent A</div>
+                    </div>
                 </button>
                 <button class="agent-btn green" data-agent="intros">
                     <span>🟢</span>
-                    <span>Client/Partner Intros & Tours</span>
+                    <div class="agent-btn-content">
+                        <div class="agent-btn-title">Client/Partner Intros & Tours</div>
+                        <div class="agent-btn-label">Agent B</div>
+                    </div>
                 </button>
                 <button class="agent-btn blue" data-agent="triage">
                     <span>🔵</span>
-                    <span>Daily Triage Report</span>
+                    <div class="agent-btn-content">
+                        <div class="agent-btn-title">Daily Triage Report</div>
+                        <div class="agent-btn-label">Agent C</div>
+                    </div>
                 </button>
                 <button class="agent-btn orange" data-agent="updates">
                     <span>🟠</span>
-                    <span>Partner Updates</span>
+                    <div class="agent-btn-content">
+                        <div class="agent-btn-title">Partner Updates</div>
+                        <div class="agent-btn-label">Agent D</div>
+                    </div>
                 </button>
                 <button class="agent-btn yellow" data-agent="sync">
                     <span>🟡</span>
-                    <span>Sync Updater</span>
+                    <div class="agent-btn-content">
+                        <div class="agent-btn-title">Sync Updater</div>
+                        <div class="agent-btn-label">Agent E</div>
+                    </div>
                 </button>
                 <button class="agent-btn gray" data-agent="inventory">
                     <span>⚫</span>
-                    <span>New Building Inventory</span>
+                    <div class="agent-btn-content">
+                        <div class="agent-btn-title">New Building Inventory</div>
+                        <div class="agent-btn-label">Agent F</div>
+                    </div>
                 </button>
             </div>
         </div>
@@ -1173,7 +1207,7 @@
             document.querySelectorAll('.agent-btn').forEach(button => {
                 button.addEventListener('click', function() {
                     const agentType = this.dataset.agent;
-                    const agentName = this.textContent.trim().substring(2); // Remove emoji
+                    const agentName = this.querySelector('.agent-btn-title').textContent.trim();
                     selectAgent(agentType, agentName, this);
                 });
             });
