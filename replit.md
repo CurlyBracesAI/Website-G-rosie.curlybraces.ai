@@ -168,6 +168,7 @@ Each endpoint will:
 ### Required Environment Variables
 - `OPENAI_API_KEY` — Your OpenAI API key (stored in Replit Secrets)
 - `SESSION_SECRET` — Flask session secret for secure authentication (auto-generated if not provided)
+- `SERPER_API_KEY` — Serper.dev API key for live web search (optional, enables web search feature)
 
 ### Database Schema
 - **users** — name, email (unique), hashed_password, created_at
@@ -199,13 +200,14 @@ All data is completely isolated by user_id for complete multi-tenant security.
 ### ✅ Completed
 - Flask app scaffolded and deployed on Replit
 - `/rosie-test` endpoint working with conversation history
-- Web chat UI for interactive testing
+- **Live web search capability** via Serper.dev API (optional, user-controlled)
+- Web chat UI for interactive testing with markdown formatting support
 - **Project folder & conversation management** (save/organize chats by project)
 - **PostgreSQL database** for persistent conversation storage
 - OpenAI API key securely stored
 - Rosie's full persona implemented in system prompt
 - CORS support for external integrations
-- Session-based multi-user authentication
+- Session-based multi-user authentication with customizable nicknames
 - **LIVE IN PRODUCTION** at **rosie.curlybraces.ai** 🎉
 - Configured for autoscale deployment with custom domain
 
@@ -216,6 +218,24 @@ All data is completely isolated by user_id for complete multi-tenant security.
 - Consider migration to AWS/Render when stable
 
 ## Recent Changes
+
+- **2025-11-04**: 🌐 **Added Live Web Search Capability**
+  - Integrated Serper.dev API for real-time web data retrieval
+  - Added user-controlled checkbox toggle (🌐 Enable live web search) in chat UI
+  - Rosie can now fetch current information (news, prices, events) when search is enabled
+  - Cost-efficient: only searches when explicitly enabled by user
+  - Fetches top 5 web results and injects context into LLM prompt
+  - Graceful error handling - continues normally if search fails
+  - Free tier: 2,500 searches, then $1/1K searches (10x cheaper than alternatives)
+  - Enhanced markdown rendering: **bold**, headers (###), proper line breaks
+
+- **2025-11-04**: 🎨 **UI Refinements and Personalization**
+  - Changed greeting from "Oi" to "Hey" with first name instead of last name
+  - Updated message to "How can I help you" (friendlier tone)
+  - Converted nickname field to dropdown with 18 fun options (Knucklehead, Boss, Gorgeous Creature, etc.)
+  - Styled dropdown to match form inputs (white text on black background)
+  - Matched input box border to main container (green pinstripe #2a4f4f)
+  - Redesigned logout button: subtle gray transparent, top-right corner positioning
 
 - **2025-11-03**: 🚀 **DEPLOYED TO PRODUCTION at rosie.curlybraces.ai**
   - Successfully linked custom domain via Replit Deployments → Domains tab
