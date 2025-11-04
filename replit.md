@@ -224,11 +224,15 @@ All data is completely isolated by user_id for complete multi-tenant security.
   - Implemented 6 specialized agent modes with dedicated system prompts
   - Agent types: Client Shortlist, Intros & Tours, Daily Triage, Partner Updates, Sync Updater, Building Inventory
   - Color-coded buttons matching CurlyBracesAI palette (purple, green, blue, orange, yellow, gray)
+  - Agent buttons display two-line labels: bold workflow title + regular "Agent A/B/C/D/E/F" designation
   - Agent selection persists in session across page reloads
   - Each agent has specialized instructions for structured workflow output
   - API endpoints: `/api/set-agent` (POST) and `/api/get-agent` (GET)
   - When agent is selected, system prompt combines base Rosie personality with agent-specific context
   - UI updates dynamically to show active agent with confirmation message
+  - Agent confirmation messages instruct user to verify CRM trigger stage placement
+  - **Auto-reply for workflow confirmations** — When user confirms (yes/ready/confirmed/etc.), Rosie automatically responds: "Great, I'm running the flow, I'll place the report in the CRM client deal, along with the draft SMS and emails."
+  - Responsive button layout wraps dynamically based on screen width
   - Designed for Make.com webhook integrations and automated workflow triggers
 
 - **2025-11-04**: 🌐 **Added Live Web Search Capability**

@@ -711,6 +711,18 @@
             }
         }
         
+        // Check if message is a workflow confirmation
+        function isWorkflowConfirmation(message) {
+            const confirmKeywords = [
+                'confirmed', 'confirm', 'ready', 'yes', 'yep', 'yeah', 'sure',
+                'go ahead', 'proceed', 'run it', 'do it', 'let\'s go', 'ok', 'okay',
+                'good to go', 'all set', 'verified', 'done', 'go', 'affirmative'
+            ];
+            
+            const lowerMessage = message.toLowerCase().trim();
+            return confirmKeywords.some(keyword => lowerMessage.includes(keyword));
+        }
+        
         async function sendMessage() {
             const message = messageInput.value.trim();
             if (!message) return;
@@ -719,6 +731,21 @@
             
             addMessage('user', message);
             messageInput.value = '';
+            
+            // Check for workflow confirmation if an agent is active
+            if (currentAgent && isWorkflowConfirmation(message)) {
+                sendButton.disabled = true;
+                showTypingIndicator();
+                
+                // Auto-reply for workflow confirmation
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    addMessage('assistant', "Great, I'm running the flow, I'll place the report in the CRM client deal, along with the draft SMS and emails.");
+                    sendButton.disabled = false;
+                }, 500);
+                return;
+            }
+            
             sendButton.disabled = true;
             showTypingIndicator();
             
