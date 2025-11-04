@@ -399,9 +399,10 @@
         }
         
         .agent-buttons {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            display: flex;
+            flex-wrap: nowrap;
             gap: 10px;
+            overflow-x: auto;
         }
         
         .agent-btn {
@@ -417,6 +418,8 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
         
         .agent-btn:hover {
