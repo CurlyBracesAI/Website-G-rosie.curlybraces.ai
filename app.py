@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, render_template, session, redirect, url_for
 from flask_cors import CORS
 import os
+import requests
 from dotenv import load_dotenv
 from llm_router import call_llm
 from db_helper import (
@@ -39,6 +40,46 @@ def get_current_user():
     if 'user_id' in session:
         return get_user_by_id(session['user_id'])
     return None
+
+def fetch_web_data(query):
+    """
+    Fetch current web data using Serper.dev API.
+    Returns a formatted string of search results or None if disabled/failed.
+    """
+    serper_api_key = os.getenv("SERPER_API_KEY")
+    
+    if not serper_api_key:
+        return None
+    
+    try:
+        response = requests.post(
+            'https://google.serper.dev/search',
+            json={'q': query, 'num': 5},
+            headers={
+                'X-API-KEY': serper_api_key,
+                'Content-Type': 'application/json'
+            },
+            timeout=10
+        )
+        response.raise_for_status()
+        data = response.json()
+        
+        # Extract organic results
+        results = []
+        for item in data.get('organic', [])[:5]:
+            title = item.get('title', '')
+            snippet = item.get('snippet', '')
+            if title and snippet:
+                results.append(f"**{title}**\n{snippet}")
+        
+        if results:
+            return "**Current web information:**\n\n" + "\n\n".join(results)
+        
+        return None
+        
+    except Exception as e:
+        print(f"Web search error: {e}")
+        return None
 
 ROSIE_SYSTEM_PROMPT = """You are Rosie, an AI assistant built for real-world business automation.
 
@@ -166,6 +207,7 @@ def rosie_test():
         model = data.get('model', None)
         temperature = data.get('temperature', 0.7)
         max_tokens = data.get('max_tokens', 500)
+        enable_search = data.get('enable_search', False)
         
         if not isinstance(history, list):
             return jsonify({
@@ -182,8 +224,18 @@ def rosie_test():
                     'error': 'History role must be "user", "assistant", or "system"'
                 }), 400
         
+        # Fetch web data if enabled
+        web_context = None
+        if enable_search:
+            web_context = fetch_web_data(user_message)
+        
+        # Modify user message if we have web context
+        final_message = user_message
+        if web_context:
+            final_message = f"{web_context}\n\n**User question:** {user_message}\n\nPlease use the current web information above to provide an accurate, up-to-date answer."
+        
         result = call_llm(
-            user_message=user_message,
+            user_message=final_message,
             system_prompt=ROSIE_SYSTEM_PROMPT,
             history=history,
             provider=provider,
