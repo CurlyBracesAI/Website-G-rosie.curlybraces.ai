@@ -1122,7 +1122,7 @@
         }
         
         // Handle agent selection
-        async function selectAgent(agentType, agentName) {
+        async function selectAgent(agentType, agentName, buttonElement) {
             try {
                 const response = await fetch('/api/set-agent', {
                     method: 'POST',
@@ -1137,7 +1137,7 @@
                     document.querySelectorAll('.agent-btn').forEach(btn => {
                         btn.classList.remove('active');
                     });
-                    event.target.closest('.agent-btn').classList.add('active');
+                    buttonElement.classList.add('active');
                     
                     // Update text
                     document.getElementById('agentModeText').textContent = `Agent Mode: ${agentName} — Ready to assist!`;
@@ -1150,14 +1150,39 @@
             }
         }
         
+        // Restore active agent on page load
+        async function restoreActiveAgent() {
+            try {
+                const response = await fetch('/api/get-agent');
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.agent) {
+                        currentAgent = data.agent;
+                        
+                        // Find and mark the active button
+                        const activeButton = document.querySelector(`.agent-btn[data-agent="${data.agent}"]`);
+                        if (activeButton) {
+                            activeButton.classList.add('active');
+                            const agentName = activeButton.textContent.trim().substring(2);
+                            document.getElementById('agentModeText').textContent = `Agent Mode: ${agentName} — Ready to assist!`;
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Error restoring agent:', error);
+            }
+        }
+        
         // Attach agent button listeners
-        document.querySelectorAll('.agent-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const agentType = button.dataset.agent;
-                const agentName = button.textContent.trim().substring(2); // Remove emoji
-                selectAgent(agentType, agentName);
+        function initAgentButtons() {
+            document.querySelectorAll('.agent-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const agentType = this.dataset.agent;
+                    const agentName = this.textContent.trim().substring(2); // Remove emoji
+                    selectAgent(agentType, agentName, this);
+                });
             });
-        });
+        }
         
         // Handle logout
         async function handleLogout() {
@@ -1176,6 +1201,8 @@
         // Load user info and projects on page load
         loadCurrentUser();
         loadProjects();
+        initAgentButtons();
+        restoreActiveAgent();
         messageInput.focus();
     </script>
         </div>
