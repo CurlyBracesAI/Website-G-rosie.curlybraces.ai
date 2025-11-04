@@ -384,6 +384,67 @@
             border-radius: 50%;
             flex-shrink: 0;
         }
+        
+        .agent-selector {
+            padding: 20px;
+            background: #0a0a0a;
+            border-bottom: 1px solid #1a1a1a;
+        }
+        
+        .agent-selector-text {
+            text-align: center;
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .agent-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        
+        .agent-btn {
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 2px solid;
+            color: white;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .agent-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .agent-btn.active {
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+        }
+        
+        .agent-btn.purple { background: #4a3a5f; border-color: #6b5080; }
+        .agent-btn.purple:hover { background: #5a4a6f; border-color: #8b70a0; }
+        
+        .agent-btn.green { background: #2d5f5f; border-color: #3d7f7f; }
+        .agent-btn.green:hover { background: #3d6f6f; border-color: #4d9f9f; }
+        
+        .agent-btn.blue { background: #2d4f6f; border-color: #3d6f8f; }
+        .agent-btn.blue:hover { background: #3d5f7f; border-color: #4d7faf; }
+        
+        .agent-btn.orange { background: #6f5030; border-color: #8f7050; }
+        .agent-btn.orange:hover { background: #7f6040; border-color: #af9070; }
+        
+        .agent-btn.yellow { background: #6f5f20; border-color: #8f7f40; }
+        .agent-btn.yellow:hover { background: #7f6f30; border-color: #af9f60; }
+        
+        .agent-btn.gray { background: #3a3a3a; border-color: #4a4a4a; }
+        .agent-btn.gray:hover { background: #4a4a4a; border-color: #5a5a5a; }
     </style>
 </head>
 <body>
@@ -411,6 +472,39 @@
             <button id="saveConversationBtn">💾 Save</button>
             <button id="loadConversationBtn">📂 Load</button>
             <button id="newChatBtn">🆕 New Chat</button>
+        </div>
+        
+        <!-- Agent Selector -->
+        <div class="agent-selector">
+            <div class="agent-selector-text">
+                <span id="agentModeText">You can ask me a question — or select one of the Agents below to start a workflow.</span>
+            </div>
+            <div class="agent-buttons">
+                <button class="agent-btn purple" data-agent="shortlist">
+                    <span>🟣</span>
+                    <span>Client Shortlist Proposal</span>
+                </button>
+                <button class="agent-btn green" data-agent="intros">
+                    <span>🟢</span>
+                    <span>Client/Partner Intros & Tours</span>
+                </button>
+                <button class="agent-btn blue" data-agent="triage">
+                    <span>🔵</span>
+                    <span>Daily Triage Report</span>
+                </button>
+                <button class="agent-btn orange" data-agent="updates">
+                    <span>🟠</span>
+                    <span>Partner Updates</span>
+                </button>
+                <button class="agent-btn yellow" data-agent="sync">
+                    <span>🟡</span>
+                    <span>Sync Updater</span>
+                </button>
+                <button class="agent-btn gray" data-agent="inventory">
+                    <span>⚫</span>
+                    <span>New Building Inventory</span>
+                </button>
+            </div>
         </div>
         
         <div class="chat-messages" id="chatMessages">
@@ -503,6 +597,7 @@
         let conversationHistory = [];
         let currentProjectId = null;
         let projectColors = {}; // Store project colors
+        let currentAgent = null; // Store selected agent mode
         
         function formatResponse(text) {
             // For assistant messages, add line breaks before bullet points
@@ -1025,6 +1120,44 @@
                 document.getElementById('userGreeting').textContent = "Agentic AI Automation";
             }
         }
+        
+        // Handle agent selection
+        async function selectAgent(agentType, agentName) {
+            try {
+                const response = await fetch('/api/set-agent', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ agent: agentType })
+                });
+                
+                if (response.ok) {
+                    currentAgent = agentType;
+                    
+                    // Update UI to show active agent
+                    document.querySelectorAll('.agent-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    event.target.closest('.agent-btn').classList.add('active');
+                    
+                    // Update text
+                    document.getElementById('agentModeText').textContent = `Agent Mode: ${agentName} — Ready to assist!`;
+                    
+                    // Add confirmation message
+                    addMessage('assistant', `Switched to **${agentName}** mode. I'm ready to help with this workflow!`);
+                }
+            } catch (error) {
+                console.error('Error selecting agent:', error);
+            }
+        }
+        
+        // Attach agent button listeners
+        document.querySelectorAll('.agent-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const agentType = button.dataset.agent;
+                const agentName = button.textContent.trim().substring(2); // Remove emoji
+                selectAgent(agentType, agentName);
+            });
+        });
         
         // Handle logout
         async function handleLogout() {
