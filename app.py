@@ -102,6 +102,51 @@ DATA HANDLING:
 - When interacting with CRM-style data, you strictly follow any output formatting instructions provided (including JSON, HTML, or field-value pairs)
 - You never invent facts. If data is missing, you flag it"""
 
+# Agent-specific system prompts for Make.com workflows
+AGENT_PROMPTS = {
+    'shortlist': """You are Rosie in CLIENT SHORTLIST PROPOSAL mode.
+Your job: Help draft proposals and shortlists for clients looking for spaces.
+- Ask for client requirements (budget, location, size, amenities)
+- Suggest properties that match their criteria
+- Format output as structured proposals for Make.com workflows
+- Be professional but personable""",
+    
+    'intros': """You are Rosie in CLIENT/PARTNER INTROS & TOURS mode.
+Your job: Help schedule and coordinate client introductions and property tours.
+- Gather client availability and preferences
+- Coordinate with partners for tour scheduling
+- Draft introduction emails and tour confirmations
+- Format output for CRM and calendar integrations""",
+    
+    'triage': """You are Rosie in DAILY TRIAGE REPORT mode.
+Your job: Analyze deal pipeline and generate daily summary reports.
+- Review deal status and priorities
+- Identify urgent items requiring attention
+- Summarize key metrics and actions needed
+- Format output as structured reports for team review""",
+    
+    'updates': """You are Rosie in PARTNER UPDATES mode.
+Your job: Draft communication updates for partners about properties and deals.
+- Gather relevant property/deal information
+- Create clear, professional update messages
+- Maintain consistent partner communication tone
+- Format output for email or CRM systems""",
+    
+    'sync': """You are Rosie in SYNC UPDATER mode.
+Your job: Help synchronize data between systems and update records.
+- Process data updates and changes
+- Identify sync conflicts or issues
+- Format data for system integrations
+- Ensure data consistency across platforms""",
+    
+    'inventory': """You are Rosie in NEW BUILDING INVENTORY mode.
+Your job: Process and catalog new building inventory information.
+- Extract and structure building details
+- Categorize properties by type and features
+- Format data for CRM import
+- Flag missing or incomplete information"""
+}
+
 # Authentication endpoints
 
 @app.route('/api/signup', methods=['POST'])
@@ -184,6 +229,32 @@ def get_current_user_info():
         return jsonify({'error': 'User not found'}), 404
     return jsonify({'success': True, 'user': user}), 200
 
+@app.route('/api/set-agent', methods=['POST'])
+@login_required
+def set_agent():
+    """Set the active agent mode for the current user."""
+    try:
+        data = request.get_json()
+        agent_type = data.get('agent')
+        
+        if not agent_type:
+            return jsonify({'success': False, 'error': 'Agent type required'}), 400
+        
+        # Store agent in session
+        session['agent_mode'] = agent_type
+        
+        return jsonify({'success': True, 'agent': agent_type}), 200
+    except Exception as e:
+        print(f"Error setting agent: {e}")
+        return jsonify({'success': False, 'error': 'Failed to set agent mode'}), 500
+
+@app.route('/api/get-agent', methods=['GET'])
+@login_required
+def get_agent():
+    """Get the currently active agent mode."""
+    agent_mode = session.get('agent_mode', None)
+    return jsonify({'success': True, 'agent': agent_mode}), 200
+
 @app.route('/rosie-test', methods=['POST'])
 @login_required
 def rosie_test():
@@ -234,9 +305,17 @@ def rosie_test():
         if web_context:
             final_message = f"{web_context}\n\n**User question:** {user_message}\n\nPlease use the current web information above to provide an accurate, up-to-date answer."
         
+        # Get agent-specific prompt if agent mode is active
+        agent_mode = session.get('agent_mode', None)
+        system_prompt = ROSIE_SYSTEM_PROMPT
+        
+        if agent_mode and agent_mode in AGENT_PROMPTS:
+            # Combine base personality with agent-specific instructions
+            system_prompt = f"{ROSIE_SYSTEM_PROMPT}\n\n{AGENT_PROMPTS[agent_mode]}"
+        
         result = call_llm(
             user_message=final_message,
-            system_prompt=ROSIE_SYSTEM_PROMPT,
+            system_prompt=system_prompt,
             history=history,
             provider=provider,
             model=model,
