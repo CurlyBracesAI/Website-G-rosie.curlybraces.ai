@@ -1173,8 +1173,19 @@
                     });
                     buttonElement.classList.add('active');
                     
+                    // Agent-specific confirmation messages
+                    const agentMessages = {
+                        'shortlist': `Switched to **${agentName}** mode. I'm ready to help with this workflow! Check that the client deal is placed in the CRM **Agent A** trigger stage. Once confirmed, I will run the workflow.`,
+                        'intros': `Switched to **${agentName}** mode. I'm ready to help with this workflow! Check that the client deal is placed in the CRM **Agent B** trigger stage. Once confirmed, I will run the workflow.`,
+                        'triage': `Switched to **${agentName}** mode. I'm ready to help with this workflow! Check that the client deal is placed in the CRM **Agent C** trigger stage. Once confirmed, I will run the workflow.`,
+                        'updates': `Switched to **${agentName}** mode. I'm ready to help with this workflow! Check that the client deal is placed in the CRM **Agent D** trigger stage. Once confirmed, I will run the workflow.`,
+                        'sync': `Switched to **${agentName}** mode. I'm ready to help with this workflow! Check that the client deal is placed in the CRM **Agent E** trigger stage. Once confirmed, I will run the workflow.`,
+                        'inventory': `Switched to **${agentName}** mode. I'm ready to help with this workflow! Check that the client deal is placed in the CRM **Agent F** trigger stage. Once confirmed, I will run the workflow.`
+                    };
+                    
                     // Add confirmation message
-                    addMessage('assistant', `Switched to **${agentName}** mode. I'm ready to help with this workflow!`);
+                    const message = agentMessages[agentType] || `Switched to **${agentName}** mode. I'm ready to help with this workflow!`;
+                    addMessage('assistant', message);
                 }
             } catch (error) {
                 console.error('Error selecting agent:', error);
