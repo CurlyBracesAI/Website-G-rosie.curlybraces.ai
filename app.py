@@ -10,7 +10,9 @@ from db_helper import (
     save_conversation, get_conversations_by_project,
     load_conversation, delete_conversation,
     update_conversation_title, update_project_name, delete_project,
-    create_user, authenticate_user, get_user_by_id
+    create_user, authenticate_user, get_user_by_id,
+    create_workflow_run, update_workflow_run, get_latest_workflow_run,
+    get_workflow_run_by_number, get_next_run_number
 )
 from functools import wraps
 
@@ -254,6 +256,278 @@ def get_agent():
     """Get the currently active agent mode."""
     agent_mode = session.get('agent_mode', None)
     return jsonify({'success': True, 'agent': agent_mode}), 200
+
+# Make.com Integration Endpoints
+
+# Define run configuration for each agent
+AGENT_RUN_CONFIG = {
+    'shortlist': {
+        'max_runs': 3,
+        'run_descriptions': [
+            'Initial speculative report - Login client and create first proposal',
+            'Full in-depth report - Qualified client with complete information',
+            'Follow-up report - Updated options and alternatives'
+        ]
+    },
+    'intros': {
+        'max_runs': 2,  # Update based on Agent B's actual workflow count
+        'run_descriptions': [
+            'Schedule initial client introduction and property tours',
+            'Follow-up tour coordination and confirmations'
+        ]
+    },
+    'triage': {'max_runs': 1, 'run_descriptions': ['Generate daily triage report']},
+    'updates': {'max_runs': 1, 'run_descriptions': ['Send partner updates']},
+    'sync': {'max_runs': 1, 'run_descriptions': ['Run sync updater']},
+    'inventory': {'max_runs': 1, 'run_descriptions': ['Process new building inventory']}
+}
+
+def get_make_webhook_url(agent_type):
+    """Get the Make.com webhook URL for the specified agent."""
+    webhook_map = {
+        'shortlist': os.getenv('MAKE_WEBHOOK_AGENT_A'),
+        'intros': os.getenv('MAKE_WEBHOOK_AGENT_B'),
+        'triage': os.getenv('MAKE_WEBHOOK_AGENT_C'),
+        'updates': os.getenv('MAKE_WEBHOOK_AGENT_D'),
+        'sync': os.getenv('MAKE_WEBHOOK_AGENT_E'),
+        'inventory': os.getenv('MAKE_WEBHOOK_AGENT_F')
+    }
+    return webhook_map.get(agent_type)
+
+def trigger_make_workflow(agent_type, run_number, user_data, conversation_context):
+    """
+    Trigger a Make.com workflow via webhook.
+    Returns: (success: bool, message: str)
+    """
+    webhook_url = get_make_webhook_url(agent_type)
+    
+    if not webhook_url:
+        return False, f"Webhook URL not configured for agent {agent_type}"
+    
+    # Prepare payload for Make.com
+    payload = {
+        'agent_type': agent_type,
+        'run_number': run_number,
+        'user': {
+            'id': user_data.get('id'),
+            'name': user_data.get('name'),
+            'email': user_data.get('email')
+        },
+        'conversation_context': conversation_context,
+        'timestamp': str(os.popen('date -u +"%Y-%m-%dT%H:%M:%SZ"').read().strip())
+    }
+    
+    try:
+        response = requests.post(
+            webhook_url,
+            json=payload,
+            timeout=30,
+            headers={'Content-Type': 'application/json'}
+        )
+        
+        if response.status_code == 200:
+            return True, "Workflow triggered successfully"
+        else:
+            return False, f"Make.com returned status {response.status_code}"
+            
+    except requests.exceptions.Timeout:
+        return False, "Workflow request timed out"
+    except Exception as e:
+        print(f"Error triggering Make.com workflow: {e}")
+        return False, f"Failed to trigger workflow: {str(e)}"
+
+@app.route('/api/trigger-workflow', methods=['POST'])
+@login_required
+def trigger_workflow():
+    """Trigger a Make.com workflow for the active agent."""
+    try:
+        user = get_current_user()
+        if not user:
+            return jsonify({'success': False, 'error': 'User not found'}), 404
+        
+        agent_type = session.get('agent_mode')
+        if not agent_type:
+            return jsonify({'success': False, 'error': 'No active agent selected'}), 400
+        
+        # Get next run number from database (based on successfully completed runs)
+        current_run = get_next_run_number(user['id'], agent_type)
+        
+        # Get agent configuration
+        agent_config = AGENT_RUN_CONFIG.get(agent_type)
+        if not agent_config:
+            return jsonify({'success': False, 'error': 'Invalid agent type'}), 400
+        
+        # Check if we've exceeded max runs
+        if current_run > agent_config['max_runs']:
+            return jsonify({
+                'success': False,
+                'error': f'All runs completed for this agent ({agent_config["max_runs"]} total)'
+            }), 400
+        
+        # Get conversation context from request
+        data = request.get_json()
+        conversation_context = data.get('conversation_context', [])
+        
+        # Create workflow run record BEFORE triggering
+        trigger_data = {
+            'conversation_context': conversation_context,
+            'agent_config': agent_config['run_descriptions'][current_run - 1] if current_run <= len(agent_config['run_descriptions']) else None
+        }
+        run_id = create_workflow_run(user['id'], agent_type, current_run, trigger_data)
+        
+        if not run_id:
+            return jsonify({'success': False, 'error': 'Failed to create workflow run record'}), 500
+        
+        # Trigger Make.com workflow
+        success, message = trigger_make_workflow(
+            agent_type,
+            current_run,
+            user,
+            conversation_context
+        )
+        
+        if success:
+            # Don't increment run number here - wait for callback
+            return jsonify({
+                'success': True,
+                'message': 'Workflow triggered - waiting for completion',
+                'run_number': current_run,
+                'run_id': run_id,
+                'max_runs': agent_config['max_runs']
+            }), 200
+        else:
+            # Mark as failed in database
+            update_workflow_run(user['id'], agent_type, current_run, 'failed', error_message=message)
+            return jsonify({'success': False, 'error': message}), 500
+            
+    except Exception as e:
+        print(f"Error in trigger_workflow: {e}")
+        return jsonify({'success': False, 'error': 'Failed to trigger workflow'}), 500
+
+@app.route('/api/make-callback', methods=['POST'])
+def make_callback():
+    """
+    Receive callback from Make.com with workflow results.
+    Requires webhook secret for authentication.
+    """
+    try:
+        # Verify webhook secret
+        webhook_secret = os.getenv('MAKE_WEBHOOK_SECRET')
+        if not webhook_secret:
+            print("WARNING: MAKE_WEBHOOK_SECRET not configured - accepting all callbacks!")
+        else:
+            auth_header = request.headers.get('X-Webhook-Secret')
+            if auth_header != webhook_secret:
+                print(f"Invalid webhook secret received")
+                return jsonify({'success': False, 'error': 'Unauthorized'}), 401
+        
+        data = request.get_json()
+        
+        # Expected payload from Make.com:
+        # {
+        #   "agent_type": "shortlist",
+        #   "run_number": 1,
+        #   "status": "success" | "error",
+        #   "message": "Run completed successfully",
+        #   "user_id": 123,
+        #   "data": { ... optional workflow results ... }
+        # }
+        
+        user_id = data.get('user_id')
+        agent_type = data.get('agent_type')
+        run_number = data.get('run_number')
+        status = data.get('status', 'success')
+        message = data.get('message', '')
+        workflow_data = data.get('data', {})
+        
+        if not all([user_id, agent_type, run_number]):
+            return jsonify({'success': False, 'error': 'Missing required fields'}), 400
+        
+        # Log the callback for debugging
+        print(f"Make.com callback: user={user_id}, agent={agent_type}, run={run_number}, status={status}")
+        print(f"Message: {message}")
+        
+        # Update workflow run in database
+        callback_data = {
+            'message': message,
+            'data': workflow_data
+        }
+        
+        updated = update_workflow_run(
+            user_id,
+            agent_type,
+            run_number,
+            status,
+            callback_data,
+            message if status == 'error' else None
+        )
+        
+        if not updated:
+            print(f"WARNING: No pending workflow run found for user={user_id}, agent={agent_type}, run={run_number}")
+            return jsonify({
+                'success': False,
+                'error': 'No pending workflow run found'
+            }), 404
+        
+        return jsonify({
+            'success': True,
+            'message': 'Callback processed',
+            'agent_type': agent_type,
+            'run_number': run_number,
+            'status': status
+        }), 200
+        
+    except Exception as e:
+        print(f"Error in make_callback: {e}")
+        return jsonify({'success': False, 'error': 'Callback processing failed'}), 500
+
+@app.route('/api/poll-workflow-status', methods=['GET'])
+@login_required
+def poll_workflow_status():
+    """Poll for the latest workflow run status for the current agent."""
+    try:
+        user = get_current_user()
+        if not user:
+            return jsonify({'success': False, 'error': 'User not found'}), 404
+        
+        agent_type = session.get('agent_mode')
+        if not agent_type:
+            return jsonify({'success': False, 'error': 'No active agent'}), 400
+        
+        # Get latest workflow run
+        workflow_run = get_latest_workflow_run(user['id'], agent_type)
+        
+        if not workflow_run:
+            return jsonify({'success': True, 'status': 'none'}), 200
+        
+        # Return workflow status
+        return jsonify({
+            'success': True,
+            'status': workflow_run['status'],
+            'run_number': workflow_run['run_number'],
+            'message': workflow_run.get('callback_data', {}).get('message') if workflow_run.get('callback_data') else None,
+            'error_message': workflow_run.get('error_message'),
+            'completed_at': str(workflow_run['completed_at']) if workflow_run.get('completed_at') else None
+        }), 200
+        
+    except Exception as e:
+        print(f"Error polling workflow status: {e}")
+        return jsonify({'success': False, 'error': 'Failed to poll status'}), 500
+
+@app.route('/api/reset-agent-run', methods=['POST'])
+@login_required
+def reset_agent_run():
+    """Reset the run counter for the current agent (for testing/debugging)."""
+    try:
+        # This endpoint is now deprecated since run tracking is in database
+        # Kept for backward compatibility
+        agent_type = session.get('agent_mode')
+        if not agent_type:
+            return jsonify({'success': False, 'error': 'No active agent'}), 400
+        
+        return jsonify({'success': True, 'message': f'Run counter is now database-managed'}), 200
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
 
 @app.route('/rosie-test', methods=['POST'])
 @login_required
