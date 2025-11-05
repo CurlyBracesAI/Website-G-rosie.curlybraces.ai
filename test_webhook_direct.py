@@ -16,12 +16,17 @@ if not webhook_url:
     print("❌ MAKE_WEBHOOK_AGENT_A secret not set!")
     exit(1)
 
-# Test payload that Rosie would send
+# Test payload matching what Rosie actually sends
 test_payload = {
-    "run_id": "test_run_12345",
-    "agent_id": "agent_a",
-    "message": "Test: Check Pipedrive for new client logins and add to shortlist",
-    "user_id": "test_user"
+    "agent_type": "agent_a",
+    "run_number": 1,
+    "user": {
+        "id": 1,
+        "name": "Test User",
+        "email": "test@example.com"
+    },
+    "conversation_context": "Test: Check Pipedrive for new client logins and add to shortlist",
+    "timestamp": "2025-11-05T23:43:00Z"
 }
 
 print("📤 Sending test payload to Make.com webhook...")
