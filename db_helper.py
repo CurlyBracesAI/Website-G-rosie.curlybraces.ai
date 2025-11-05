@@ -76,6 +76,23 @@ def initialize_database():
                 );
             """)
             
+            # Create workflow_runs table for Make.com integration
+            cur.execute("""
+                CREATE TABLE IF NOT EXISTS workflow_runs (
+                    id SERIAL PRIMARY KEY,
+                    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+                    agent_type VARCHAR(50) NOT NULL,
+                    run_number INTEGER NOT NULL,
+                    status VARCHAR(50) DEFAULT 'pending',
+                    trigger_data JSONB,
+                    callback_data JSONB,
+                    error_message TEXT,
+                    triggered_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    completed_at TIMESTAMP,
+                    UNIQUE(user_id, agent_type, run_number, triggered_at)
+                );
+            """)
+            
             # Add indexes
             cur.execute("""
                 CREATE INDEX IF NOT EXISTS idx_conversations_project_id 
@@ -336,5 +353,109 @@ def get_user_by_id(user_id):
             )
             user = cur.fetchone()
             return dict(user) if user else None
+    finally:
+        conn.close()
+
+# Workflow run management functions
+
+def create_workflow_run(user_id, agent_type, run_number, trigger_data=None):
+    """Create a new workflow run record when triggering Make.com."""
+    conn = get_db_connection()
+    try:
+        with conn.cursor() as cur:
+            cur.execute("""
+                INSERT INTO workflow_runs 
+                (user_id, agent_type, run_number, status, trigger_data)
+                VALUES (%s, %s, %s, 'pending', %s)
+                RETURNING id
+            """, (user_id, agent_type, run_number, json.dumps(trigger_data) if trigger_data else None))
+            result = cur.fetchone()
+            conn.commit()
+            return result['id'] if result else None
+    finally:
+        conn.close()
+
+def update_workflow_run(user_id, agent_type, run_number, status, callback_data=None, error_message=None):
+    """Update workflow run status when receiving callback from Make.com."""
+    conn = get_db_connection()
+    try:
+        with conn.cursor() as cur:
+            cur.execute("""
+                UPDATE workflow_runs 
+                SET status = %s,
+                    callback_data = %s,
+                    error_message = %s,
+                    completed_at = CURRENT_TIMESTAMP
+                WHERE user_id = %s 
+                AND agent_type = %s 
+                AND run_number = %s
+                AND status = 'pending'
+                ORDER BY triggered_at DESC
+                LIMIT 1
+            """, (
+                status, 
+                json.dumps(callback_data) if callback_data else None,
+                error_message,
+                user_id, 
+                agent_type, 
+                run_number
+            ))
+            conn.commit()
+            return cur.rowcount > 0
+    finally:
+        conn.close()
+
+def get_latest_workflow_run(user_id, agent_type):
+    """Get the most recent workflow run for a user and agent."""
+    conn = get_db_connection()
+    try:
+        with conn.cursor() as cur:
+            cur.execute("""
+                SELECT id, agent_type, run_number, status, 
+                       callback_data, error_message, 
+                       triggered_at, completed_at
+                FROM workflow_runs
+                WHERE user_id = %s AND agent_type = %s
+                ORDER BY triggered_at DESC
+                LIMIT 1
+            """, (user_id, agent_type))
+            return cur.fetchone()
+    finally:
+        conn.close()
+
+def get_workflow_run_by_number(user_id, agent_type, run_number):
+    """Get a specific workflow run by number."""
+    conn = get_db_connection()
+    try:
+        with conn.cursor() as cur:
+            cur.execute("""
+                SELECT id, agent_type, run_number, status, 
+                       callback_data, error_message, 
+                       triggered_at, completed_at
+                FROM workflow_runs
+                WHERE user_id = %s 
+                AND agent_type = %s 
+                AND run_number = %s
+                ORDER BY triggered_at DESC
+                LIMIT 1
+            """, (user_id, agent_type, run_number))
+            return cur.fetchone()
+    finally:
+        conn.close()
+
+def get_next_run_number(user_id, agent_type):
+    """Get the next run number for this agent (based on completed runs)."""
+    conn = get_db_connection()
+    try:
+        with conn.cursor() as cur:
+            cur.execute("""
+                SELECT COALESCE(MAX(run_number), 0) + 1 as next_run
+                FROM workflow_runs
+                WHERE user_id = %s 
+                AND agent_type = %s
+                AND status = 'success'
+            """, (user_id, agent_type))
+            result = cur.fetchone()
+            return result['next_run'] if result else 1
     finally:
         conn.close()

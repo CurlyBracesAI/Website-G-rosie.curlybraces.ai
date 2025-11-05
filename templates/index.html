@@ -737,12 +737,47 @@
                 sendButton.disabled = true;
                 showTypingIndicator();
                 
-                // Auto-reply for workflow confirmation
-                setTimeout(() => {
+                // Trigger Make.com workflow
+                try {
+                    const response = await fetch('/api/trigger-workflow', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            conversation_context: conversationHistory.slice(-5) // Send last 5 messages
+                        })
+                    });
+                    
+                    const data = await response.json();
                     hideTypingIndicator();
-                    addMessage('assistant', "Great, I'm running the flow, I'll place the report in the CRM client deal, along with the draft SMS and emails.");
+                    
+                    if (data.success) {
+                        // Workflow triggered successfully
+                        let runMessage = "Great, I'm running the flow";
+                        
+                        if (data.run_number) {
+                            runMessage += ` (Run ${data.run_number})`;
+                        }
+                        
+                        runMessage += ". I'll place the report in the CRM client deal, along with the draft SMS and emails.";
+                        
+                        // Add info about next run if applicable
+                        if (data.next_run) {
+                            runMessage += `\n\n*Note: This workflow has ${data.next_run > 1 ? 'additional runs' : 'one more run'} available. I'll let you know when this run completes.*`;
+                        }
+                        
+                        addMessage('assistant', runMessage);
+                    } else {
+                        // Workflow trigger failed
+                        addMessage('assistant', `❌ Failed to trigger workflow: ${data.error || 'Unknown error'}`);
+                    }
+                    
                     sendButton.disabled = false;
-                }, 500);
+                } catch (error) {
+                    hideTypingIndicator();
+                    console.error('Error triggering workflow:', error);
+                    addMessage('assistant', "❌ Sorry, I couldn't trigger the workflow. Please try again or contact support.");
+                    sendButton.disabled = false;
+                }
                 return;
             }
             
@@ -1193,6 +1228,9 @@
                 
                 if (response.ok) {
                     currentAgent = agentType;
+                    
+                    // Reset run counter when switching agents
+                    await fetch('/api/reset-agent-run', { method: 'POST' });
                     
                     // Update UI to show active agent
                     document.querySelectorAll('.agent-btn').forEach(btn => {
