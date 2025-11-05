@@ -500,14 +500,23 @@ def poll_workflow_status():
         if not workflow_run:
             return jsonify({'success': True, 'status': 'none'}), 200
         
+        # Convert to dict if needed
+        run_data = dict(workflow_run) if workflow_run else {}
+        
+        # Extract callback data
+        callback_data = run_data.get('callback_data')
+        message = None
+        if callback_data and isinstance(callback_data, dict):
+            message = callback_data.get('message')
+        
         # Return workflow status
         return jsonify({
             'success': True,
-            'status': workflow_run['status'],
-            'run_number': workflow_run['run_number'],
-            'message': workflow_run.get('callback_data', {}).get('message') if workflow_run.get('callback_data') else None,
-            'error_message': workflow_run.get('error_message'),
-            'completed_at': str(workflow_run['completed_at']) if workflow_run.get('completed_at') else None
+            'status': run_data.get('status'),
+            'run_number': run_data.get('run_number'),
+            'message': message,
+            'error_message': run_data.get('error_message'),
+            'completed_at': str(run_data['completed_at']) if run_data.get('completed_at') else None
         }), 200
         
     except Exception as e:
