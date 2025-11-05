@@ -423,6 +423,12 @@ def make_callback():
         
         data = request.get_json()
         
+        # DEBUG: Log the entire received payload
+        print("=" * 50)
+        print("🔔 MAKE.COM CALLBACK RECEIVED")
+        print(f"Full payload: {json.dumps(data, indent=2)}")
+        print("=" * 50)
+        
         # Expected payload from Make.com:
         # {
         #   "agent_type": "shortlist",
