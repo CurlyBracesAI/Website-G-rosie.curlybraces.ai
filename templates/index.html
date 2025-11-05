@@ -723,6 +723,73 @@
             return confirmKeywords.some(keyword => lowerMessage.includes(keyword));
         }
         
+        // Workflow polling state
+        let workflowPollingInterval = null;
+        let lastCheckedStatus = null;
+        
+        // Start polling for workflow completion
+        function startWorkflowPolling(runNumber, maxRuns) {
+            // Clear any existing polling
+            if (workflowPollingInterval) {
+                clearInterval(workflowPollingInterval);
+            }
+            
+            let pollCount = 0;
+            const maxPolls = 60; // Poll for up to 5 minutes (60 * 5 seconds)
+            
+            workflowPollingInterval = setInterval(async () => {
+                pollCount++;
+                
+                try {
+                    const response = await fetch('/api/poll-workflow-status');
+                    const data = await response.json();
+                    
+                    if (data.success && data.status !== 'none' && data.status !== 'pending') {
+                        // Workflow completed or failed
+                        clearInterval(workflowPollingInterval);
+                        workflowPollingInterval = null;
+                        
+                        if (data.status === 'success') {
+                            // Success message
+                            let completionMessage = `✅ Run ${data.run_number} completed successfully!`;
+                            
+                            if (data.message) {
+                                completionMessage += `\n\n${data.message}`;
+                            }
+                            
+                            // Check if more runs are available
+                            if (maxRuns && data.run_number < maxRuns) {
+                                completionMessage += `\n\n**Ready for Run ${data.run_number + 1}?** Type "yes" to continue.`;
+                            } else if (maxRuns && data.run_number >= maxRuns) {
+                                completionMessage += `\n\n🎉 All workflow runs completed!`;
+                            }
+                            
+                            addMessage('assistant', completionMessage);
+                        } else if (data.status === 'failed') {
+                            // Error message
+                            let errorMessage = `❌ Run ${data.run_number} failed.`;
+                            
+                            if (data.error_message) {
+                                errorMessage += `\n\nError: ${data.error_message}`;
+                            }
+                            
+                            errorMessage += '\n\nPlease try again or contact support if the issue persists.';
+                            
+                            addMessage('assistant', errorMessage);
+                        }
+                    } else if (pollCount >= maxPolls) {
+                        // Timeout - stop polling
+                        clearInterval(workflowPollingInterval);
+                        workflowPollingInterval = null;
+                        addMessage('assistant', '⏱️ Workflow is taking longer than expected. I\'ll continue processing in the background. Please check back later or contact support if you need assistance.');
+                    }
+                } catch (error) {
+                    console.error('Error polling workflow status:', error);
+                    // Don't stop polling on error, just log it
+                }
+            }, 5000); // Poll every 5 seconds
+        }
+        
         async function sendMessage() {
             const message = messageInput.value.trim();
             if (!message) return;
@@ -761,11 +828,15 @@
                         runMessage += ". I'll place the report in the CRM client deal, along with the draft SMS and emails.";
                         
                         // Add info about next run if applicable
-                        if (data.next_run) {
-                            runMessage += `\n\n*Note: This workflow has ${data.next_run > 1 ? 'additional runs' : 'one more run'} available. I'll let you know when this run completes.*`;
+                        if (data.max_runs && data.run_number < data.max_runs) {
+                            const remaining = data.max_runs - data.run_number;
+                            runMessage += `\n\n*Note: This workflow has ${remaining} more run${remaining > 1 ? 's' : ''} available. I'll let you know when this run completes.*`;
                         }
                         
                         addMessage('assistant', runMessage);
+                        
+                        // Start polling for workflow completion
+                        startWorkflowPolling(data.run_number, data.max_runs);
                     } else {
                         // Workflow trigger failed
                         addMessage('assistant', `❌ Failed to trigger workflow: ${data.error || 'Unknown error'}`);

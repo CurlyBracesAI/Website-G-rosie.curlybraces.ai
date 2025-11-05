@@ -169,13 +169,25 @@ Each endpoint will:
 - `OPENAI_API_KEY` — Your OpenAI API key (stored in Replit Secrets)
 - `SESSION_SECRET` — Flask session secret for secure authentication (auto-generated if not provided)
 - `SERPER_API_KEY` — Serper.dev API key for live web search (optional, enables web search feature)
+- `MAKE_WEBHOOK_SECRET` — Webhook authentication secret for Make.com callbacks (required for production)
+- `MAKE_WEBHOOK_AGENT_A` through `MAKE_WEBHOOK_AGENT_F` — Make.com webhook URLs for each agent (to be configured)
 
 ### Database Schema
 - **users** — name, email (unique), hashed_password, created_at
 - **projects** — name, color, user_id (foreign key), created_at
 - **conversations** — project_id (foreign key), title, messages (JSONB), user_id (foreign key), created_at, updated_at
+- **workflow_runs** — user_id (foreign key), agent_type, run_number, status, trigger_data (JSONB), callback_data (JSONB), error_message, triggered_at, completed_at
 
 All data is completely isolated by user_id for complete multi-tenant security.
+
+### Workflow Run Tracking
+The `workflow_runs` table tracks all Make.com workflow executions:
+- **Pending** — Workflow triggered, waiting for Make.com callback
+- **Success** — Make.com confirmed successful completion
+- **Failed** — Make.com reported error or workflow failed
+- Run counter only increments after successful callback (prevents skipped runs)
+- Frontend polls `/api/poll-workflow-status` every 5 seconds to check completion
+- Supports multi-run workflows (Agent A: 3 runs, Agent B: 2 runs)
 
 ## Integration Examples
 
@@ -218,7 +230,110 @@ All data is completely isolated by user_id for complete multi-tenant security.
 - Add logging and version control for prompt iterations
 - Consider migration to AWS/Render when stable
 
+## Make.com Integration
+
+### Webhook Authentication
+All Make.com callbacks must include the `X-Webhook-Secret` header with the configured secret for security.
+
+### Callback Endpoint: `/api/make-callback`
+**POST /api/make-callback** — Receives workflow completion callbacks from Make.com
+
+**Required Headers:**
+```
+X-Webhook-Secret: <MAKE_WEBHOOK_SECRET value>
+Content-Type: application/json
+```
+
+**Expected Payload:**
+```json
+{
+  "user_id": 123,
+  "agent_type": "shortlist",
+  "run_number": 1,
+  "status": "success",
+  "message": "Run 1 completed - client logged and proposal generated",
+  "data": {
+    "optional": "workflow results"
+  }
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Callback processed",
+  "agent_type": "shortlist",
+  "run_number": 1,
+  "status": "success"
+}
+```
+
+### Workflow Trigger Endpoint: `/api/trigger-workflow`
+**POST /api/trigger-workflow** — Triggers Make.com workflow for active agent
+
+**Request:**
+```json
+{
+  "conversation_context": [
+    {"role": "user", "content": "Recent message 1"},
+    {"role": "assistant", "content": "Recent response 1"}
+  ]
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Workflow triggered - waiting for completion",
+  "run_number": 1,
+  "run_id": 42,
+  "max_runs": 3
+}
+```
+
+### Polling Endpoint: `/api/poll-workflow-status`
+**GET /api/poll-workflow-status** — Check latest workflow run status
+
+**Response:**
+```json
+{
+  "success": true,
+  "status": "success",
+  "run_number": 1,
+  "message": "Run 1 completed successfully",
+  "error_message": null,
+  "completed_at": "2025-11-04T12:34:56"
+}
+```
+
+### Multi-Run Workflow Logic
+- **Agent A (Shortlist)**: 3 sequential runs with user confirmation between each
+  - Run 1: Login client, generate speculative report
+  - Run 2: Full detailed report (if qualified)
+  - Run 3: Follow-up with alternatives
+- **Agent B (Intros & Tours)**: 2 sequential runs
+  - Run 1: Initial outreach
+  - Run 2: Follow-up sequence
+- **Agents C-F**: Single-run workflows
+
+Frontend automatically prompts user: "Ready for Run 2?" after successful completion.
+
 ## Recent Changes
+
+- **2025-11-05**: 🔐 **Production-Ready Make.com Webhook Integration**
+  - Added `workflow_runs` database table to track all workflow executions
+  - Implemented secure callback endpoint `/api/make-callback` with `X-Webhook-Secret` authentication
+  - Run counter now increments only after Make.com confirms success (prevents skipped runs)
+  - Added `/api/poll-workflow-status` endpoint for frontend to check workflow completion
+  - Implemented frontend polling (every 5 seconds) to display workflow results in chat
+  - Automatic run progression prompts: "Ready for Run 2?" after successful completion
+  - Database functions: `create_workflow_run`, `update_workflow_run`, `get_latest_workflow_run`, `get_next_run_number`
+  - Multi-run workflows fully supported (Agent A: 3 runs, Agent B: 2 runs)
+  - User must confirm between each sequential run before progressing
+  - Frontend displays success/error messages with workflow data from Make.com
+  - Complete audit trail of all workflow triggers and callbacks in PostgreSQL
 
 - **2025-11-04**: 🤖 **Added Make.com Agent Mode Connectors**
   - Implemented 6 specialized agent modes with dedicated system prompts
