@@ -386,12 +386,15 @@ def update_workflow_run(user_id, agent_type, run_number, status, callback_data=N
                     callback_data = %s,
                     error_message = %s,
                     completed_at = CURRENT_TIMESTAMP
-                WHERE user_id = %s 
-                AND agent_type = %s 
-                AND run_number = %s
-                AND status = 'pending'
-                ORDER BY triggered_at DESC
-                LIMIT 1
+                WHERE id = (
+                    SELECT id FROM workflow_runs
+                    WHERE user_id = %s 
+                    AND agent_type = %s 
+                    AND run_number = %s
+                    AND status = 'pending'
+                    ORDER BY triggered_at DESC
+                    LIMIT 1
+                )
             """, (
                 status, 
                 json.dumps(callback_data) if callback_data else None,
