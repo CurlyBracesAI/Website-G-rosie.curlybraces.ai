@@ -1294,6 +1294,7 @@
         
         // Handle agent selection
         async function selectAgent(agentType, agentName, buttonElement) {
+            console.log('📞 selectAgent called:', agentType, agentName);
             try {
                 const response = await fetch('/api/set-agent', {
                     method: 'POST',
@@ -1301,8 +1302,10 @@
                     body: JSON.stringify({ agent: agentType })
                 });
                 
+                console.log('✅ Set-agent response:', response.status);
                 if (response.ok) {
                     currentAgent = agentType;
+                    console.log('✅ Current agent set to:', currentAgent);
                     
                     // Reset run counter when switching agents
                     await fetch('/api/reset-agent-run', { method: 'POST' });
@@ -1355,10 +1358,13 @@
         
         // Attach agent button listeners
         function initAgentButtons() {
+            console.log('🔧 Initializing agent buttons...');
             document.querySelectorAll('.agent-btn').forEach(button => {
+                console.log('Found agent button:', button.dataset.agent);
                 button.addEventListener('click', function() {
                     const agentType = this.dataset.agent;
                     const agentName = this.querySelector('.agent-btn-title').textContent.trim();
+                    console.log('🎯 Agent button clicked:', agentType, agentName);
                     selectAgent(agentType, agentName, this);
                 });
             });
