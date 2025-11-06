@@ -23,6 +23,14 @@ app = Flask(__name__)
 CORS(app)
 app.secret_key = os.getenv('SESSION_SECRET', 'dev-secret-change-in-production')
 
+# Disable caching for development to prevent stale JavaScript
+@app.after_request
+def add_header(response):
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '-1'
+    return response
+
 # Initialize database tables on startup
 try:
     initialize_database()
