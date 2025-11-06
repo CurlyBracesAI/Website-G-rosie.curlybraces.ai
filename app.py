@@ -411,6 +411,13 @@ def make_callback():
     Requires webhook secret for authentication.
     """
     try:
+        # DEBUG: Log raw request first
+        print("=" * 50)
+        print("🔔 MAKE.COM CALLBACK RECEIVED")
+        print(f"Headers: {dict(request.headers)}")
+        print(f"Raw data: {request.data}")
+        print("=" * 50)
+        
         # Verify webhook secret
         webhook_secret = os.getenv('MAKE_WEBHOOK_SECRET')
         if not webhook_secret:
@@ -421,13 +428,8 @@ def make_callback():
                 print(f"Invalid webhook secret received")
                 return jsonify({'success': False, 'error': 'Unauthorized'}), 401
         
-        data = request.get_json()
-        
-        # DEBUG: Log the entire received payload
-        print("=" * 50)
-        print("🔔 MAKE.COM CALLBACK RECEIVED")
-        print(f"Full payload: {json.dumps(data, indent=2)}")
-        print("=" * 50)
+        data = request.get_json(force=True)
+        print(f"Parsed JSON: {json.dumps(data, indent=2)}")
         
         # Expected payload from Make.com:
         # {
