@@ -456,17 +456,31 @@ def make_callback():
         # }
         
         user_id = data.get('user_id')
-        agent_type = data.get('agent_type')
+        agent_type_raw = data.get('agent_type')
         run_number = data.get('run_number')
         status = data.get('status', 'success')
         message = data.get('message', '')
         workflow_data = data.get('data', {})
         
-        if not all([user_id, agent_type, run_number]):
+        if not all([user_id, agent_type_raw, run_number]):
             return jsonify({'success': False, 'error': 'Missing required fields'}), 400
         
+        # Translate Make.com agent names to Rosie internal names
+        # Make.com uses: agent_a, agent_b, etc. (hardcoded in HTTP modules)
+        # Rosie uses: shortlist, intros, triage, etc. (from UI agent selection)
+        agent_name_mapping = {
+            'agent_a': 'shortlist',
+            'agent_b': 'intros',
+            'agent_c': 'triage',
+            'agent_d': 'updates',
+            'agent_e': 'sync',
+            'agent_f': 'inventory'
+        }
+        
+        agent_type = agent_name_mapping.get(agent_type_raw, agent_type_raw)
+        
         # Log the callback for debugging
-        print(f"Make.com callback: user={user_id}, agent={agent_type}, run={run_number}, status={status}")
+        print(f"Make.com callback: user={user_id}, agent={agent_type_raw} -> {agent_type}, run={run_number}, status={status}")
         print(f"Message: {message}")
         
         # Update workflow run in database
