@@ -801,11 +801,13 @@
             
             // Check for workflow confirmation if an agent is active
             if (currentAgent && isWorkflowConfirmation(message)) {
+                console.log('🚀 Workflow confirmation detected, triggering workflow...');
                 sendButton.disabled = true;
                 showTypingIndicator();
                 
                 // Trigger Make.com workflow
                 try {
+                    console.log('📡 Sending request to /api/trigger-workflow');
                     const response = await fetch('/api/trigger-workflow', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -814,7 +816,9 @@
                         })
                     });
                     
+                    console.log('📥 Response received:', response.status);
                     const data = await response.json();
+                    console.log('📦 Response data:', data);
                     hideTypingIndicator();
                     
                     if (data.success) {
