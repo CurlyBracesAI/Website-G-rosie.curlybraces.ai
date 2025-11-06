@@ -404,6 +404,11 @@ def trigger_workflow():
         print(f"Error in trigger_workflow: {e}")
         return jsonify({'success': False, 'error': 'Failed to trigger workflow'}), 500
 
+@app.errorhandler(Exception)
+def handle_error(e):
+    print("ERROR:", e)
+    return jsonify({"error": str(e)}), 500
+
 @app.route('/api/make-callback', methods=['POST'])
 def make_callback():
     """
