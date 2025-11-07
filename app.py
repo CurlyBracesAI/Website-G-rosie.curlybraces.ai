@@ -36,7 +36,8 @@ ERROR_MESSAGES = {
     'VALIDATION': {
         'crm_stage': "⚠️ **CRM Stage Check Failed**\n\nThe deal must be in the correct CRM trigger stage before running this workflow.\n\n**Next steps:**\n1. Verify the deal is in the proper stage in your CRM\n2. Move the deal if needed\n3. Try again once confirmed",
         'missing_field': "⚠️ **Required Information Missing**\n\n{field_name} is required for this workflow.\n\n**Next steps:**\n1. Update the deal with the missing information\n2. Try running the workflow again",
-        'invalid_run': "⚠️ **Invalid Workflow Selection**\n\nThis workflow run is not available for this agent.\n\n**Next steps:**\nPlease select a valid run number for this agent."
+        'invalid_run': "⚠️ **Invalid Workflow Selection**\n\nThis workflow run is not available for this agent.\n\n**Next steps:**\nPlease select a valid run number for this agent.",
+        'general_validation': "⚠️ **Validation Check Failed**\n\n{error_detail}\n\n**Next steps:**\n1. Review the error details above\n2. Ensure all workflow prerequisites are met\n3. Try again once corrected"
     },
     'DATA_QUALITY': {
         'invalid_email': "⚠️ **Email Format Error**\n\nThe email address appears to be invalid: {email}\n\n**Next steps:**\n1. Check the email address in your CRM\n2. Correct any typos\n3. Try again",
@@ -70,19 +71,37 @@ def classify_error(error_data):
     error_type = error_data.get('error_type', 'unknown')
     error_message = error_data.get('message', '').lower()
     
+    # Check for data quality patterns FIRST (regardless of error_type)
+    # This ensures validation-typed emails/phones route to data_quality
+    if 'invalid email' in error_message or 'email format' in error_message or 'email address' in error_message:
+        return (ERROR_CATEGORIES['DATA_QUALITY'], 'invalid_email', False)
+    elif 'invalid phone' in error_message or 'phone format' in error_message or 'phone number' in error_message:
+        return (ERROR_CATEGORIES['DATA_QUALITY'], 'invalid_phone', False)
+    
     # Check for validation errors
-    if error_type == 'validation' or 'crm stage' in error_message or 'missing' in error_message:
+    if error_type == 'validation':
         if 'crm stage' in error_message or 'trigger stage' in error_message:
             return (ERROR_CATEGORIES['VALIDATION'], 'crm_stage', False)
         elif 'required' in error_message or 'missing' in error_message:
             return (ERROR_CATEGORIES['VALIDATION'], 'missing_field', False)
+        elif ('invalid run' in error_message or 'run number' in error_message or 
+              'flow number' in error_message or 'flow selection' in error_message):
+            # Specific to invalid run/flow selection errors
+            return (ERROR_CATEGORIES['VALIDATION'], 'invalid_run', False)
+        else:
+            # Generic validation error fallback
+            return (ERROR_CATEGORIES['VALIDATION'], 'general_validation', False)
     
-    # Check for data quality errors
-    if error_type == 'data_quality' or 'invalid' in error_message:
+    # Check for data quality type (backup for when keywords don't match)
+    if error_type == 'data_quality':
+        # Default data quality error when specific patterns weren't caught above
         if 'email' in error_message:
             return (ERROR_CATEGORIES['DATA_QUALITY'], 'invalid_email', False)
         elif 'phone' in error_message:
             return (ERROR_CATEGORIES['DATA_QUALITY'], 'invalid_phone', False)
+        else:
+            # Generic data quality error - treat as workflow error with detail
+            return (ERROR_CATEGORIES['WORKFLOW_ERROR'], 'make_logic_error', False)
     
     # Check for workflow/CRM errors
     if error_type == 'workflow' or 'crm' in error_message or 'api' in error_message:
