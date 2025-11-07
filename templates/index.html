@@ -772,6 +772,9 @@
                             completionMessage += `\n\n**Need to run another flow?** Just let me know which one (${flowOptions}) and I'll trigger it for you.`;
                             
                             addMessage('assistant', completionMessage);
+                            
+                            // Reset failure count on successful completion
+                            sessionStorage.removeItem('workflow_failure_count');
                         } else if (data.status === 'failed') {
                             // Show user-friendly error message with category-specific guidance
                             let errorMessage = data.error_message || data.message || `❌ Run ${data.run_number} failed.`;
@@ -782,12 +785,34 @@
                             }
                             
                             addMessage('assistant', errorMessage);
+                            
+                            // Reset failure count on successful callback (even if failed status)
+                            sessionStorage.removeItem('workflow_failure_count');
                         }
                     } else if (pollCount >= maxPolls) {
                         // Timeout - stop polling, likely Bridge scenario never started
                         clearInterval(workflowPollingInterval);
                         workflowPollingInterval = null;
-                        addMessage('assistant', '⚠️ **The workflow is failing to trigger.**\n\nThe most common cause is that the deal hasn\'t been placed in the correct trigger stage in Pipedrive.\n\n**Next steps:**\n1. Check that your deal is in the trigger stage\n2. Move it to the correct stage if needed\n3. Try running the flow again\n\nIf the deal is already in the correct stage and this keeps happening, please let me know and I\'ll help troubleshoot.');
+                        
+                        // Track consecutive failures for escalating troubleshooting guidance
+                        let failureCount = parseInt(sessionStorage.getItem('workflow_failure_count') || '0');
+                        failureCount++;
+                        sessionStorage.setItem('workflow_failure_count', failureCount.toString());
+                        
+                        let troubleshootingMessage;
+                        
+                        if (failureCount === 1) {
+                            // First failure: Check trigger stage
+                            troubleshootingMessage = '⚠️ **The workflow is failing to trigger.**\n\nThe most common cause is that the deal hasn\'t been placed in the correct trigger stage in Pipedrive.\n\n**Next steps:**\n1. Check that your deal is in the trigger stage\n2. Move it to the correct stage if needed\n3. Try running the flow again\n\nIf you\'ve confirmed the trigger stage is correct and this keeps happening, let me know.';
+                        } else if (failureCount === 2) {
+                            // Second failure: Check AI confirmation flow stages
+                            troubleshootingMessage = '⚠️ **Still failing to trigger.**\n\nIf the trigger stage is correct, the next most common issue is the **AI confirmation flow stages being marked "Yes"**.\n\n**Next steps:**\n1. Check all AI confirmation flow stages in Pipedrive\n2. Make sure they are NOT marked "Yes" (should be blank or "No")\n3. Update any stages marked "Yes" to blank\n4. Try running the flow again\n\nIf you\'ve checked both of these and it still fails, let me know and I\'ll help investigate further.';
+                        } else {
+                            // Third+ failure: General troubleshooting
+                            troubleshootingMessage = '⚠️ **Workflow still not triggering.**\n\nYou\'ve confirmed:\n✓ Deal is in the correct trigger stage\n✓ AI confirmation flow stages aren\'t marked "Yes"\n\nThis might be a more complex issue. Please let me know and I can help troubleshoot, or contact support if you need immediate assistance.\n\n**For reference:** Individual module failures (like missing phone numbers) are normal and won\'t prevent the workflow from running - those just skip that specific step (e.g., no SMS if phone is missing).';
+                        }
+                        
+                        addMessage('assistant', troubleshootingMessage);
                     }
                 } catch (error) {
                     console.error('Error polling workflow status:', error);
