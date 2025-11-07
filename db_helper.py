@@ -375,7 +375,7 @@ def create_workflow_run(user_id, agent_type, run_number, trigger_data=None):
     finally:
         conn.close()
 
-def update_workflow_run(user_id, agent_type, run_number, status, callback_data=None, error_message=None):
+def update_workflow_run(user_id, agent_type, run_number, status, callback_data=None, error_message=None, error_category=None):
     """Update workflow run status when receiving callback from Make.com."""
     conn = get_db_connection()
     try:
@@ -385,6 +385,7 @@ def update_workflow_run(user_id, agent_type, run_number, status, callback_data=N
                 SET status = %s,
                     callback_data = %s,
                     error_message = %s,
+                    error_category = %s,
                     completed_at = CURRENT_TIMESTAMP
                 WHERE id = (
                     SELECT id FROM workflow_runs
@@ -399,6 +400,7 @@ def update_workflow_run(user_id, agent_type, run_number, status, callback_data=N
                 status, 
                 json.dumps(callback_data) if callback_data else None,
                 error_message,
+                error_category,
                 user_id, 
                 agent_type, 
                 run_number

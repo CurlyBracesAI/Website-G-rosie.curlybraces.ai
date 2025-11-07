@@ -773,14 +773,13 @@
                             
                             addMessage('assistant', completionMessage);
                         } else if (data.status === 'failed') {
-                            // Error message
-                            let errorMessage = `❌ Run ${data.run_number} failed.`;
+                            // Show user-friendly error message with category-specific guidance
+                            let errorMessage = data.error_message || data.message || `❌ Run ${data.run_number} failed.`;
                             
-                            if (data.error_message) {
-                                errorMessage += `\n\nError: ${data.error_message}`;
+                            // Log error category for debugging
+                            if (data.error_category) {
+                                console.log(`Error category: ${data.error_category}`);
                             }
-                            
-                            errorMessage += '\n\nPlease try again or contact support if the issue persists.';
                             
                             addMessage('assistant', errorMessage);
                         }
