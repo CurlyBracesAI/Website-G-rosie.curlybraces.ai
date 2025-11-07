@@ -322,6 +322,19 @@ Frontend automatically prompts user: "Ready for Run 2?" after successful complet
 
 ## Recent Changes
 
+- **2025-11-07**: 🧠 **Intelligent Conversation & Error Detection**
+  - **Natural language workflow triggering** — Rosie now parses user intent from casual conversation
+    - User can say "yes run flow 2", "let's do number 3", "go with run 1" instead of just typing numbers
+    - AI extracts run number using `[TRIGGER_FLOW:N]` marker syntax and auto-triggers workflow
+    - No more rigid command requirements - flexible, conversational interaction
+  - **Smart Bridge failure detection** — When workflow fails to trigger (no callback received), Rosie proactively suggests the most common cause:
+    - "⚠️ The workflow is failing to trigger. The most common cause is that the deal hasn't been placed in the correct trigger stage in Pipedrive."
+    - Provides step-by-step troubleshooting guidance instead of generic timeout message
+  - **Make.com error handling optimization** — Documented "Ignore" error handler setup to prevent queue blocking
+    - Error runs now auto-clear instead of requiring manual intervention
+    - "Run Immediately" button stays enabled even after errors
+    - Recommended configuration: Disable incomplete executions, disable sequential processing, increase max consecutive errors
+
 - **2025-11-06**: 🎯 **Agent A Fully Operational - Complete End-to-End Integration**
   - **Agent A (Shortlist) successfully tested** with all 3 sequential runs working perfectly
   - Complete workflow tested: User triggers → Make.com Bridge → Workflow scenario → HTTP callback → Database update → UI notification
