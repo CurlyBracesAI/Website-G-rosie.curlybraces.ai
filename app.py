@@ -348,7 +348,7 @@ def trigger_make_workflow(agent_type, run_number, user_data, conversation_contex
 @app.route('/api/trigger-workflow', methods=['POST'])
 @login_required
 def trigger_workflow():
-    """Trigger a Make.com workflow for the active agent."""
+    """Trigger a Make.com workflow for the active agent with user-selected run number."""
     try:
         user = get_current_user()
         if not user:
@@ -358,31 +358,41 @@ def trigger_workflow():
         if not agent_type:
             return jsonify({'success': False, 'error': 'No active agent selected'}), 400
         
-        # Get next run number from database (based on successfully completed runs)
-        current_run = get_next_run_number(user['id'], agent_type)
+        # Get run number from request (user selects which flow to run)
+        data = request.get_json()
+        run_number = data.get('run_number')
         
-        # Get agent configuration
+        # Get agent configuration to check max runs
         agent_config = AGENT_RUN_CONFIG.get(agent_type)
         if not agent_config:
             return jsonify({'success': False, 'error': 'Invalid agent type'}), 400
         
-        # Check if we've exceeded max runs
-        if current_run > agent_config['max_runs']:
+        if not run_number or not isinstance(run_number, int):
+            max_runs = agent_config['max_runs']
+            if max_runs == 1:
+                error_msg = 'Run number required (1 only)'
+            elif max_runs == 2:
+                error_msg = 'Run number required (1 or 2)'
+            else:
+                error_msg = f'Run number required (1 to {max_runs})'
+            return jsonify({'success': False, 'error': error_msg}), 400
+        
+        # Validate run number is within available flows for this agent
+        if run_number < 1 or run_number > agent_config['max_runs']:
             return jsonify({
                 'success': False,
-                'error': f'All runs completed for this agent ({agent_config["max_runs"]} total)'
+                'error': f'Invalid run number. Agent {agent_type} has flows 1-{agent_config["max_runs"]}'
             }), 400
         
         # Get conversation context from request
-        data = request.get_json()
         conversation_context = data.get('conversation_context', [])
         
         # Create workflow run record BEFORE triggering
         trigger_data = {
             'conversation_context': conversation_context,
-            'agent_config': agent_config['run_descriptions'][current_run - 1] if current_run <= len(agent_config['run_descriptions']) else None
+            'agent_config': agent_config['run_descriptions'][run_number - 1] if run_number <= len(agent_config['run_descriptions']) else None
         }
-        run_id = create_workflow_run(user['id'], agent_type, current_run, trigger_data)
+        run_id = create_workflow_run(user['id'], agent_type, run_number, trigger_data)
         
         if not run_id:
             return jsonify({'success': False, 'error': 'Failed to create workflow run record'}), 500
@@ -390,23 +400,22 @@ def trigger_workflow():
         # Trigger Make.com workflow
         success, message = trigger_make_workflow(
             agent_type,
-            current_run,
+            run_number,
             user,
             conversation_context
         )
         
         if success:
-            # Don't increment run number here - wait for callback
             return jsonify({
                 'success': True,
                 'message': 'Workflow triggered - waiting for completion',
-                'run_number': current_run,
+                'run_number': run_number,
                 'run_id': run_id,
                 'max_runs': agent_config['max_runs']
             }), 200
         else:
             # Mark as failed in database
-            update_workflow_run(user['id'], agent_type, current_run, 'failed', error_message=message)
+            update_workflow_run(user['id'], agent_type, run_number, 'failed', error_message=message)
             return jsonify({'success': False, 'error': message}), 500
             
     except Exception as e:
