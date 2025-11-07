@@ -327,6 +327,10 @@ Frontend automatically prompts user: "Ready for Run 2?" after successful complet
     - User can say "yes run flow 2", "let's do number 3", "go with run 1" instead of just typing numbers
     - AI extracts run number using `[TRIGGER_FLOW:N]` marker syntax and auto-triggers workflow
     - No more rigid command requirements - flexible, conversational interaction
+  - **Fixed agent prompts** — Changed from prescriptive to descriptive
+    - Agent prompts now explain what the agent DOES (e.g., "creates shortlist proposals from CRM data")
+    - Removed prescriptive instructions that forced Rosie to ask questions before triggering workflows
+    - Users can now immediately trigger workflows without Rosie asking for information first
   - **Escalating troubleshooting guidance** — Rosie tracks consecutive timeout failures and provides targeted help:
     - **1st timeout:** "Check that deal is in the correct trigger stage in Pipedrive"
     - **2nd timeout:** "Check that AI confirmation flow stages are NOT marked 'Yes' (should be blank or 'No')"
