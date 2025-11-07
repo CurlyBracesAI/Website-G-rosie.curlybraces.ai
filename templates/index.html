@@ -902,7 +902,61 @@
                 hideTypingIndicator();
                 
                 if (data.success) {
-                    addMessage('assistant', data.message);
+                    let assistantMessage = data.message;
+                    
+                    // Check for intelligent workflow trigger marker [TRIGGER_FLOW:N]
+                    const triggerMatch = assistantMessage.match(/\[TRIGGER_FLOW:(\d+)\]/);
+                    
+                    if (triggerMatch && currentAgent) {
+                        const extractedRunNumber = parseInt(triggerMatch[1]);
+                        
+                        // Remove the marker from the display message
+                        const cleanMessage = assistantMessage.replace(/\[TRIGGER_FLOW:\d+\]/g, '').trim();
+                        addMessage('assistant', cleanMessage);
+                        
+                        // Validate run number is within agent's allowed range
+                        if (extractedRunNumber >= 1 && extractedRunNumber <= agentMaxRuns) {
+                            console.log(`🤖 AI extracted run number: ${extractedRunNumber}, triggering workflow...`);
+                            
+                            // Trigger workflow automatically
+                            sendButton.disabled = true;
+                            
+                            setTimeout(async () => {
+                                try {
+                                    console.log('📡 Auto-triggering workflow from intelligent parsing');
+                                    const response = await fetch('/api/trigger-workflow', {
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify({
+                                            run_number: extractedRunNumber,
+                                            conversation_context: conversationHistory.slice(-5)
+                                        })
+                                    });
+                                    
+                                    const workflowData = await response.json();
+                                    
+                                    if (workflowData.success) {
+                                        // Start polling for workflow completion
+                                        startWorkflowPolling(workflowData.run_number, workflowData.max_runs);
+                                    } else {
+                                        addMessage('assistant', `❌ Failed to trigger workflow: ${workflowData.error || 'Unknown error'}`);
+                                    }
+                                    
+                                    sendButton.disabled = false;
+                                } catch (error) {
+                                    console.error('Error auto-triggering workflow:', error);
+                                    addMessage('assistant', "❌ Sorry, I couldn't trigger the workflow. Please try again.");
+                                    sendButton.disabled = false;
+                                }
+                            }, 500); // Small delay for UX
+                        } else {
+                            console.warn(`Invalid run number extracted: ${extractedRunNumber}`);
+                            addMessage('assistant', `⚠️ I detected you want to run flow ${extractedRunNumber}, but this agent only supports flows 1-${agentMaxRuns}.`);
+                        }
+                    } else {
+                        // Normal message without workflow trigger
+                        addMessage('assistant', assistantMessage);
+                    }
                     
                     conversationHistory.push({
                         role: 'user',
