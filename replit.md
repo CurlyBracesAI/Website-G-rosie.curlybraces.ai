@@ -165,6 +165,21 @@ Each endpoint will:
 
 ## Configuration
 
+### How to Manage Secrets in Replit
+
+**IMPORTANT:** Secrets are NOT in the left sidebar or Tools menu!
+
+**Location:** Click your **profile icon** (top right) → **Account** → **Account Secrets**
+
+Or navigate directly to: `https://replit.com/account#account-secrets`
+
+From there you can:
+- View all account-level secrets (values are hidden/encrypted)
+- Add new secrets with the **+ New secret** button
+- Edit or delete existing secrets
+
+These secrets are automatically available as environment variables in all your Replit apps.
+
 ### Required Environment Variables
 - `OPENAI_API_KEY` — Your OpenAI API key (stored in Replit Secrets)
 - `SESSION_SECRET` — Flask session secret for secure authentication (auto-generated if not provided)
