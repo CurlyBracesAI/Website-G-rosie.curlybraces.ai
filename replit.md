@@ -167,18 +167,25 @@ Each endpoint will:
 
 ### How to Manage Secrets in Replit
 
-**IMPORTANT:** Secrets are NOT in the left sidebar or Tools menu!
+**IMPORTANT:** There are TWO places to manage secrets in Replit!
 
+#### App Secrets (Project-Specific) - RECOMMENDED FOR THIS PROJECT
+**Location:** Click the **"+" menu** at the top of the preview pane → Scroll down → Select **"Secrets"**
+
+- These secrets are **only available to this specific project**
+- Use this for project-specific values like `MAKE_WEBHOOK_AGENT_A` through `MAKE_WEBHOOK_AGENT_F`
+- Changes take effect after restarting the workflow
+
+#### Account Secrets (Account-Wide)
 **Location:** Click your **profile icon** (top right) → **Account** → **Account Secrets**
 
 Or navigate directly to: `https://replit.com/account#account-secrets`
 
-From there you can:
-- View all account-level secrets (values are hidden/encrypted)
-- Add new secrets with the **+ New secret** button
-- Edit or delete existing secrets
+- These secrets are available across **ALL your Replit projects**
+- Better for reusable values like `OPENAI_API_KEY` or `SERPER_API_KEY`
+- Must be explicitly linked to each project that needs them
 
-These secrets are automatically available as environment variables in all your Replit apps.
+**Best Practice:** Use **App Secrets** for this project's Make.com webhook URLs since they're project-specific.
 
 ### Required Environment Variables
 - `OPENAI_API_KEY` — Your OpenAI API key (stored in Replit Secrets)
