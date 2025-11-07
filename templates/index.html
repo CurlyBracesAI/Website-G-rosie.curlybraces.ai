@@ -784,10 +784,10 @@
                             addMessage('assistant', errorMessage);
                         }
                     } else if (pollCount >= maxPolls) {
-                        // Timeout - stop polling
+                        // Timeout - stop polling, likely Bridge scenario never started
                         clearInterval(workflowPollingInterval);
                         workflowPollingInterval = null;
-                        addMessage('assistant', '⏱️ Workflow is taking longer than expected. I\'ll continue processing in the background. Please check back later or contact support if you need assistance.');
+                        addMessage('assistant', '⚠️ **The workflow is failing to trigger.**\n\nThe most common cause is that the deal hasn\'t been placed in the correct trigger stage in Pipedrive.\n\n**Next steps:**\n1. Check that your deal is in the trigger stage\n2. Move it to the correct stage if needed\n3. Try running the flow again\n\nIf the deal is already in the correct stage and this keeps happening, please let me know and I\'ll help troubleshoot.');
                     }
                 } catch (error) {
                     console.error('Error polling workflow status:', error);
