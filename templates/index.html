@@ -632,6 +632,8 @@
         let currentProjectId = null;
         let projectColors = {}; // Store project colors
         let currentAgent = null; // Store selected agent mode
+        let pendingWorkflowTrigger = false; // Waiting for run number selection
+        let agentMaxRuns = 3; // Max runs for current agent
         
         function formatResponse(text) {
             // For assistant messages, add line breaks before bullet points
@@ -751,18 +753,23 @@
                         
                         if (data.status === 'success') {
                             // Success message
-                            let completionMessage = `✅ Run ${data.run_number} completed successfully!`;
+                            let completionMessage = `✅ Flow ${data.run_number} completed successfully!`;
                             
                             if (data.message) {
                                 completionMessage += `\n\n${data.message}`;
                             }
                             
-                            // Check if more runs are available
-                            if (maxRuns && data.run_number < maxRuns) {
-                                completionMessage += `\n\n**Ready for Run ${data.run_number + 1}?** Type "yes" to continue.`;
-                            } else if (maxRuns && data.run_number >= maxRuns) {
-                                completionMessage += `\n\n🎉 All workflow runs completed!`;
+                            // Dynamic flow options based on agent's max runs
+                            let flowOptions;
+                            if (maxRuns === 1) {
+                                flowOptions = '1';
+                            } else if (maxRuns === 2) {
+                                flowOptions = '1 or 2';
+                            } else {
+                                flowOptions = `1 to ${maxRuns}`;
                             }
+                            
+                            completionMessage += `\n\n**Need to run another flow?** Just let me know which one (${flowOptions}) and I'll trigger it for you.`;
                             
                             addMessage('assistant', completionMessage);
                         } else if (data.status === 'failed') {
@@ -799,60 +806,79 @@
             addMessage('user', message);
             messageInput.value = '';
             
+            // Check if we're waiting for run number selection
+            if (pendingWorkflowTrigger) {
+                const runNumber = parseInt(message);
+                
+                if (runNumber >= 1 && runNumber <= agentMaxRuns) {
+                    console.log(`🚀 Run number ${runNumber} selected, triggering workflow...`);
+                    pendingWorkflowTrigger = false;
+                    sendButton.disabled = true;
+                    showTypingIndicator();
+                    
+                    // Trigger Make.com workflow with selected run number
+                    try {
+                        console.log('📡 Sending request to /api/trigger-workflow');
+                        const response = await fetch('/api/trigger-workflow', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                run_number: runNumber,
+                                conversation_context: conversationHistory.slice(-5)
+                            })
+                        });
+                        
+                        console.log('📥 Response received:', response.status);
+                        const data = await response.json();
+                        console.log('📦 Response data:', data);
+                        hideTypingIndicator();
+                        
+                        if (data.success) {
+                            let runMessage = `Great, I'm running Flow ${runNumber}. I'll place the report in the CRM client deal, along with the draft SMS and emails.`;
+                            addMessage('assistant', runMessage);
+                            
+                            // Start polling for workflow completion
+                            startWorkflowPolling(data.run_number, data.max_runs);
+                        } else {
+                            addMessage('assistant', `❌ Failed to trigger workflow: ${data.error || 'Unknown error'}`);
+                        }
+                        
+                        sendButton.disabled = false;
+                    } catch (error) {
+                        hideTypingIndicator();
+                        console.error('Error triggering workflow:', error);
+                        addMessage('assistant', "❌ Sorry, I couldn't trigger the workflow. Please try again or contact support.");
+                        sendButton.disabled = false;
+                    }
+                    return;
+                } else {
+                    // Invalid run number
+                    addMessage('assistant', `Please enter a valid flow number between 1 and ${agentMaxRuns}.`);
+                    return;
+                }
+            }
+            
             // Check for workflow confirmation if an agent is active
             if (currentAgent && isWorkflowConfirmation(message)) {
-                console.log('🚀 Workflow confirmation detected, triggering workflow...');
-                sendButton.disabled = true;
-                showTypingIndicator();
+                console.log('🚀 Workflow confirmation detected, asking for run number...');
+                pendingWorkflowTrigger = true;
                 
-                // Trigger Make.com workflow
-                try {
-                    console.log('📡 Sending request to /api/trigger-workflow');
-                    const response = await fetch('/api/trigger-workflow', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            conversation_context: conversationHistory.slice(-5) // Send last 5 messages
-                        })
-                    });
-                    
-                    console.log('📥 Response received:', response.status);
-                    const data = await response.json();
-                    console.log('📦 Response data:', data);
-                    hideTypingIndicator();
-                    
-                    if (data.success) {
-                        // Workflow triggered successfully
-                        let runMessage = "Great, I'm running the flow";
-                        
-                        if (data.run_number) {
-                            runMessage += ` (Run ${data.run_number})`;
-                        }
-                        
-                        runMessage += ". I'll place the report in the CRM client deal, along with the draft SMS and emails.";
-                        
-                        // Add info about next run if applicable
-                        if (data.max_runs && data.run_number < data.max_runs) {
-                            const remaining = data.max_runs - data.run_number;
-                            runMessage += `\n\n*Note: This workflow has ${remaining} more run${remaining > 1 ? 's' : ''} available. I'll let you know when this run completes.*`;
-                        }
-                        
-                        addMessage('assistant', runMessage);
-                        
-                        // Start polling for workflow completion
-                        startWorkflowPolling(data.run_number, data.max_runs);
-                    } else {
-                        // Workflow trigger failed
-                        addMessage('assistant', `❌ Failed to trigger workflow: ${data.error || 'Unknown error'}`);
-                    }
-                    
-                    sendButton.disabled = false;
-                } catch (error) {
-                    hideTypingIndicator();
-                    console.error('Error triggering workflow:', error);
-                    addMessage('assistant', "❌ Sorry, I couldn't trigger the workflow. Please try again or contact support.");
-                    sendButton.disabled = false;
+                // Ask which flow to run
+                let flowPrompt = `Which flow would you like to run?`;
+                
+                if (agentMaxRuns === 1) {
+                    flowPrompt = 'Running the workflow...';
+                    pendingWorkflowTrigger = false;
+                    // Auto-trigger for single-run agents
+                    sendMessage.call(this, {target: {value: '1'}});
+                    return;
+                } else if (agentMaxRuns === 2) {
+                    flowPrompt += ` Enter **1** or **2**.`;
+                } else {
+                    flowPrompt += ` Enter **1**, **2**, or **3**.`;
                 }
+                
+                addMessage('assistant', flowPrompt);
                 return;
             }
             
@@ -1307,8 +1333,20 @@
                     currentAgent = agentType;
                     console.log('✅ Current agent set to:', currentAgent);
                     
-                    // Reset run counter when switching agents
-                    await fetch('/api/reset-agent-run', { method: 'POST' });
+                    // Set max runs based on agent type
+                    const agentRunConfig = {
+                        'shortlist': 3,
+                        'intros': 2,
+                        'triage': 1,
+                        'updates': 1,
+                        'sync': 1,
+                        'inventory': 1
+                    };
+                    agentMaxRuns = agentRunConfig[agentType] || 1;
+                    console.log(`✅ Agent ${agentType} has ${agentMaxRuns} flows available`);
+                    
+                    // Reset workflow trigger state when switching agents
+                    pendingWorkflowTrigger = false;
                     
                     // Update UI to show active agent
                     document.querySelectorAll('.agent-btn').forEach(btn => {
