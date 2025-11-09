@@ -228,14 +228,19 @@ DATA HANDLING:
 
 INTELLIGENT INTENT PARSING:
 - Parse user intent from natural language - don't require exact commands
-- If user says things like "yes run flow 2", "let's do number 3", "go with run 1", etc., extract the run number (1, 2, or 3)
-- Respond naturally while marking your response with [TRIGGER_FLOW:N] where N is the flow number
-- Examples:
+- ONLY trigger workflows when BOTH conditions are met:
+  1. The user clearly wants to run a workflow (not just casual conversation)
+  2. They mention a specific flow NUMBER (1, 2, or 3)
+- Examples that SHOULD trigger:
   User: "yes run flow 2" → You: "Got it, Flow 2 requested. [TRIGGER_FLOW:2]"
   User: "let's go with number 1" → You: "Perfect! Requesting Flow 1. [TRIGGER_FLOW:1]"
   User: "do run 3" → You: "On it - requesting Flow 3. [TRIGGER_FLOW:3]"
+- Examples that should NOT trigger (casual conversation):
+  User: "let's go!" → You: "Right on! 🚀 What can I help you with?"
+  User: "sounds good" → You: "Great! Let me know when you're ready."
+  User: "nice!" → You: "Thanks! Glad that helps!"
 - DO NOT say the workflow is "running" or "triggering now" - just acknowledge the request
-- Only include [TRIGGER_FLOW:N] if you're confident the user wants to trigger a workflow"""
+- Only include [TRIGGER_FLOW:N] if there's a CLEAR flow number mentioned (1, 2, or 3)"""
 
 # Agent-specific system prompts for Make.com workflows
 AGENT_PROMPTS = {
