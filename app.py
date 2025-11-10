@@ -162,6 +162,43 @@ def get_current_user():
         return get_user_by_id(session['user_id'])
     return None
 
+def should_use_web_search(query):
+    """
+    Intelligently detect if a query would benefit from live web search.
+    Returns True if the query appears to need current/recent information.
+    """
+    query_lower = query.lower()
+    
+    # Keywords that indicate need for current information
+    time_indicators = [
+        'today', 'now', 'current', 'currently', 'recent', 'recently', 'latest', 'new',
+        'this week', 'this month', 'this year', '2024', '2025', '2026',
+        'yesterday', 'tomorrow', 'upcoming', 'soon'
+    ]
+    
+    # Question types that typically need live data
+    live_data_patterns = [
+        'what is', 'what are', 'how much', 'when is', 'when did', 'when will',
+        'price of', 'cost of', 'stock', 'weather', 'news about', 'status of',
+        'available', 'open', 'schedule', 'happening'
+    ]
+    
+    # Check for time indicators
+    if any(indicator in query_lower for indicator in time_indicators):
+        return True
+    
+    # Check for live data patterns combined with specific topics
+    if any(pattern in query_lower for pattern in live_data_patterns):
+        # Additional context that suggests needing web search
+        web_worthy_topics = [
+            'event', 'conference', 'company', 'product', 'service', 'restaurant',
+            'movie', 'show', 'game', 'score', 'result', 'winner', 'market'
+        ]
+        if any(topic in query_lower for topic in web_worthy_topics):
+            return True
+    
+    return False
+
 def fetch_web_data(query):
     """
     Fetch current web data using Serper.dev API.
@@ -767,9 +804,13 @@ def rosie_test():
                     'error': 'History role must be "user", "assistant", or "system"'
                 }), 400
         
-        # Fetch web data if enabled
+        # Auto-detect if web search is needed, or use manual override from checkbox
+        auto_search_needed = should_use_web_search(user_message)
+        use_search = enable_search or auto_search_needed
+        
+        # Fetch web data if needed
         web_context = None
-        if enable_search:
+        if use_search:
             web_context = fetch_web_data(user_message)
         
         # Modify user message if we have web context
