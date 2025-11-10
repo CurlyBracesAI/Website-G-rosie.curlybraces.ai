@@ -173,18 +173,32 @@ def should_use_web_search(query):
     time_indicators = [
         'today', 'now', 'current', 'currently', 'recent', 'recently', 'latest', 'new',
         'this week', 'this month', 'this year', '2024', '2025', '2026',
-        'yesterday', 'tomorrow', 'upcoming', 'soon'
+        'yesterday', 'tomorrow', 'upcoming', 'soon', 'weekend', 'last night',
+        'this morning', 'tonight', 'update', 'breaking'
+    ]
+    
+    # Topics that inherently need current information
+    current_info_topics = [
+        'news', 'politics', 'election', 'war', 'conflict', 'crisis',
+        'stock', 'market', 'price', 'cost', 'weather', 'forecast',
+        'score', 'game', 'match', 'winner', 'result', 'standings',
+        'update', 'announcement', 'release', 'launch', 'event'
     ]
     
     # Question types that typically need live data
     live_data_patterns = [
         'what is', 'what are', 'how much', 'when is', 'when did', 'when will',
-        'price of', 'cost of', 'stock', 'weather', 'news about', 'status of',
-        'available', 'open', 'schedule', 'happening'
+        'price of', 'cost of', 'weather', 'news about', 'status of',
+        'available', 'open', 'schedule', 'happening', 'what happened',
+        'give me an update', 'tell me about'
     ]
     
     # Check for time indicators
     if any(indicator in query_lower for indicator in time_indicators):
+        return True
+    
+    # Check for topics that inherently need current info
+    if any(topic in query_lower for topic in current_info_topics):
         return True
     
     # Check for live data patterns combined with specific topics
