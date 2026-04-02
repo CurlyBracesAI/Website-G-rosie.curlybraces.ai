@@ -79,13 +79,15 @@ export default function Home() {
 
       {/* THE PROBLEM */}
       <section className="section" id="problem">
-        <span className="label">The problem</span>
-        <h2>Your EHR starts at session one.<br />What about before?</h2>
-        <p style={{ maxWidth: 580, marginTop: '0.5rem' }}>
-          HIPAA-compliant CRMs are built for hospitals, priced for enterprises, or designed for
-          patients you already have. Rosie is built for the clients you haven&apos;t met yet —
-          purpose-built for small and medium therapy and wellness practices.
-        </p>
+        <div className="section-head">
+          <span className="label">The problem</span>
+          <h2>Your EHR starts at session one.<br />What about before?</h2>
+          <p>
+            HIPAA-compliant CRMs are built for hospitals, priced for enterprises, or designed for
+            patients you already have. Rosie is built for the clients you haven&apos;t met yet —
+            purpose-built for small and medium therapy and wellness practices.
+          </p>
+        </div>
 
         <div className="problem-grid">
           {[
@@ -108,8 +110,10 @@ export default function Home() {
       {/* HOW IT WORKS */}
       <div className="section-tinted">
         <section className="section" id="how-it-works">
-          <span className="label">How it works</span>
-          <h2>First contact to first session — on autopilot</h2>
+          <div className="section-head">
+            <span className="label">How it works</span>
+            <h2>First contact to first session — on autopilot</h2>
+          </div>
 
           <div className="steps-grid">
             {[
@@ -133,13 +137,15 @@ export default function Home() {
 
       {/* MEET ROSIE */}
       <section className="section" id="features">
-        <span className="label">Meet Rosie — your AI</span>
-        <h2>Not just automation.<br />An AI trained on your intake process.</h2>
-        <p style={{ maxWidth: 560, marginTop: '0.5rem' }}>
-          Rosie isn&apos;t a generic chatbot. She&apos;s trained specifically on therapy intake
-          workflows — the stages, the scripts, the clinical sensitivity required. She plans, guides,
-          drafts, and flags.
-        </p>
+        <div className="section-head">
+          <span className="label">Meet Rosie — your AI</span>
+          <h2>Not just automation.<br />An AI trained on your intake process.</h2>
+          <p>
+            Rosie isn&apos;t a generic chatbot. She&apos;s trained specifically on therapy intake
+            workflows — the stages, the scripts, the clinical sensitivity required. She plans, guides,
+            drafts, and flags.
+          </p>
+        </div>
 
         <div className="chat-preview">
           <div className="chat-header">
@@ -190,9 +196,11 @@ export default function Home() {
       {/* PRICING */}
       <div className="section-tinted">
         <section className="section" id="pricing">
-          <span className="label">Pricing</span>
-          <h2>Start free. Upgrade when you&apos;re ready.</h2>
-          <p>A free tier, always. Pro is free for all beta practices — for as long as you&apos;re with us.</p>
+          <div className="section-head">
+            <span className="label">Pricing</span>
+            <h2>Start free. Upgrade when you&apos;re ready.</h2>
+            <p>A free tier, always. Pro is free for all beta practices — for as long as you&apos;re with us.</p>
+          </div>
 
           <div className="pricing-grid">
             {/* FREE */}
@@ -244,12 +252,14 @@ export default function Home() {
 
       {/* BOLT-ON MODULES */}
       <section className="section" id="modules">
-        <span className="label">Bolt-on modules</span>
-        <h2>Grow with Rosie</h2>
-        <p>
-          Start with intake. Add what you need, when you need it. Each module plugs into your
-          existing Rosie workflow — available on Pro.
-        </p>
+        <div className="section-head">
+          <span className="label">Bolt-on modules</span>
+          <h2>Grow with Rosie</h2>
+          <p>
+            Start with intake. Add what you need, when you need it. Each module plugs into your
+            existing Rosie workflow — available on Pro.
+          </p>
+        </div>
         <span className="modules-intro">⚡ All modules require Pro · Pricing on request</span>
 
         <div className="modules-grid">
@@ -281,8 +291,10 @@ export default function Home() {
       {/* TRUST */}
       <div className="section-tinted">
         <section className="section" id="trust">
-          <span className="label">Trust &amp; compliance</span>
-          <h2>Built for healthcare from the ground up</h2>
+          <div className="section-head">
+            <span className="label">Trust &amp; compliance</span>
+            <h2>Built for healthcare from the ground up</h2>
+          </div>
 
           <div className="trust-stats">
             {[
@@ -352,7 +364,7 @@ export default function Home() {
               Rosie
             </div>
             <div className="footer-sub">
-              Part of <a href="https://curlybraces.ai" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--green-600)', fontWeight: 600 }}>{'{'}curlybraces.ai{'}'}</a> · © 2026 CurlyBraces AI
+              Part of <a href="https://curlybraces.ai" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--green-500)', fontWeight: 600 }}>{'{'}curlybraces.ai{'}'}</a> · © 2026 CurlyBraces AI
             </div>
           </div>
           <div className="footer-links">
