@@ -21,17 +21,17 @@ export default function Home() {
       {/* HERO */}
       <div className="hero-wrap">
         <section className="hero">
-          <div className="hero-badges">
-            <span className="badge badge-amber">
-              <span className="badge-dot badge-dot-amber" />
+          <div className="hero-icon-badges">
+            <span className="icon-badge">
+              <span className="icon-badge-tile tile-amber">⭐</span>
               Beta — Pro plan free while it lasts
             </span>
-            <span className="badge badge-teal">
-              <span className="badge-dot badge-dot-teal" />
+            <span className="icon-badge">
+              <span className="icon-badge-tile tile-indigo">🔒</span>
               HIPAA-compliant
             </span>
-            <span className="badge badge-coral">
-              <span className="badge-dot badge-dot-coral" />
+            <span className="icon-badge">
+              <span className="icon-badge-tile tile-emerald">✓</span>
               No credit card needed
             </span>
           </div>
@@ -224,8 +224,9 @@ export default function Home() {
               <div className="featured-accent">⭐ Most Popular — Free during beta</div>
               <div className="card-header">
                 <span className="label" style={{ margin: 0 }}>Pro</span>
-                <span className="badge badge-amber" style={{ fontSize: 11 }}>
-                  <span className="badge-dot badge-dot-amber" />Free in beta
+                <span className="icon-badge" style={{ padding: '5px 10px 5px 5px', fontSize: 11, borderRadius: 8 }}>
+                  <span className="icon-badge-tile tile-amber" style={{ width: 20, height: 20, borderRadius: 5, fontSize: 10 }}>⭐</span>
+                  Free in beta
                 </span>
               </div>
               <div className="price-amount">$19–29 <span>/ seat / month</span></div>
@@ -338,8 +339,8 @@ export default function Home() {
       {/* FINAL CTA */}
       <section className="section">
         <div className="cta-box">
-          <span className="badge badge-amber">
-            <span className="badge-dot badge-dot-amber" />
+          <span className="icon-badge" style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', borderRadius: 10, padding: '7px 16px 7px 7px' }}>
+            <span className="icon-badge-tile tile-amber" style={{ width: 26, height: 26, borderRadius: 7, fontSize: 13 }}>⭐</span>
             Beta — limited spots available
           </span>
           <h2>Start with intake.<br />Stay for everything else.</h2>
