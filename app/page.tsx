@@ -23,11 +23,11 @@ export default function Home() {
         <section className="hero">
           <div className="hero-icon-badges">
             <span className="icon-badge">
-              <span className="icon-badge-tile tile-amber">⭐</span>
+              <span className="icon-badge-tile tile-coral">⭐</span>
               Beta — Pro plan free while it lasts
             </span>
             <span className="icon-badge">
-              <span className="icon-badge-tile tile-indigo">🔒</span>
+              <span className="icon-badge-tile tile-navy">🔒</span>
               HIPAA-compliant
             </span>
             <span className="icon-badge">
