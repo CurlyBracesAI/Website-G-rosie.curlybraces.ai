@@ -21,18 +21,26 @@ export default function Home() {
       {/* HERO */}
       <div className="hero-wrap">
         <section className="hero">
+
+          {/* Hero icon badges — larger tile style */}
           <div className="hero-icon-badges">
             <span className="icon-badge">
               <span className="icon-badge-tile tile-coral">⭐</span>
-              Beta — Pro plan free while it lasts
+              <span>
+                <strong>Beta</strong> — Pro plan free while it lasts
+              </span>
             </span>
             <span className="icon-badge">
               <span className="icon-badge-tile tile-navy">🔒</span>
-              HIPAA-compliant
+              <span>
+                <strong>HIPAA</strong>-compliant from day one
+              </span>
             </span>
             <span className="icon-badge">
               <span className="icon-badge-tile tile-emerald">✓</span>
-              No credit card needed
+              <span>
+                <strong>No</strong> credit card needed
+              </span>
             </span>
           </div>
 
@@ -47,14 +55,26 @@ export default function Home() {
             <button className="btn-secondary btn-lg">See how it works</button>
           </div>
 
-          <div className="comp-pills">
-            <span className="comp-pill">✓ No enterprise pricing</span>
-            <span className="comp-pill">✓ No generic CRMs</span>
-            <span className="comp-pill">✓ No steep learning curves</span>
-            <span className="comp-pill">✓ No missing therapy workflows</span>
-            <span className="comp-pill">✓ No minimum user counts</span>
-            <span className="comp-pill">✓ No paywalled entry point</span>
+          {/* Replacing bitty pills with graphic tile grid */}
+          <div className="tile-grid-3">
+            {[
+              { tile: 'tile-coral',   icon: '🏢', title: 'No enterprise pricing',       desc: 'Priced for real practices, not hospitals' },
+              { tile: 'tile-violet',  icon: '🤖', title: 'No generic CRMs',             desc: 'Built for therapy intake, not sales' },
+              { tile: 'tile-sky',     icon: '📚', title: 'No steep learning curves',    desc: 'Up and running in under an hour' },
+              { tile: 'tile-amber',   icon: '🔧', title: 'No missing workflows',        desc: 'Every intake stage is covered' },
+              { tile: 'tile-emerald', icon: '👥', title: 'No minimum user counts',      desc: 'Solo to group — same price logic' },
+              { tile: 'tile-navy',    icon: '🔒', title: 'No paywalled entry point',    desc: 'Free tier, always. No bait and switch' },
+            ].map(({ tile, icon, title, desc }) => (
+              <div className="tile-card" key={title}>
+                <span className={`tile-icon ${tile}`}>{icon}</span>
+                <span className="tile-card-text">
+                  <span className="tile-card-title">{title}</span>
+                  <span className="tile-card-desc">{desc}</span>
+                </span>
+              </div>
+            ))}
           </div>
+
         </section>
       </div>
 
@@ -89,17 +109,19 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="problem-grid">
+        <div className="tile-grid-2">
           {[
-            { icon: '🧊', title: 'Leads go cold', body: "You're busy! Clinicians miss follow-ups. Prospective clients move on. No one tracks the gap." },
-            { icon: '📋', title: 'Spreadsheets & paper', body: 'Intake tracking lives in notebooks and shared docs. Nothing is automated or consistent.' },
-            { icon: '🔧', title: 'No pre-patient tooling', body: "Practice management systems don't manage outreach. General CRMs don't understand therapy intake." },
-            { icon: '💸', title: 'Expensive alternatives', body: 'Enterprise tools charge per-seat minimums with no free entry point for small practices.' },
-          ].map(({ icon, title, body }) => (
-            <div className="prob-card" key={title}>
-              <span className="prob-icon">{icon}</span>
-              <h3>{title}</h3>
-              <p>{body}</p>
+            { tile: 'tile-sky',    icon: '🧊', title: 'Leads go cold',          body: "You're busy! Clinicians miss follow-ups. Prospective clients move on. No one tracks the gap." },
+            { tile: 'tile-amber',  icon: '📋', title: 'Spreadsheets & paper',   body: 'Intake tracking lives in notebooks and shared docs. Nothing is automated or consistent.' },
+            { tile: 'tile-coral',  icon: '🔧', title: 'No pre-patient tooling', body: "Practice management systems don't manage outreach. General CRMs don't understand therapy intake." },
+            { tile: 'tile-violet', icon: '💸', title: 'Expensive alternatives', body: 'Enterprise tools charge per-seat minimums with no free entry point for small practices.' },
+          ].map(({ tile, icon, title, body }) => (
+            <div className="tile-card tile-card-tall" key={title}>
+              <span className={`tile-icon ${tile}`}>{icon}</span>
+              <span className="tile-card-text">
+                <span className="tile-card-title">{title}</span>
+                <span className="tile-card-desc">{body}</span>
+              </span>
             </div>
           ))}
         </div>
@@ -173,19 +195,20 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="rosie-feats">
+        {/* Feature tiles — replacing rosie-feats */}
+        <div className="tile-grid-2" style={{ marginTop: '2.5rem' }}>
           {[
-            { icon: '🧠', title: 'Autonomous planning', body: 'Rosie reviews your intake pipeline and proactively recommends next steps for each lead.' },
-            { icon: '✍️', title: 'Correspondence drafting', body: 'Every email and SMS drafted with clinical tone, correct stage language, and personal context.' },
-            { icon: '🧭', title: 'Guided onboarding', body: 'New staff ask Rosie — she walks them through the intake protocol step by step.' },
-            { icon: '📆', title: 'Calendar sync', body: 'Confirmed appointments pushed automatically to Google Calendar or Outlook. Pro feature.' },
-          ].map(({ icon, title, body }) => (
-            <div className="rosie-feat" key={title}>
-              <div className="feat-icon">{icon}</div>
-              <div>
-                <h3>{title}</h3>
-                <p>{body}</p>
-              </div>
+            { tile: 'tile-violet', icon: '🧠', title: 'Autonomous planning',      desc: 'Rosie reviews your intake pipeline and proactively recommends next steps for each lead.' },
+            { tile: 'tile-coral',  icon: '✍️', title: 'Correspondence drafting',  desc: 'Every email and SMS drafted with clinical tone, correct stage language, and personal context.' },
+            { tile: 'tile-sky',    icon: '🧭', title: 'Guided onboarding',        desc: 'New staff ask Rosie — she walks them through the intake protocol step by step.' },
+            { tile: 'tile-amber',  icon: '📆', title: 'Calendar sync',            desc: 'Confirmed appointments pushed automatically to Google Calendar or Outlook. Pro feature.' },
+          ].map(({ tile, icon, title, desc }) => (
+            <div className="tile-card tile-card-tall" key={title}>
+              <span className={`tile-icon ${tile}`}>{icon}</span>
+              <span className="tile-card-text">
+                <span className="tile-card-title">{title}</span>
+                <span className="tile-card-desc">{desc}</span>
+              </span>
             </div>
           ))}
         </div>
@@ -261,27 +284,27 @@ export default function Home() {
             existing Rosie workflow — available on Pro.
           </p>
         </div>
-        <span className="modules-intro">⚡ All modules require Pro · Pricing on request</span>
 
-        <div className="modules-grid">
+        <div className="tile-grid-3" style={{ marginTop: '1.5rem' }}>
           {[
-            { icon: '📅', title: 'Scheduling', desc: 'Client-facing scheduling page' },
-            { icon: '🏥', title: 'Insurance & claims', desc: 'Verification & filing' },
-            { icon: '📹', title: 'Telehealth', desc: 'In-app video sessions' },
-            { icon: '📋', title: 'Session notes', desc: 'Structured clinical notes' },
-            { icon: '📖', title: 'Wiley treatment', desc: 'Treatment plan library' },
-            { icon: '💬', title: 'Between-session', desc: 'Client engagement tools' },
-            { icon: '🔒', title: 'Patient portal', desc: 'Secure client self-service' },
-            { icon: '📊', title: 'Outcomes tracking', desc: 'Standardised measures' },
-            { icon: '🏅', title: 'Credentialing', desc: 'Get credentialed for free' },
-            { icon: '📞', title: 'In-app calling', desc: 'Make & receive calls in Rosie' },
-            { icon: '🎙️', title: 'Call transcription', desc: 'Requires in-app calling' },
-          ].map(({ icon, title, desc }) => (
-            <div className="module-card" key={title}>
-              <span className="module-icon">{icon}</span>
-              <h3>{title}</h3>
-              <p>{desc}</p>
-              <span className="module-tag module-tag-calling">Coming soon</span>
+            { tile: 'tile-sky',     icon: '📅', title: 'Scheduling',          desc: 'Client-facing scheduling page' },
+            { tile: 'tile-emerald', icon: '🏥', title: 'Insurance & claims',  desc: 'Verification & filing' },
+            { tile: 'tile-violet',  icon: '📹', title: 'Telehealth',          desc: 'In-app video sessions' },
+            { tile: 'tile-navy',    icon: '📋', title: 'Session notes',       desc: 'Structured clinical notes' },
+            { tile: 'tile-amber',   icon: '📖', title: 'Wiley treatment',     desc: 'Treatment plan library' },
+            { tile: 'tile-rose',    icon: '💬', title: 'Between-session',     desc: 'Client engagement tools' },
+            { tile: 'tile-coral',   icon: '🔒', title: 'Patient portal',      desc: 'Secure client self-service' },
+            { tile: 'tile-sky',     icon: '📊', title: 'Outcomes tracking',   desc: 'Standardised measures' },
+            { tile: 'tile-amber',   icon: '🏅', title: 'Credentialing',       desc: 'Get credentialed for free' },
+            { tile: 'tile-emerald', icon: '📞', title: 'In-app calling',      desc: 'Make & receive calls in Rosie' },
+            { tile: 'tile-violet',  icon: '🎙️', title: 'Call transcription',  desc: 'Requires in-app calling' },
+          ].map(({ tile, icon, title, desc }) => (
+            <div className="tile-card" key={title}>
+              <span className={`tile-icon ${tile}`}>{icon}</span>
+              <span className="tile-card-text">
+                <span className="tile-card-title">{title}</span>
+                <span className="tile-card-desc">{desc}</span>
+              </span>
             </div>
           ))}
         </div>
@@ -311,16 +334,23 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="trust-pills">
+          {/* Replacing trust pills with tile cards */}
+          <div className="tile-grid-3">
             {[
-              '🔒 HIPAA-compliant infrastructure',
-              '🧠 Built for psychotherapy & wellness',
-              '👤 Solo to group practices',
-              '🔗 Works with any EHR',
-              '0️⃣ No minimum user count',
-              '🆓 Free tier always available',
-            ].map(t => (
-              <div className="trust-pill" key={t}>{t}</div>
+              { tile: 'tile-navy',    icon: '🔒', title: 'HIPAA-compliant',          desc: 'Secure infrastructure, certified' },
+              { tile: 'tile-violet',  icon: '🧠', title: 'Built for therapy',        desc: 'Psychotherapy & wellness practices' },
+              { tile: 'tile-emerald', icon: '👤', title: 'Any practice size',        desc: 'Solo to group — no minimums' },
+              { tile: 'tile-sky',     icon: '🔗', title: 'Works with any EHR',       desc: 'Seamless handoff at session one' },
+              { tile: 'tile-amber',   icon: '0️⃣',  title: 'No user minimums',        desc: 'Pay only for what you use' },
+              { tile: 'tile-coral',   icon: '🆓', title: 'Free tier, always',        desc: 'No bait and switch, ever' },
+            ].map(({ tile, icon, title, desc }) => (
+              <div className="tile-card" key={title}>
+                <span className={`tile-icon ${tile}`}>{icon}</span>
+                <span className="tile-card-text">
+                  <span className="tile-card-title">{title}</span>
+                  <span className="tile-card-desc">{desc}</span>
+                </span>
+              </div>
             ))}
           </div>
 
@@ -340,7 +370,7 @@ export default function Home() {
       <section className="section">
         <div className="cta-box">
           <span className="icon-badge" style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', borderRadius: 10, padding: '7px 16px 7px 7px' }}>
-            <span className="icon-badge-tile tile-amber" style={{ width: 26, height: 26, borderRadius: 7, fontSize: 13 }}>⭐</span>
+            <span className="icon-badge-tile tile-coral" style={{ width: 26, height: 26, borderRadius: 7, fontSize: 13 }}>⭐</span>
             Beta — limited spots available
           </span>
           <h2>Start with intake.<br />Stay for everything else.</h2>
@@ -365,7 +395,7 @@ export default function Home() {
               Rosie
             </div>
             <div className="footer-sub">
-              Part of <a href="https://curlybraces.ai" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--green-500)', fontWeight: 600 }}>{'{'}curlybraces.ai{'}'}</a> · © 2026 CurlyBraces AI
+              Part of <a href="https://curlybraces.ai" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--coral-500)', fontWeight: 600 }}>{'{'}curlybraces.ai{'}'}</a> · © 2026 CurlyBraces AI
             </div>
           </div>
           <div className="footer-links">
