@@ -1,5 +1,13 @@
+# Dependencies (include mistaken duplicate folder names)
 node_modules/
+node_modules 2/
+
+# Next.js
 .next/
+out/
+.vercel/
+
+# Env & debug
 .env*.local
 npm-debug.log*
 
@@ -16,4 +24,6 @@ Thumbs.db
 
 # Logs
 *.log
-node_modules/
+
+# Local screenshots / uploads (not part of the site build)
+attached_assets/
