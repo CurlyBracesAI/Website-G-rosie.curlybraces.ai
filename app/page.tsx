@@ -130,7 +130,7 @@ export default function Home() {
       <hr className="divider" />
 
       {/* HOW IT WORKS */}
-      <div className="section-tinted">
+      <div className="section-bg section-bg-violet">
         <section className="section" id="how-it-works">
           <div className="section-head">
             <span className="label">How it works</span>
@@ -158,6 +158,7 @@ export default function Home() {
       <hr className="divider" />
 
       {/* MEET ROSIE */}
+      <div className="section-bg section-bg-sky">
       <section className="section" id="features">
         <div className="section-head">
           <span className="label">Meet Rosie — your AI</span>
@@ -213,11 +214,12 @@ export default function Home() {
           ))}
         </div>
       </section>
+      </div>
 
       <hr className="divider" />
 
       {/* PRICING */}
-      <div className="section-tinted">
+      <div className="section-bg section-bg-coral">
         <section className="section" id="pricing">
           <div className="section-head">
             <span className="label">Pricing</span>
@@ -342,7 +344,7 @@ export default function Home() {
       <hr className="divider" />
 
       {/* TRUST */}
-      <div className="section-tinted">
+      <div className="section-bg section-bg-emerald">
         <section className="section" id="trust">
           <div className="section-head">
             <span className="label">Trust &amp; compliance</span>
