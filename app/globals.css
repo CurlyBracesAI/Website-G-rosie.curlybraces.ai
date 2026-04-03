@@ -170,15 +170,15 @@ p  { font-size: 15px; line-height: 1.75; color: var(--text-secondary); }
 .icon-badge:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.1); transform: translateY(-1px); }
 /* Hero badges sit on a dark background — override to frosted glass */
 .hero-icon-badges .icon-badge {
-  background: rgba(255,255,255,0.16);
-  border: 1.5px solid rgba(255,255,255,0.38);
+  background: rgba(255,255,255,0.28);
+  border: 2px solid rgba(255,255,255,0.62);
   color: #fff;
   box-shadow: 0 2px 12px rgba(0,0,0,0.25);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
 .hero-icon-badges .icon-badge:hover {
-  background: rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.35);
   box-shadow: 0 4px 20px rgba(0,0,0,0.35);
 }
 .icon-badge-tile {
