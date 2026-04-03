@@ -9,7 +9,7 @@ export default function Hero() {
   ];
 
   return (
-    <section style={{ textAlign: "center", padding: "6rem 2rem 5rem", maxWidth: 900, margin: "0 auto" }}>
+    <section style={{ textAlign: "center", padding: "6rem 2rem 5rem", maxWidth: 1350, margin: "0 auto" }}>
       {/* Badges */}
       <div style={{ display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap", marginBottom: "1.75rem" }}>
         <span className="badge badge-amber">
