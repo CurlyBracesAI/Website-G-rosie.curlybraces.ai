@@ -320,14 +320,51 @@ export default function Home() {
       <section className="section" id="modules">
         <div className="section-head">
           <span className="label">Bolt-on modules</span>
-          <h2>Grow with Rosie</h2>
+          <h2>Grow with Rosie — at your own pace</h2>
           <p>
-            Start with intake. Add what you need, when you need it. Each module plugs into your
-            existing Rosie workflow — available on Pro+.
+            Start with intake and let Rosie grow alongside your practice. Every module below is on our roadmap — activate what you need, when you need it. No forced upgrades, no bloated all-in-one you&apos;ll never fully use.
           </p>
         </div>
 
-        <div className="tile-grid-3" style={{ marginTop: '1.5rem' }}>
+        <div className="tile-grid-3" style={{ marginTop: '2rem' }}>
+          {[
+            {
+              tile: 'tile-emerald',
+              icon: <IcGrad />,
+              title: 'No EHR yet?',
+              desc: 'Start with intake. Add scheduling, notes, and billing as you need them. Rosie becomes your all-in-one practice platform — built from the ground up for therapy and wellness.',
+            },
+            {
+              tile: 'tile-sky',
+              icon: <IcLink />,
+              title: 'Already have an EHR?',
+              desc: 'No disruption. Rosie handles everything before session one, then hands off cleanly to your existing system. Use as much or as little as you need.',
+            },
+            {
+              tile: 'tile-navy',
+              icon: <IcBuilding />,
+              title: 'Ready to consolidate?',
+              desc: 'As you activate modules, Rosie gradually replaces the need for separate tools. One platform, one price, built for the way your practice actually works.',
+            },
+          ].map(({ tile, icon, title, desc }) => (
+            <div className="tile-card tile-card-tall" key={title}>
+              <span className={`tile-icon ${tile}`}>{icon}</span>
+              <span className="tile-card-text">
+                <span className="tile-card-title">{title}</span>
+                <span className="tile-card-desc">{desc}</span>
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem', marginBottom: '1rem' }}>
+          <span className="icon-badge" style={{ padding: '5px 10px 5px 5px', fontSize: 12, borderRadius: 8 }}>
+            <span className="icon-badge-tile tile-amber" style={{ width: 20, height: 20, borderRadius: 5, fontSize: 11 }}><IcClock /></span>
+            All modules coming soon — available to beta practices first
+          </span>
+        </div>
+
+        <div className="tile-grid-3">
           {[
             { tile: 'tile-sky',     icon: <IcCalendar />,  title: 'Scheduling',         desc: 'Client-facing scheduling page' },
             { tile: 'tile-emerald', icon: <IcCross />,     title: 'Insurance & claims', desc: 'Verification & filing' },
