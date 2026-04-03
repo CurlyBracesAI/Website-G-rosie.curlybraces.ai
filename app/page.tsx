@@ -242,8 +242,8 @@ export default function Home() {
               <div className="featured-accent free-accent">Always free — no card needed</div>
               <div className="card-header">
                 <span className="label" style={{ margin: 0 }}>Free</span>
-                <span className="icon-badge" style={{ padding: '5px 10px 5px 5px', fontSize: 11, borderRadius: 8 }}>
-                  <span className="icon-badge-tile tile-sky" style={{ width: 20, height: 20, borderRadius: 5, fontSize: 10 }}><IcInfinity /></span>
+                <span className="icon-badge" style={{ padding: '5px 10px 5px 5px', fontSize: 12, borderRadius: 8 }}>
+                  <span className="icon-badge-tile tile-sky" style={{ width: 20, height: 20, borderRadius: 5, fontSize: 11 }}><IcInfinity /></span>
                   Forever
                 </span>
               </div>
@@ -263,8 +263,8 @@ export default function Home() {
               <div className="featured-accent">Available now — Free during beta</div>
               <div className="card-header">
                 <span className="label" style={{ margin: 0 }}>Pro</span>
-                <span className="icon-badge" style={{ padding: '5px 10px 5px 5px', fontSize: 11, borderRadius: 8 }}>
-                  <span className="icon-badge-tile tile-emerald" style={{ width: 20, height: 20, borderRadius: 5, fontSize: 10 }}><IcCheck /></span>
+                <span className="icon-badge" style={{ padding: '5px 10px 5px 5px', fontSize: 12, borderRadius: 8 }}>
+                  <span className="icon-badge-tile tile-emerald" style={{ width: 20, height: 20, borderRadius: 5, fontSize: 11 }}><IcCheck /></span>
                   Live in beta
                 </span>
               </div>
@@ -291,8 +291,8 @@ export default function Home() {
               <div className="featured-accent pro-plus-accent">Coming soon</div>
               <div className="card-header">
                 <span className="label" style={{ margin: 0 }}>Pro+</span>
-                <span className="icon-badge" style={{ padding: '5px 10px 5px 5px', fontSize: 11, borderRadius: 8 }}>
-                  <span className="icon-badge-tile tile-amber" style={{ width: 20, height: 20, borderRadius: 5, fontSize: 10 }}><IcClock /></span>
+                <span className="icon-badge" style={{ padding: '5px 10px 5px 5px', fontSize: 12, borderRadius: 8 }}>
+                  <span className="icon-badge-tile tile-amber" style={{ width: 20, height: 20, borderRadius: 5, fontSize: 11 }}><IcClock /></span>
                   Coming soon
                 </span>
               </div>
@@ -410,7 +410,7 @@ export default function Home() {
       <section className="section">
         <div className="cta-box">
           <span className="icon-badge" style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', borderRadius: 10, padding: '7px 16px 7px 7px' }}>
-            <span className="icon-badge-tile tile-coral" style={{ width: 26, height: 26, borderRadius: 7, fontSize: 13 }}><IcStar /></span>
+            <span className="icon-badge-tile tile-coral" style={{ width: 26, height: 26, borderRadius: 7, fontSize: 14 }}><IcStar /></span>
             Beta — limited spots available
           </span>
           <h2>Start with intake.<br />Stay for everything else.</h2>
