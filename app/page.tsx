@@ -53,10 +53,12 @@ export default function Home() {
             </span>
           </div>
 
-          <h1>The Intake CRM Built for<br />Therapy &amp; Wellness Practices</h1>
+          <h1>Rosie: The Intake & Marketing CRM Built for<br />Psychotherapy &amp; Wellness Practices</h1>
           <p className="hero-sub">
-            From first contact to first session — Rosie captures every lead, drafts every follow-up,
-            and hands off seamlessly to your EHR. Built for solo and group practices.
+            From first contact to first session, Rosie AI captures every lead, drafts every follow-up,
+            manages the workflow and hands off seamlessly to your EHR.
+            <br />
+            Tailored AI for solo and group practices.
           </p>
 
           <div className="hero-btns">
@@ -113,8 +115,8 @@ export default function Home() {
           <h2>Your EHR starts at session one.<br />What about before?</h2>
           <p>
             HIPAA-compliant CRMs are built for hospitals, priced for enterprises, or designed for
-            patients you already have. Rosie is built for the clients you haven&apos;t met yet —
-            purpose-built for small and medium therapy and wellness practices.
+            the patients you already have. Rosie is built for the patients you haven&apos;t met yet —
+            purpose-built for small and medium psychotherapy and wellness practices.
           </p>
         </div>
 
@@ -301,7 +303,7 @@ export default function Home() {
               {[
                 'Everything in Pro',
                 'Calendar sync — Google & Outlook',
-                'In-app calling',
+                'In-app calling — Call transcription',
                 'Bolt-on modules available',
               ].map(f => (
                 <div className="price-line" key={f}><div className="check-icon">✓</div>{f}</div>
@@ -321,7 +323,7 @@ export default function Home() {
           <h2>Grow with Rosie</h2>
           <p>
             Start with intake. Add what you need, when you need it. Each module plugs into your
-            existing Rosie workflow — available on Pro.
+            existing Rosie workflow — available on Pro+.
           </p>
         </div>
 
@@ -336,8 +338,7 @@ export default function Home() {
             { tile: 'tile-coral',   icon: <IcLock />,      title: 'Patient portal',     desc: 'Secure client self-service' },
             { tile: 'tile-sky',     icon: <IcBarChart />,  title: 'Outcomes tracking',  desc: 'Standardised measures' },
             { tile: 'tile-amber',   icon: <IcAward />,     title: 'Credentialing',      desc: 'Get credentialed for free' },
-            { tile: 'tile-emerald', icon: <IcPhone />,     title: 'In-app calling',     desc: 'Make & receive calls in Rosie' },
-            { tile: 'tile-violet',  icon: <IcMic />,       title: 'Call transcription', desc: 'Requires in-app calling' },
+
           ].map(({ tile, icon, title, desc }) => (
             <div className="tile-card" key={title}>
               <span className={`tile-icon ${tile}`}>{icon}</span>
