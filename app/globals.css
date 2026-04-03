@@ -271,7 +271,7 @@ p  { font-size: 15px; line-height: 1.75; color: var(--text-secondary); }
 
 /* ── Hero ── */
 .hero-wrap {
-  background: linear-gradient(160deg, #070f1d 0%, #0d1f3c 40%, #132848 75%, #1a3055 100%);
+  background: linear-gradient(160deg, #0e1e32 0%, #152e52 40%, #1b3860 75%, #24406e 100%);
   position: relative;
   overflow: hidden;
 }
