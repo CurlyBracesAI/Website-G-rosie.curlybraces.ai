@@ -283,7 +283,7 @@ p  { font-size: 15px; line-height: 1.75; color: var(--text-secondary); }
   transform: translateX(-50%);
   width: 900px;
   height: 700px;
-  background: radial-gradient(ellipse at center, rgba(229,85,53,0.22) 0%, rgba(229,85,53,0.06) 45%, transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(229,85,53,0.32) 0%, rgba(229,85,53,0.09) 45%, transparent 70%);
   pointer-events: none;
 }
 .hero-wrap::after {
