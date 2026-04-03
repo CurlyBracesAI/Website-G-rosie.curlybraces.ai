@@ -215,12 +215,40 @@ p  { font-size: 15px; line-height: 1.75; color: var(--text-secondary); }
 .nav-links a:hover { color: var(--text-primary); }
 
 /* ── Hero ── */
-.hero-wrap { background: linear-gradient(180deg, #FEF2EE 0%, #FDF5F2 35%, #FAFAF9 70%, #ffffff 100%); }
-.hero { text-align: center; padding: 6.5rem 2rem 5rem; max-width: 900px; margin: 0 auto; }
-.hero h1 { margin-bottom: 1.25rem; }
-.hero h1 em { font-style: normal; color: var(--coral-500); }
-.hero-sub { font-size: 18px; line-height: 1.65; color: var(--text-secondary); max-width: 580px; margin: 0 auto 2.25rem; }
+.hero-wrap {
+  background: linear-gradient(160deg, #070f1d 0%, #0d1f3c 40%, #132848 75%, #1a3055 100%);
+  position: relative;
+  overflow: hidden;
+}
+.hero-wrap::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 700px;
+  background: radial-gradient(ellipse at center, rgba(229,85,53,0.22) 0%, rgba(229,85,53,0.06) 45%, transparent 70%);
+  pointer-events: none;
+}
+.hero-wrap::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0; right: 0;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, #1E293B);
+  pointer-events: none;
+}
+.hero { text-align: center; padding: 6.5rem 2rem 5rem; max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+.hero h1 { margin-bottom: 1.25rem; color: #fff; }
+.hero h1 em { font-style: normal; color: var(--coral-400, #f4714f); }
+.hero-sub { font-size: 18px; line-height: 1.65; color: rgba(255,255,255,0.68); max-width: 580px; margin: 0 auto 2.25rem; }
 .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 2.75rem; }
+.hero-wrap .btn-primary { background: var(--coral-500); box-shadow: 0 4px 18px rgba(229,85,53,0.45); }
+.hero-wrap .btn-primary:hover { background: var(--coral-600); box-shadow: 0 8px 24px rgba(229,85,53,0.55); }
+.hero-wrap .btn-secondary { color: #fff; border-color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.08); }
+.hero-wrap .btn-secondary:hover { background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.55); color: #fff; }
 
 .comp-pills { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
 .comp-pill {
