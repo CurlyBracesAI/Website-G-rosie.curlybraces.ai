@@ -23,7 +23,7 @@ export default function Home() {
           <a href="#how-it-works">How it works</a>
           <a href="#features">Features</a>
           <a href="#pricing">Pricing</a>
-          <button className="btn-primary">Start free — no card needed</button>
+          <button className="btn-primary">Start free, no card needed</button>
         </div>
       </nav>
 
@@ -31,12 +31,12 @@ export default function Home() {
       <div className="hero-wrap">
         <section className="hero">
 
-          {/* Hero icon badges — larger tile style */}
+          {/* Hero icon badges - larger tile style */}
           <div className="hero-icon-badges">
             <span className="icon-badge">
               <span className="icon-badge-tile tile-coral"><IcStar /></span>
               <span>
-                <strong>Beta</strong> — Pro plan free while it lasts
+                <strong>Beta</strong>: Pro plan free while it lasts
               </span>
             </span>
             <span className="icon-badge">
@@ -73,7 +73,7 @@ export default function Home() {
               { tile: 'tile-violet',  icon: <IcBrain />,    title: 'No generic CRMs',          desc: 'Built for therapy intake, not sales' },
               { tile: 'tile-sky',     icon: <IcGrad />,     title: 'No steep learning curves', desc: 'Up and running in under an hour' },
               { tile: 'tile-amber',   icon: <IcZap />,      title: 'No missing workflows',     desc: 'Every intake stage is covered' },
-              { tile: 'tile-emerald', icon: <IcUsers />,    title: 'No minimum user counts',   desc: 'Solo to group — same price logic' },
+              { tile: 'tile-emerald', icon: <IcUsers />,    title: 'No minimum user counts',   desc: 'Solo to group, same price logic' },
               { tile: 'tile-navy',    icon: <IcLock />,     title: 'No paywalled entry point', desc: 'Free tier, always. No bait and switch' },
             ].map(({ tile, icon, title, desc }) => (
               <div className="tile-card" key={title}>
@@ -115,8 +115,8 @@ export default function Home() {
           <h2>Your EHR starts at session one.<br />What about before?</h2>
           <p>
             HIPAA-compliant CRMs are built for hospitals, priced for enterprises, or designed for
-            the patients you already have. Rosie is built for the patients you haven&apos;t met yet —
-            purpose-built for small and medium psychotherapy and wellness practices.
+            the patients you already have. Rosie is built for the patients you haven&apos;t met yet.
+            Purpose-built for small and medium psychotherapy and wellness practices.
           </p>
         </div>
 
@@ -145,16 +145,16 @@ export default function Home() {
         <section className="section" id="how-it-works">
           <div className="section-head">
             <span className="label">How it works</span>
-            <h2>First contact to first session — on autopilot</h2>
+            <h2>First contact to first session, on autopilot</h2>
           </div>
 
           <div className="steps-grid">
             {[
               { n: '1', title: 'Lead arrives', body: 'Via email, phone, or web form. Rosie captures and creates the intake automatically.' },
               { n: '2', title: 'Rosie gets to work', body: 'Reads emails and intake details, immediately building context around each new lead.' },
-              { n: '3', title: 'AI drafts outreach', body: 'Stage-appropriate email and SMS — reviewed and sent in one click. No writing from scratch.' },
+              { n: '3', title: 'AI drafts outreach', body: 'Stage-appropriate email and SMS, reviewed and sent in one click. No writing from scratch.' },
               { n: '4', title: 'Automated follow-up', body: '24hr, 48hr, 72hr sequences run automatically. Rosie flags anything that needs attention.' },
-              { n: '5', title: 'Hand off', body: 'First session booked — pass cleanly to your EHR or practice management system and move on.' },
+              { n: '5', title: 'Hand off', body: 'First session booked. Pass cleanly to your EHR or practice management system and move on.' },
             ].map(({ n, title, body }) => (
               <div className="step-card" key={n}>
                 <div className="step-num">{n}</div>
@@ -172,11 +172,11 @@ export default function Home() {
       <div className="section-bg section-bg-sky">
       <section className="section" id="features">
         <div className="section-head">
-          <span className="label">Meet Rosie — your AI</span>
+          <span className="label">Meet Rosie, your AI</span>
           <h2>Not just automation.<br />An AI trained on your intake process.</h2>
           <p>
             Rosie isn&apos;t a generic chatbot. She&apos;s trained specifically on therapy intake
-            workflows — the stages, the scripts, the clinical sensitivity required. She plans, guides,
+            workflows: the stages, the scripts, the clinical sensitivity required. She plans, guides,
             drafts, and flags.
           </p>
         </div>
@@ -192,12 +192,12 @@ export default function Home() {
           <div className="chat-body">
             <div className="chat-label">Rosie</div>
             <div className="chat-bubble chat-rosie">
-              You have 3 intakes that need attention today. Sarah K. hasn&apos;t responded in 48hrs —
+              You have 3 intakes that need attention today. Sarah K. hasn&apos;t responded in 48hrs.
               I&apos;ve drafted a follow-up for your review. Want me to walk you through the others?
             </div>
             <div className="chat-label-user">You</div>
             <div className="chat-bubble chat-user">
-              Yes — and can you pull up Marcus&apos;s intake notes?
+              Yes, and can you pull up Marcus&apos;s intake notes?
             </div>
             <div className="chat-label">Rosie</div>
             <div className="chat-bubble chat-rosie" style={{ marginBottom: 0 }}>
@@ -207,12 +207,12 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Feature tiles — replacing rosie-feats */}
+        {/* Feature tiles - replacing rosie-feats */}
         <div className="tile-grid-2" style={{ marginTop: '2.5rem' }}>
           {[
             { tile: 'tile-violet', icon: <IcBrain />,    title: 'Autonomous planning',     desc: 'Rosie reviews your intake pipeline and proactively recommends next steps for each lead.' },
             { tile: 'tile-coral',  icon: <IcEdit />,     title: 'Correspondence drafting', desc: 'Every email and SMS drafted with clinical tone, correct stage language, and personal context.' },
-            { tile: 'tile-sky',    icon: <IcCompass />,  title: 'Guided onboarding',       desc: 'New staff ask Rosie — she walks them through the intake protocol step by step.' },
+            { tile: 'tile-sky',    icon: <IcCompass />,  title: 'Guided onboarding',       desc: 'New staff ask Rosie; she walks them through the intake protocol step by step.' },
             { tile: 'tile-amber',  icon: <IcCalendar />, title: 'Calendar sync',           desc: 'Confirmed appointments pushed automatically to Google Calendar or Outlook. Pro+ feature.' },
           ].map(({ tile, icon, title, desc }) => (
             <div className="tile-card tile-card-tall" key={title}>
@@ -245,7 +245,7 @@ export default function Home() {
           <div className="pricing-grid pricing-grid-3">
             {/* FREE */}
             <div className="price-card">
-              <div className="featured-accent free-accent">Always free — no card needed</div>
+              <div className="featured-accent free-accent">Always free, no card needed</div>
               <div className="card-header">
                 <span className="label" style={{ margin: 0 }}>Free</span>
                 <span className="icon-badge" style={{ padding: '5px 10px 5px 5px', fontSize: 12, borderRadius: 8 }}>
@@ -254,19 +254,19 @@ export default function Home() {
                 </span>
               </div>
               <div className="price-amount">$0</div>
-              <p className="price-desc">Everything in one place. You run it manually — Rosie holds the data.</p>
+              <p className="price-desc">Everything in one place. You run it manually. Rosie holds the data.</p>
               {['Unlimited lead profiles', 'Manual intake entry', 'All leads in one dashboard', 'HIPAA-compliant storage', 'EHR handoff notes'].map(f => (
                 <div className="price-line" key={f}><div className="check-icon">✓</div>{f}</div>
               ))}
               {['AI automation & Rosie AI', 'Automated follow-up sequences', 'Calendar sync', 'In-app calling', 'Bolt-on modules'].map(f => (
-                <div className="price-line" key={f}><div className="dash-icon">—</div>{f}</div>
+                <div className="price-line" key={f}><div className="dash-icon">-</div>{f}</div>
               ))}
               <button className="btn-secondary price-btn">Get started free</button>
             </div>
 
             {/* PRO */}
             <div className="price-card featured">
-              <div className="featured-accent">Available now — Free during beta</div>
+              <div className="featured-accent">Available now. Free during beta</div>
               <div className="card-header">
                 <span className="label" style={{ margin: 0 }}>Pro</span>
                 <span className="icon-badge" style={{ padding: '5px 10px 5px 5px', fontSize: 12, borderRadius: 8 }}>
@@ -286,10 +286,10 @@ export default function Home() {
               ].map(f => (
                 <div className="price-line" key={f}><div className="check-icon">✓</div>{f}</div>
               ))}
-              {['Calendar sync — Google & Outlook', 'In-app calling', 'Bolt-on modules'].map(f => (
-                <div className="price-line" key={f}><div className="dash-icon">—</div>{f}</div>
+              {['Calendar sync (Google & Outlook)', 'In-app calling', 'Bolt-on modules'].map(f => (
+                <div className="price-line" key={f}><div className="dash-icon">-</div>{f}</div>
               ))}
-              <button className="btn-primary price-btn">Start Pro free — beta access →</button>
+              <button className="btn-primary price-btn">Start Pro free: beta access →</button>
             </div>
 
             {/* PRO+ */}
@@ -306,13 +306,13 @@ export default function Home() {
               <p className="price-desc">Everything in Pro, plus deep integrations and calling.</p>
               {[
                 'Everything in Pro',
-                'Calendar sync — Google & Outlook',
-                'In-app calling — Call transcription',
+                'Calendar sync (Google & Outlook)',
+                'In-app calling (call transcription)',
                 'Bolt-on modules available',
               ].map(f => (
                 <div className="price-line" key={f}><div className="check-icon">✓</div>{f}</div>
               ))}
-              <button className="btn-primary price-btn pro-plus-btn">Start Pro+ free — beta access →</button>
+              <button className="btn-primary price-btn pro-plus-btn">Start Pro+ free: beta access →</button>
             </div>
           </div>
         </section>
@@ -324,9 +324,9 @@ export default function Home() {
       <section className="section" id="modules">
         <div className="section-head">
           <span className="label">Bolt-on modules</span>
-          <h2>Grow with Rosie — at your own pace</h2>
+          <h2>Grow with Rosie, at your own pace</h2>
           <p>
-            Start with intake and let Rosie grow alongside your practice. Every module below is on our roadmap — activate what you need, when you need it. No forced upgrades, no bloated all-in-one you&apos;ll never fully use.
+            Start with intake and let Rosie grow alongside your practice. Every module below is on our roadmap. Activate what you need, when you need it. No forced upgrades, no bloated all-in-one you&apos;ll never fully use.
           </p>
         </div>
 
@@ -336,7 +336,7 @@ export default function Home() {
               tile: 'tile-emerald',
               icon: <IcGrad />,
               title: 'No EHR yet?',
-              desc: 'Start with intake. Add scheduling, notes, and billing as you need them. Rosie becomes your all-in-one practice platform — built from the ground up for therapy and wellness.',
+              desc: 'Start with intake. Add scheduling, notes, and billing as you need them. Rosie becomes your all-in-one practice platform, built from the ground up for therapy and wellness.',
             },
             {
               tile: 'tile-sky',
@@ -420,7 +420,7 @@ export default function Home() {
             {[
               { tile: 'tile-navy',    icon: <IcShield />,  title: 'HIPAA-compliant',    desc: 'Secure infrastructure, certified' },
               { tile: 'tile-violet',  icon: <IcHeart />,   title: 'Built for therapy',  desc: 'Psychotherapy & wellness practices' },
-              { tile: 'tile-emerald', icon: <IcPerson />,  title: 'Any practice size',  desc: 'Solo to group — no minimums' },
+              { tile: 'tile-emerald', icon: <IcPerson />,  title: 'Any practice size',  desc: 'Solo to group, no minimums' },
               { tile: 'tile-sky',     icon: <IcLink />,    title: 'Works with any EHR', desc: 'Seamless handoff at session one' },
               { tile: 'tile-amber',   icon: <IcTag />,     title: 'No user minimums',   desc: 'Pay only for what you use' },
               { tile: 'tile-coral',   icon: <IcGift />,    title: 'Free tier, always',  desc: 'No bait and switch, ever' },
@@ -440,7 +440,7 @@ export default function Home() {
               &ldquo;Before Rosie, we were tracking everything in a spreadsheet. Leads would go cold
               and we wouldn&apos;t even know. Now every intake has a clear next step.&rdquo;
             </blockquote>
-            <cite>— Sean, The Flatiron Center for Psychotherapy · Beta customer</cite>
+            <cite>Sean, The Flatiron Center for Psychotherapy · Beta customer</cite>
           </div>
         </section>
       </div>
@@ -452,7 +452,7 @@ export default function Home() {
         <div className="cta-box">
           <span className="icon-badge" style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', borderRadius: 10, padding: '7px 16px 7px 7px' }}>
             <span className="icon-badge-tile tile-coral" style={{ width: 26, height: 26, borderRadius: 7, fontSize: 14 }}><IcStar /></span>
-            Beta — limited spots available
+            Beta: limited spots available
           </span>
           <h2>Start with intake.<br />Stay for everything else.</h2>
           <p>

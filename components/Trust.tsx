@@ -41,7 +41,7 @@ export default function Trust() {
           &ldquo;Before Rosie, we were tracking everything in a spreadsheet. Leads would go cold and we wouldn&apos;t even know. Now every intake has a clear next step.&rdquo;
         </blockquote>
         <cite style={{ fontSize: 13, color: "var(--text-secondary)", fontStyle: "normal" }}>
-          — Sean, The Flatiron Center for Psychotherapy · Beta customer
+          Sean, The Flatiron Center for Psychotherapy · Beta customer
         </cite>
       </div>
     </section>

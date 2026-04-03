@@ -14,7 +14,7 @@ export default function Hero() {
       <div style={{ display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap", marginBottom: "1.75rem" }}>
         <span className="badge badge-amber">
           <span className="badge-dot badge-dot-amber" />
-          Beta — Pro plan free while it lasts
+          Beta: Pro plan free while it lasts
         </span>
         <span className="badge badge-teal">
           <span className="badge-dot badge-dot-teal" />
@@ -27,7 +27,7 @@ export default function Hero() {
       </h1>
 
       <p style={{ fontSize: 18, lineHeight: 1.65, color: "var(--text-secondary)", maxWidth: 580, margin: "0 auto 2rem" }}>
-        From first contact to first session — Rosie captures every lead, drafts every follow-up, and hands off seamlessly to your EHR. Built for solo and group practices of all sizes.
+        From first contact to first session, Rosie captures every lead, drafts every follow-up, and hands off seamlessly to your EHR. Built for solo and group practices of all sizes.
       </p>
 
       <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginBottom: "2.5rem" }}>

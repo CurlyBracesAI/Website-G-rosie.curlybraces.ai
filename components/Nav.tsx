@@ -40,7 +40,7 @@ export default function Nav() {
           </a>
         ))}
         <a href="#cta" className="btn-primary" style={{ textDecoration: "none" }}>
-          Start free — no card needed
+          Start free: no card needed
         </a>
       </div>
 
@@ -83,7 +83,7 @@ export default function Nav() {
             </a>
           ))}
           <a href="#cta" onClick={() => setOpen(false)} className="btn-primary" style={{ textDecoration: "none", justifyContent: "center" }}>
-            Start free — no card needed
+            Start free: no card needed
           </a>
         </div>
       )}

@@ -180,7 +180,7 @@ p  { font-size: var(--fs-body); line-height: 1.75; color: var(--text-secondary);
 }
 .icon-badge strong { font-weight: 700; }
 .icon-badge:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.1); transform: translateY(-1px); }
-/* Hero badges sit on a dark background — override to frosted glass */
+/* Hero badges sit on a dark background - override to frosted glass */
 .hero-icon-badges .icon-badge {
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.14);
@@ -208,7 +208,7 @@ p  { font-size: var(--fs-body); line-height: 1.75; color: var(--text-secondary);
 .tile-rose    { background: linear-gradient(135deg, #FB7185, #E11D48); }
 .tile-navy    { background: linear-gradient(135deg, #475569, #1E293B); }
 
-/* ── Tile card grid — the main graphic element ── */
+/* ── Tile card grid - the main graphic element ── */
 .tile-grid-2 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -328,7 +328,7 @@ p  { font-size: var(--fs-body); line-height: 1.75; color: var(--text-secondary);
 }
 .comp-pill:hover { background: var(--coral-100); border-color: rgba(229,85,53,0.35); }
 
-/* ── Stats bar — dark navy ── */
+/* ── Stats bar - dark navy ── */
 .stats-bar { background: var(--navy-700); padding: 1.75rem 2rem; }
 .stats-inner { display: flex; justify-content: center; gap: 3.5rem; flex-wrap: wrap; max-width: var(--layout-max); margin: 0 auto; }
 .stat-item { text-align: center; }
@@ -491,7 +491,7 @@ p  { font-size: var(--fs-body); line-height: 1.75; color: var(--text-secondary);
 .quote-card blockquote { font-style: italic; font-size: 18px; color: #fff; line-height: 1.75; margin-bottom: 0.7rem; position: relative; z-index: 1; }
 .quote-card cite { font-size: 14px; color: rgba(255,255,255,0.5); font-style: normal; position: relative; z-index: 1; }
 
-/* ── CTA — dark navy ── */
+/* ── CTA - dark navy ── */
 .cta-box {
   background: var(--navy-800);
   border-radius: var(--radius-xl); padding: 5rem 2rem; text-align: center; margin-top: 2rem;

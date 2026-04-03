@@ -12,7 +12,7 @@ const steps = [
   {
     num: "3",
     title: "AI drafts outreach",
-    body: "Stage-appropriate email and SMS — reviewed and sent in one click. No writing from scratch.",
+    body: "Stage-appropriate email and SMS: reviewed and sent in one click. No writing from scratch.",
   },
   {
     num: "4",
@@ -22,7 +22,7 @@ const steps = [
   {
     num: "5",
     title: "Hand off",
-    body: "First session booked — pass cleanly to your EHR or practice management system and move on.",
+    body: "First session booked: pass cleanly to your EHR or practice management system and move on.",
   },
 ];
 
@@ -30,7 +30,7 @@ export default function HowItWorks() {
   return (
     <section className="site-section" id="how-it-works">
       <span className="section-label">How it works</span>
-      <h2>First contact to first session — on autopilot</h2>
+      <h2>First contact to first session, on autopilot</h2>
 
       <div style={{
         display: "grid",

@@ -39,7 +39,7 @@ export default function CtaSignup() {
       }}>
         <span className="badge badge-amber">
           <span className="badge-dot badge-dot-amber" />
-          Beta — limited spots available
+          Beta: limited spots available
         </span>
 
         <h2 style={{ margin: "0.75rem 0 0.5rem" }}>
@@ -51,7 +51,7 @@ export default function CtaSignup() {
 
         {status === "success" ? (
           <div style={{ fontSize: 15, color: "var(--green-600)", fontWeight: 500 }}>
-            ✓ You&apos;re on the list — we&apos;ll be in touch soon.
+            ✓ You&apos;re on the list. We&apos;ll be in touch soon.
           </div>
         ) : (
           <form onSubmit={handleSubmit} style={{ display: "flex", gap: 8, maxWidth: 400, margin: "0 auto", flexWrap: "wrap" }}>

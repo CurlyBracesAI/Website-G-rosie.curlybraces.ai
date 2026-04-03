@@ -1,4 +1,4 @@
-# Rosie — Marketing Website
+# Rosie: Marketing Website
 
 ### Overview
 
@@ -7,18 +7,18 @@ Promotional/marketing website for Rosie by CurlyBraces.ai. Originally built in N
 ### Stack
 
 - **Framework**: Next.js 16 (App Router)
-- **Styling**: Tailwind CSS + custom global CSS (no Tailwind utilities in JSX — all class-based in `globals.css`)
+- **Styling**: Tailwind CSS + custom global CSS (no Tailwind utilities in JSX; all class-based in `globals.css`)
 - **Language**: TypeScript
 - **Runtime**: Node.js 20
 
 ### Project Structure
 
-- `app/page.tsx` — Main page entry point (single-page layout)
-- `app/layout.tsx` — Root layout + metadata
-- `app/globals.css` — Global styles (all custom CSS: nav, hero, sections, tiles, pricing cards, trust, CTA)
-- `app/components/RosieIcons.tsx` — ~28 named solid-fill SVG icon components used throughout the page
-- `next.config.js` — Next.js configuration
-- `tailwind.config.js` — Tailwind configuration
+- `app/page.tsx`: Main page entry point (single-page layout)
+- `app/layout.tsx`: Root layout + metadata
+- `app/globals.css`: Global styles (all custom CSS: nav, hero, sections, tiles, pricing cards, trust, CTA)
+- `app/components/RosieIcons.tsx`: ~28 named solid-fill SVG icon components used throughout the page
+- `next.config.js`: Next.js configuration
+- `tailwind.config.js`: Tailwind configuration
 
 ### Design Tokens
 
@@ -34,9 +34,9 @@ All tile icons (`.tile-icon`) and badge icons (`.icon-badge-tile`) use **Solid F
 
 ### Pricing
 
-- **Free** ($0, always) — gray/neutral accent, "Forever" infinity badge
-- **Pro** ($19/seat/month, "Live in beta") — coral accent, "Live in beta" checkmark badge
-- **Pro+** ($29/seat/month, "Coming soon") — violet accent, "Coming soon" clock badge
+- **Free** ($0, always): gray/neutral accent, "Forever" infinity badge
+- **Pro** ($19/seat/month, "Live in beta"): coral accent, "Live in beta" checkmark badge
+- **Pro+** ($29/seat/month, "Coming soon"): violet accent, "Coming soon" clock badge
 
 ### Running
 
