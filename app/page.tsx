@@ -244,7 +244,7 @@ export default function Home() {
 
             {/* PRO */}
             <div className="price-card featured">
-              <div className="featured-accent">⭐ Available now — Free during beta</div>
+              <div className="featured-accent">Available now — Free during beta</div>
               <div className="card-header">
                 <span className="label" style={{ margin: 0 }}>Pro</span>
                 <span className="icon-badge" style={{ padding: '5px 10px 5px 5px', fontSize: 11, borderRadius: 8 }}>
@@ -272,7 +272,7 @@ export default function Home() {
 
             {/* PRO+ */}
             <div className="price-card pro-plus">
-              <div className="featured-accent pro-plus-accent">🚀 Coming soon</div>
+              <div className="featured-accent pro-plus-accent">Coming soon</div>
               <div className="card-header">
                 <span className="label" style={{ margin: 0 }}>Pro+</span>
                 <span className="icon-badge" style={{ padding: '5px 10px 5px 5px', fontSize: 11, borderRadius: 8 }}>
