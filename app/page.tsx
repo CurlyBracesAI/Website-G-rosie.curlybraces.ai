@@ -228,8 +228,13 @@ export default function Home() {
           <div className="pricing-grid pricing-grid-3">
             {/* FREE */}
             <div className="price-card">
+              <div className="featured-accent free-accent">Always free — no card needed</div>
               <div className="card-header">
-                <span className="label" style={{ margin: 0 }}>Free — forever</span>
+                <span className="label" style={{ margin: 0 }}>Free</span>
+                <span className="icon-badge" style={{ padding: '5px 10px 5px 5px', fontSize: 11, borderRadius: 8 }}>
+                  <span className="icon-badge-tile tile-sky" style={{ width: 20, height: 20, borderRadius: 5, fontSize: 10 }}>∞</span>
+                  Forever
+                </span>
               </div>
               <div className="price-amount">$0</div>
               <p className="price-desc">Everything in one place. You run it manually — Rosie holds the data.</p>
