@@ -1,3 +1,12 @@
+import {
+  IcBuilding, IcBrain, IcGrad, IcZap, IcUsers, IcLock, IcSnowflake,
+  IcClipboard, IcWrench, IcMoney, IcCompass, IcCalendar, IcBook,
+  IcChat, IcBarChart, IcAward, IcPhone, IcMic, IcShield, IcHeart,
+  IcPerson, IcLink, IcTag, IcGift, IcEdit, IcArrowRight,
+  IcStar, IcCheck, IcInfinity, IcClock,
+  IcVideo, IcCross, IcFileText,
+} from './components/RosieIcons';
+
 export default function Home() {
   return (
     <>
@@ -25,19 +34,19 @@ export default function Home() {
           {/* Hero icon badges — larger tile style */}
           <div className="hero-icon-badges">
             <span className="icon-badge">
-              <span className="icon-badge-tile tile-coral">⭐</span>
+              <span className="icon-badge-tile tile-coral"><IcStar /></span>
               <span>
                 <strong>Beta</strong> — Pro plan free while it lasts
               </span>
             </span>
             <span className="icon-badge">
-              <span className="icon-badge-tile tile-navy">🔒</span>
+              <span className="icon-badge-tile tile-navy"><IcLock /></span>
               <span>
                 <strong>HIPAA</strong>-compliant from day one
               </span>
             </span>
             <span className="icon-badge">
-              <span className="icon-badge-tile tile-emerald">✓</span>
+              <span className="icon-badge-tile tile-emerald"><IcCheck /></span>
               <span>
                 <strong>No</strong> credit card needed
               </span>
@@ -58,12 +67,12 @@ export default function Home() {
           {/* Replacing bitty pills with graphic tile grid */}
           <div className="tile-grid-3">
             {[
-              { tile: 'tile-coral',   icon: '🏢', title: 'No enterprise pricing',       desc: 'Priced for real practices, not hospitals' },
-              { tile: 'tile-violet',  icon: '🤖', title: 'No generic CRMs',             desc: 'Built for therapy intake, not sales' },
-              { tile: 'tile-sky',     icon: '📚', title: 'No steep learning curves',    desc: 'Up and running in under an hour' },
-              { tile: 'tile-amber',   icon: '🔧', title: 'No missing workflows',        desc: 'Every intake stage is covered' },
-              { tile: 'tile-emerald', icon: '👥', title: 'No minimum user counts',      desc: 'Solo to group — same price logic' },
-              { tile: 'tile-navy',    icon: '🔒', title: 'No paywalled entry point',    desc: 'Free tier, always. No bait and switch' },
+              { tile: 'tile-coral',   icon: <IcBuilding />, title: 'No enterprise pricing',    desc: 'Priced for real practices, not hospitals' },
+              { tile: 'tile-violet',  icon: <IcBrain />,    title: 'No generic CRMs',          desc: 'Built for therapy intake, not sales' },
+              { tile: 'tile-sky',     icon: <IcGrad />,     title: 'No steep learning curves', desc: 'Up and running in under an hour' },
+              { tile: 'tile-amber',   icon: <IcZap />,      title: 'No missing workflows',     desc: 'Every intake stage is covered' },
+              { tile: 'tile-emerald', icon: <IcUsers />,    title: 'No minimum user counts',   desc: 'Solo to group — same price logic' },
+              { tile: 'tile-navy',    icon: <IcLock />,     title: 'No paywalled entry point', desc: 'Free tier, always. No bait and switch' },
             ].map(({ tile, icon, title, desc }) => (
               <div className="tile-card" key={title}>
                 <span className={`tile-icon ${tile}`}>{icon}</span>
@@ -111,10 +120,10 @@ export default function Home() {
 
         <div className="tile-grid-2">
           {[
-            { tile: 'tile-sky',    icon: '🧊', title: 'Leads go cold',          body: "You're busy! Clinicians miss follow-ups. Prospective clients move on. No one tracks the gap." },
-            { tile: 'tile-amber',  icon: '📋', title: 'Spreadsheets & paper',   body: 'Intake tracking lives in notebooks and shared docs. Nothing is automated or consistent.' },
-            { tile: 'tile-coral',  icon: '🔧', title: 'No pre-patient tooling', body: "Practice management systems don't manage outreach. General CRMs don't understand therapy intake." },
-            { tile: 'tile-violet', icon: '💸', title: 'Expensive alternatives', body: 'Enterprise tools charge per-seat minimums with no free entry point for small practices.' },
+            { tile: 'tile-sky',    icon: <IcSnowflake />, title: 'Leads go cold',          body: "You're busy! Clinicians miss follow-ups. Prospective clients move on. No one tracks the gap." },
+            { tile: 'tile-amber',  icon: <IcClipboard />, title: 'Spreadsheets & paper',   body: 'Intake tracking lives in notebooks and shared docs. Nothing is automated or consistent.' },
+            { tile: 'tile-coral',  icon: <IcWrench />,    title: 'No pre-patient tooling', body: "Practice management systems don't manage outreach. General CRMs don't understand therapy intake." },
+            { tile: 'tile-violet', icon: <IcMoney />,     title: 'Expensive alternatives', body: 'Enterprise tools charge per-seat minimums with no free entry point for small practices.' },
           ].map(({ tile, icon, title, body }) => (
             <div className="tile-card tile-card-tall" key={title}>
               <span className={`tile-icon ${tile}`}>{icon}</span>
@@ -199,10 +208,10 @@ export default function Home() {
         {/* Feature tiles — replacing rosie-feats */}
         <div className="tile-grid-2" style={{ marginTop: '2.5rem' }}>
           {[
-            { tile: 'tile-violet', icon: '🧠', title: 'Autonomous planning',      desc: 'Rosie reviews your intake pipeline and proactively recommends next steps for each lead.' },
-            { tile: 'tile-coral',  icon: '✍️', title: 'Correspondence drafting',  desc: 'Every email and SMS drafted with clinical tone, correct stage language, and personal context.' },
-            { tile: 'tile-sky',    icon: '🧭', title: 'Guided onboarding',        desc: 'New staff ask Rosie — she walks them through the intake protocol step by step.' },
-            { tile: 'tile-amber',  icon: '📆', title: 'Calendar sync',            desc: 'Confirmed appointments pushed automatically to Google Calendar or Outlook. Pro+ feature.' },
+            { tile: 'tile-violet', icon: <IcBrain />,    title: 'Autonomous planning',     desc: 'Rosie reviews your intake pipeline and proactively recommends next steps for each lead.' },
+            { tile: 'tile-coral',  icon: <IcEdit />,     title: 'Correspondence drafting', desc: 'Every email and SMS drafted with clinical tone, correct stage language, and personal context.' },
+            { tile: 'tile-sky',    icon: <IcCompass />,  title: 'Guided onboarding',       desc: 'New staff ask Rosie — she walks them through the intake protocol step by step.' },
+            { tile: 'tile-amber',  icon: <IcCalendar />, title: 'Calendar sync',           desc: 'Confirmed appointments pushed automatically to Google Calendar or Outlook. Pro+ feature.' },
           ].map(({ tile, icon, title, desc }) => (
             <div className="tile-card tile-card-tall" key={title}>
               <span className={`tile-icon ${tile}`}>{icon}</span>
@@ -234,7 +243,7 @@ export default function Home() {
               <div className="card-header">
                 <span className="label" style={{ margin: 0 }}>Free</span>
                 <span className="icon-badge" style={{ padding: '5px 10px 5px 5px', fontSize: 11, borderRadius: 8 }}>
-                  <span className="icon-badge-tile tile-sky" style={{ width: 20, height: 20, borderRadius: 5, fontSize: 10 }}>∞</span>
+                  <span className="icon-badge-tile tile-sky" style={{ width: 20, height: 20, borderRadius: 5, fontSize: 10 }}><IcInfinity /></span>
                   Forever
                 </span>
               </div>
@@ -255,7 +264,7 @@ export default function Home() {
               <div className="card-header">
                 <span className="label" style={{ margin: 0 }}>Pro</span>
                 <span className="icon-badge" style={{ padding: '5px 10px 5px 5px', fontSize: 11, borderRadius: 8 }}>
-                  <span className="icon-badge-tile tile-emerald" style={{ width: 20, height: 20, borderRadius: 5, fontSize: 10 }}>✓</span>
+                  <span className="icon-badge-tile tile-emerald" style={{ width: 20, height: 20, borderRadius: 5, fontSize: 10 }}><IcCheck /></span>
                   Live in beta
                 </span>
               </div>
@@ -283,7 +292,7 @@ export default function Home() {
               <div className="card-header">
                 <span className="label" style={{ margin: 0 }}>Pro+</span>
                 <span className="icon-badge" style={{ padding: '5px 10px 5px 5px', fontSize: 11, borderRadius: 8 }}>
-                  <span className="icon-badge-tile tile-amber" style={{ width: 20, height: 20, borderRadius: 5, fontSize: 10 }}>⏳</span>
+                  <span className="icon-badge-tile tile-amber" style={{ width: 20, height: 20, borderRadius: 5, fontSize: 10 }}><IcClock /></span>
                   Coming soon
                 </span>
               </div>
@@ -318,17 +327,17 @@ export default function Home() {
 
         <div className="tile-grid-3" style={{ marginTop: '1.5rem' }}>
           {[
-            { tile: 'tile-sky',     icon: '📅', title: 'Scheduling',          desc: 'Client-facing scheduling page' },
-            { tile: 'tile-emerald', icon: '🏥', title: 'Insurance & claims',  desc: 'Verification & filing' },
-            { tile: 'tile-violet',  icon: '📹', title: 'Telehealth',          desc: 'In-app video sessions' },
-            { tile: 'tile-navy',    icon: '📋', title: 'Session notes',       desc: 'Structured clinical notes' },
-            { tile: 'tile-amber',   icon: '📖', title: 'Wiley treatment',     desc: 'Treatment plan library' },
-            { tile: 'tile-rose',    icon: '💬', title: 'Between-session',     desc: 'Client engagement tools' },
-            { tile: 'tile-coral',   icon: '🔒', title: 'Patient portal',      desc: 'Secure client self-service' },
-            { tile: 'tile-sky',     icon: '📊', title: 'Outcomes tracking',   desc: 'Standardised measures' },
-            { tile: 'tile-amber',   icon: '🏅', title: 'Credentialing',       desc: 'Get credentialed for free' },
-            { tile: 'tile-emerald', icon: '📞', title: 'In-app calling',      desc: 'Make & receive calls in Rosie' },
-            { tile: 'tile-violet',  icon: '🎙️', title: 'Call transcription',  desc: 'Requires in-app calling' },
+            { tile: 'tile-sky',     icon: <IcCalendar />,  title: 'Scheduling',         desc: 'Client-facing scheduling page' },
+            { tile: 'tile-emerald', icon: <IcCross />,     title: 'Insurance & claims', desc: 'Verification & filing' },
+            { tile: 'tile-violet',  icon: <IcVideo />,     title: 'Telehealth',         desc: 'In-app video sessions' },
+            { tile: 'tile-navy',    icon: <IcFileText />,  title: 'Session notes',      desc: 'Structured clinical notes' },
+            { tile: 'tile-amber',   icon: <IcBook />,      title: 'Wiley treatment',    desc: 'Treatment plan library' },
+            { tile: 'tile-rose',    icon: <IcChat />,      title: 'Between-session',    desc: 'Client engagement tools' },
+            { tile: 'tile-coral',   icon: <IcLock />,      title: 'Patient portal',     desc: 'Secure client self-service' },
+            { tile: 'tile-sky',     icon: <IcBarChart />,  title: 'Outcomes tracking',  desc: 'Standardised measures' },
+            { tile: 'tile-amber',   icon: <IcAward />,     title: 'Credentialing',      desc: 'Get credentialed for free' },
+            { tile: 'tile-emerald', icon: <IcPhone />,     title: 'In-app calling',     desc: 'Make & receive calls in Rosie' },
+            { tile: 'tile-violet',  icon: <IcMic />,       title: 'Call transcription', desc: 'Requires in-app calling' },
           ].map(({ tile, icon, title, desc }) => (
             <div className="tile-card" key={title}>
               <span className={`tile-icon ${tile}`}>{icon}</span>
@@ -368,12 +377,12 @@ export default function Home() {
           {/* Replacing trust pills with tile cards */}
           <div className="tile-grid-3">
             {[
-              { tile: 'tile-navy',    icon: '🔒', title: 'HIPAA-compliant',          desc: 'Secure infrastructure, certified' },
-              { tile: 'tile-violet',  icon: '🧠', title: 'Built for therapy',        desc: 'Psychotherapy & wellness practices' },
-              { tile: 'tile-emerald', icon: '👤', title: 'Any practice size',        desc: 'Solo to group — no minimums' },
-              { tile: 'tile-sky',     icon: '🔗', title: 'Works with any EHR',       desc: 'Seamless handoff at session one' },
-              { tile: 'tile-amber',   icon: '0️⃣',  title: 'No user minimums',        desc: 'Pay only for what you use' },
-              { tile: 'tile-coral',   icon: '🆓', title: 'Free tier, always',        desc: 'No bait and switch, ever' },
+              { tile: 'tile-navy',    icon: <IcShield />,  title: 'HIPAA-compliant',    desc: 'Secure infrastructure, certified' },
+              { tile: 'tile-violet',  icon: <IcHeart />,   title: 'Built for therapy',  desc: 'Psychotherapy & wellness practices' },
+              { tile: 'tile-emerald', icon: <IcPerson />,  title: 'Any practice size',  desc: 'Solo to group — no minimums' },
+              { tile: 'tile-sky',     icon: <IcLink />,    title: 'Works with any EHR', desc: 'Seamless handoff at session one' },
+              { tile: 'tile-amber',   icon: <IcTag />,     title: 'No user minimums',   desc: 'Pay only for what you use' },
+              { tile: 'tile-coral',   icon: <IcGift />,    title: 'Free tier, always',  desc: 'No bait and switch, ever' },
             ].map(({ tile, icon, title, desc }) => (
               <div className="tile-card" key={title}>
                 <span className={`tile-icon ${tile}`}>{icon}</span>
@@ -401,7 +410,7 @@ export default function Home() {
       <section className="section">
         <div className="cta-box">
           <span className="icon-badge" style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', borderRadius: 10, padding: '7px 16px 7px 7px' }}>
-            <span className="icon-badge-tile tile-coral" style={{ width: 26, height: 26, borderRadius: 7, fontSize: 13 }}>⭐</span>
+            <span className="icon-badge-tile tile-coral" style={{ width: 26, height: 26, borderRadius: 7, fontSize: 13 }}><IcStar /></span>
             Beta — limited spots available
           </span>
           <h2>Start with intake.<br />Stay for everything else.</h2>
