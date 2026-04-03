@@ -244,12 +244,12 @@ export default function Home() {
 
             {/* PRO */}
             <div className="price-card featured">
-              <div className="featured-accent">⭐ Most Popular — Free during beta</div>
+              <div className="featured-accent">⭐ Available now — Free during beta</div>
               <div className="card-header">
                 <span className="label" style={{ margin: 0 }}>Pro</span>
                 <span className="icon-badge" style={{ padding: '5px 10px 5px 5px', fontSize: 11, borderRadius: 8 }}>
-                  <span className="icon-badge-tile tile-amber" style={{ width: 20, height: 20, borderRadius: 5, fontSize: 10 }}>⭐</span>
-                  Free in beta
+                  <span className="icon-badge-tile tile-emerald" style={{ width: 20, height: 20, borderRadius: 5, fontSize: 10 }}>✓</span>
+                  Live in beta
                 </span>
               </div>
               <div className="price-amount">$19 <span>/ seat / month</span></div>
@@ -272,12 +272,12 @@ export default function Home() {
 
             {/* PRO+ */}
             <div className="price-card pro-plus">
-              <div className="featured-accent pro-plus-accent">🚀 Full power — Free during beta</div>
+              <div className="featured-accent pro-plus-accent">🚀 Coming soon</div>
               <div className="card-header">
                 <span className="label" style={{ margin: 0 }}>Pro+</span>
                 <span className="icon-badge" style={{ padding: '5px 10px 5px 5px', fontSize: 11, borderRadius: 8 }}>
-                  <span className="icon-badge-tile tile-violet" style={{ width: 20, height: 20, borderRadius: 5, fontSize: 10 }}>🚀</span>
-                  Free in beta
+                  <span className="icon-badge-tile tile-amber" style={{ width: 20, height: 20, borderRadius: 5, fontSize: 10 }}>⏳</span>
+                  Coming soon
                 </span>
               </div>
               <div className="price-amount">$29 <span>/ seat / month</span></div>
