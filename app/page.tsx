@@ -252,7 +252,7 @@ export default function Home() {
                   Free in beta
                 </span>
               </div>
-              <div className="price-amount">$19–29 <span>/ seat / month</span></div>
+              <div className="price-amount">$19 <span>/ seat / month</span></div>
               <p className="price-desc">Rosie does the work. You review and move on.</p>
               {[
                 'Everything in Free',
@@ -280,7 +280,7 @@ export default function Home() {
                   Free in beta
                 </span>
               </div>
-              <div className="price-amount">$39–49 <span>/ seat / month</span></div>
+              <div className="price-amount">$29 <span>/ seat / month</span></div>
               <p className="price-desc">Everything in Pro, plus deep integrations and calling.</p>
               {[
                 'Everything in Pro',
