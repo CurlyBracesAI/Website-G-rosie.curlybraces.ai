@@ -201,7 +201,7 @@ export default function Home() {
             { tile: 'tile-violet', icon: '🧠', title: 'Autonomous planning',      desc: 'Rosie reviews your intake pipeline and proactively recommends next steps for each lead.' },
             { tile: 'tile-coral',  icon: '✍️', title: 'Correspondence drafting',  desc: 'Every email and SMS drafted with clinical tone, correct stage language, and personal context.' },
             { tile: 'tile-sky',    icon: '🧭', title: 'Guided onboarding',        desc: 'New staff ask Rosie — she walks them through the intake protocol step by step.' },
-            { tile: 'tile-amber',  icon: '📆', title: 'Calendar sync',            desc: 'Confirmed appointments pushed automatically to Google Calendar or Outlook. Pro feature.' },
+            { tile: 'tile-amber',  icon: '📆', title: 'Calendar sync',            desc: 'Confirmed appointments pushed automatically to Google Calendar or Outlook. Pro+ feature.' },
           ].map(({ tile, icon, title, desc }) => (
             <div className="tile-card tile-card-tall" key={title}>
               <span className={`tile-icon ${tile}`}>{icon}</span>
@@ -225,7 +225,7 @@ export default function Home() {
             <p>A free tier, always. Pro is free for all beta practices — for as long as you&apos;re with us.</p>
           </div>
 
-          <div className="pricing-grid">
+          <div className="pricing-grid pricing-grid-3">
             {/* FREE */}
             <div className="price-card">
               <div className="card-header">
@@ -236,7 +236,7 @@ export default function Home() {
               {['Unlimited lead profiles', 'Manual intake entry', 'All leads in one dashboard', 'HIPAA-compliant storage', 'EHR handoff notes'].map(f => (
                 <div className="price-line" key={f}><div className="check-icon">✓</div>{f}</div>
               ))}
-              {['AI automation & Rosie AI', 'Automated follow-up sequences', 'Calendar sync', 'Bolt-on modules'].map(f => (
+              {['AI automation & Rosie AI', 'Automated follow-up sequences', 'Calendar sync', 'In-app calling', 'Bolt-on modules'].map(f => (
                 <div className="price-line" key={f}><div className="dash-icon">—</div>{f}</div>
               ))}
               <button className="btn-secondary price-btn">Get started free</button>
@@ -261,12 +261,36 @@ export default function Home() {
                 'Rosie AI assistant & chatbot',
                 'Autonomous intake planning',
                 'Inbound email intake',
+              ].map(f => (
+                <div className="price-line" key={f}><div className="check-icon">✓</div>{f}</div>
+              ))}
+              {['Calendar sync — Google & Outlook', 'In-app calling', 'Bolt-on modules'].map(f => (
+                <div className="price-line" key={f}><div className="dash-icon">—</div>{f}</div>
+              ))}
+              <button className="btn-primary price-btn">Start Pro free — beta access →</button>
+            </div>
+
+            {/* PRO+ */}
+            <div className="price-card pro-plus">
+              <div className="featured-accent pro-plus-accent">🚀 Full power — Free during beta</div>
+              <div className="card-header">
+                <span className="label" style={{ margin: 0 }}>Pro+</span>
+                <span className="icon-badge" style={{ padding: '5px 10px 5px 5px', fontSize: 11, borderRadius: 8 }}>
+                  <span className="icon-badge-tile tile-violet" style={{ width: 20, height: 20, borderRadius: 5, fontSize: 10 }}>🚀</span>
+                  Free in beta
+                </span>
+              </div>
+              <div className="price-amount">$39–49 <span>/ seat / month</span></div>
+              <p className="price-desc">Everything in Pro, plus deep integrations and calling.</p>
+              {[
+                'Everything in Pro',
                 'Calendar sync — Google & Outlook',
+                'In-app calling',
                 'Bolt-on modules available',
               ].map(f => (
                 <div className="price-line" key={f}><div className="check-icon">✓</div>{f}</div>
               ))}
-              <button className="btn-primary price-btn">Start Pro free — beta access →</button>
+              <button className="btn-primary price-btn pro-plus-btn">Start Pro+ free — beta access →</button>
             </div>
           </div>
         </section>
