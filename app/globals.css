@@ -61,6 +61,9 @@
   --fs-label: 13px;
 }
 
+/* Whole-page scale (~90% browser zoom); tweak this one value to adjust density */
+html { zoom: 0.9; }
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body { color: var(--text-primary); background: var(--bg-primary); line-height: 1.6; font-family: inherit; }
 a { text-decoration: none; color: inherit; }
