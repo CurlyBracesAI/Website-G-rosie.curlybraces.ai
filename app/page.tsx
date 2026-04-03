@@ -202,7 +202,7 @@ export default function Home() {
             <div className="chat-label">Rosie</div>
             <div className="chat-bubble chat-rosie" style={{ marginBottom: 0 }}>
               Marcus noted anxiety and availability on Tuesday afternoons. I&apos;ve drafted an intro
-              email referencing those details and suggested two Tuesday slots. Ready to send?
+              email referencing those details and suggested two Tuesday slots. Ready to{'\u00a0'}send?
             </div>
           </div>
         </div>
@@ -235,7 +235,11 @@ export default function Home() {
           <div className="section-head">
             <span className="label">Pricing</span>
             <h2>Start free. Upgrade when you&apos;re ready.</h2>
-            <p>A free tier, always. Pro is free for all beta practices — for as long as you&apos;re with us.</p>
+            <p>
+              A free tier, always. Pro is free for all beta practices.
+              <br />
+              For as long as you&apos;re with us.
+            </p>
           </div>
 
           <div className="pricing-grid pricing-grid-3">
@@ -358,9 +362,8 @@ export default function Home() {
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem', marginBottom: '1rem' }}>
-          <span className="icon-badge" style={{ padding: '5px 10px 5px 5px', fontSize: 12, borderRadius: 8 }}>
-            <span className="icon-badge-tile tile-amber" style={{ width: 20, height: 20, borderRadius: 5, fontSize: 11 }}><IcClock /></span>
-            All modules coming soon — available to beta practices first
+          <span className="badge badge-amber" style={{ fontSize: 16, padding: '12px 22px', fontWeight: 600 }}>
+            All modules coming soon. Available to beta practices first.
           </span>
         </div>
 
