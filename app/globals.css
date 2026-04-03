@@ -164,10 +164,23 @@ p  { font-size: 15px; line-height: 1.75; color: var(--text-secondary); }
   border-radius: var(--radius-lg); padding: 10px 18px 10px 10px;
   font-size: 13px; font-weight: 500; color: var(--text-primary);
   box-shadow: 0 1px 6px rgba(0,0,0,0.07);
-  transition: box-shadow 0.15s, transform 0.15s;
+  transition: box-shadow 0.15s, transform 0.15s, background 0.15s;
 }
 .icon-badge strong { font-weight: 700; }
 .icon-badge:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.1); transform: translateY(-1px); }
+/* Hero badges sit on a dark background — override to frosted glass */
+.hero-icon-badges .icon-badge {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.hero-icon-badges .icon-badge:hover {
+  background: rgba(255,255,255,0.13);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+}
 .icon-badge-tile {
   width: 36px; height: 36px; border-radius: 10px;
   display: flex; align-items: center; justify-content: center;
