@@ -9,11 +9,8 @@ export const metadata: Metadata = {
   description:
     'From first contact to first session. Rosie captures every lead, drafts every follow-up, and hands off seamlessly to your EHR. HIPAA-compliant.',
   manifest: '/site.webmanifest',
+  /* Default tab icon: app/icon.png (Next file convention). Apple + PWA: public/*. */
   icons: {
-    icon: [
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
-    ],
     apple: '/apple-touch-icon.png',
   },
 };
