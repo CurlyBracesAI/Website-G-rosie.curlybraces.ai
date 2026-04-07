@@ -326,7 +326,7 @@ export default function Home() {
           <span className="label">Bolt-on modules</span>
           <h2>Grow with Rosie, at your own pace</h2>
           <p>
-            Start with intake and let Rosie grow alongside your practice. Every module below is on our roadmap. Activate what you need, when you need it. No forced upgrades, no bloated all-in-one you&apos;ll never fully use.
+            Start with onboarding your patients, then let Rosie grow alongside your practice. Every module below is on our roadmap. Activate what you need, when you need it. No forced upgrades, no bloated all-in-one you&apos;ll never fully use.
           </p>
         </div>
 
