@@ -53,7 +53,7 @@ export default function Home() {
             </span>
           </div>
 
-          <h1>Rosie: The Intake & Marketing CRM Built for<br />Psychotherapy &amp; Wellness Practices</h1>
+          <h1>Rosie: Patient Onboarding CRM Built for<br />Psychotherapy &amp; Wellness Practices</h1>
           <p className="hero-sub">
             From first contact to first session, Rosie AI captures every lead, drafts every follow-up,
             manages the workflow and hands off seamlessly to your EHR.
