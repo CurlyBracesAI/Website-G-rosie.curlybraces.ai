@@ -114,9 +114,9 @@ export default function Home() {
           <span className="label">The problem</span>
           <h2>Your EHR starts at session one.<br />What about before?</h2>
           <p>
-            HIPAA-compliant CRMs are built for hospitals, priced for enterprises, or designed for
-            the patients you already have. Rosie is built for the patients you haven&apos;t met yet.
-            Purpose-built for small and medium psychotherapy and wellness practices.
+            Most HIPAA-compliant CRMs are built and priced for larger healthcare enterprises.
+            Rosie is purpose-built for small and medium psychotherapy and wellness practices.
+            Designed for onboarding, to be used before you even meet your patients.
           </p>
         </div>
 
@@ -146,6 +146,9 @@ export default function Home() {
           <div className="section-head">
             <span className="label">How it works</span>
             <h2>First contact to first session, on autopilot</h2>
+            <p>
+            Based on a simple linear workflow, Rosie captures the lead's information, drafts outreach emails, reminds when calls should take place, logs notes, and keep the process on schedule.
+          </p>
           </div>
 
           <div className="steps-grid">
