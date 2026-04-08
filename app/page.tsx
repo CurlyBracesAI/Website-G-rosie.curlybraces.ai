@@ -23,7 +23,7 @@ export default function Home() {
           <a href="#how-it-works">How it works</a>
           <a href="#features">Features</a>
           <a href="#pricing">Pricing</a>
-          <button className="btn-primary">Start free, no card needed</button>
+          <a href="https://intake.rosie.curlybraces.ai/register" className="btn-primary" style={{ textDecoration: "none" }}>Get Started Free</a>
         </div>
       </nav>
 
@@ -57,7 +57,10 @@ export default function Home() {
             </p>
 
             <div className="hero-btns">
-              <button className="btn-primary btn-lg">Start free trial →</button>
+              <div>
+                <a href="https://intake.rosie.curlybraces.ai/register" className="btn-primary btn-lg" style={{ textDecoration: "none" }}>Get Started Free →</a>
+                <p style={{ fontSize: 11, color: "var(--text-tertiary)", marginTop: "0.5rem", textAlign: "center" }}>Pro features available — apply for beta access inside your account</p>
+              </div>
               <button className="btn-secondary btn-lg">See how it works</button>
             </div>
           </div>
@@ -312,7 +315,8 @@ export default function Home() {
               {['AI automation & Rosie AI', 'Automated follow-up sequences', 'Calendar sync', 'In-app calling', 'Bolt-on modules'].map(f => (
                 <div className="price-line" key={f}><div className="dash-icon">-</div>{f}</div>
               ))}
-              <button className="btn-secondary price-btn">Get started free</button>
+              <a href="https://intake.rosie.curlybraces.ai/register" className="btn-secondary price-btn" style={{ textDecoration: "none" }}>Get Started Free</a>
+              <p style={{ fontSize: 11, color: "var(--text-tertiary)", marginTop: "0.5rem", textAlign: "center" }}>Pro features available — apply for beta access inside your account</p>
             </div>
 
             {/* PRO */}
@@ -340,7 +344,8 @@ export default function Home() {
               {['Calendar sync (Google & Outlook)', 'In-app calling', 'Bolt-on modules'].map(f => (
                 <div className="price-line" key={f}><div className="dash-icon">-</div>{f}</div>
               ))}
-              <button className="btn-primary price-btn">Start Pro free: beta access →</button>
+              <a href="https://intake.rosie.curlybraces.ai/register" className="btn-primary price-btn" style={{ textDecoration: "none" }}>Get Started Free →</a>
+              <p style={{ fontSize: 11, color: "var(--text-tertiary)", marginTop: "0.5rem", textAlign: "center" }}>Pro features available — apply for beta access inside your account</p>
             </div>
 
             {/* PRO+ */}
@@ -363,7 +368,8 @@ export default function Home() {
               ].map(f => (
                 <div className="price-line" key={f}><div className="check-icon">✓</div>{f}</div>
               ))}
-              <button className="btn-primary price-btn pro-plus-btn">Start Pro+ free: beta access →</button>
+              <a href="https://intake.rosie.curlybraces.ai/register" className="btn-primary price-btn pro-plus-btn" style={{ textDecoration: "none" }}>Get Started Free →</a>
+              <p style={{ fontSize: 11, color: "var(--text-tertiary)", marginTop: "0.5rem", textAlign: "center" }}>Pro features available — apply for beta access inside your account</p>
             </div>
           </div>
         </section>
@@ -510,9 +516,9 @@ export default function Home() {
             Free forever on the basic plan. Pro is free for all beta practices. No credit card.
             No minimum users. HIPAA-compliant from day one.
           </p>
-          <div className="cta-form">
-            <input type="email" placeholder="your@practice.com" />
-            <button className="btn-primary">Get started free →</button>
+          <div style={{ textAlign: "center" }}>
+            <a href="https://intake.rosie.curlybraces.ai/register" className="btn-primary btn-lg" style={{ textDecoration: "none" }}>Get Started Free →</a>
+            <p style={{ fontSize: 11, color: "var(--text-tertiary)", marginTop: "0.5rem" }}>Pro features available — apply for beta access inside your account</p>
           </div>
           <p className="fine">By signing up you agree to our Terms of Service and Privacy Policy.</p>
         </div>

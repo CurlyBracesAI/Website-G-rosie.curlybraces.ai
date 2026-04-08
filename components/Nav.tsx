@@ -39,8 +39,8 @@ export default function Nav() {
             {l.label}
           </a>
         ))}
-        <a href="#cta" className="btn-primary" style={{ textDecoration: "none" }}>
-          Start free: no card needed
+        <a href="https://intake.rosie.curlybraces.ai/register" className="btn-primary" style={{ textDecoration: "none" }}>
+          Get Started Free
         </a>
       </div>
 
@@ -82,8 +82,8 @@ export default function Nav() {
               {l.label}
             </a>
           ))}
-          <a href="#cta" onClick={() => setOpen(false)} className="btn-primary" style={{ textDecoration: "none", justifyContent: "center" }}>
-            Start free: no card needed
+          <a href="https://intake.rosie.curlybraces.ai/register" onClick={() => setOpen(false)} className="btn-primary" style={{ textDecoration: "none", justifyContent: "center" }}>
+            Get Started Free
           </a>
         </div>
       )}

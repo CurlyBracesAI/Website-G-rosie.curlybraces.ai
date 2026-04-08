@@ -62,9 +62,10 @@ export default function Pricing() {
             Everything in one place. You run it manually; Rosie holds the data.
           </p>
           {freeFeatures.map((f) => <FeatureLine key={f.text} {...f} />)}
-          <a href="#cta" className="btn-secondary" style={{ width: "100%", marginTop: "1.5rem", padding: 12, fontSize: 14, justifyContent: "center", textDecoration: "none" }}>
-            Get started free
+          <a href="https://intake.rosie.curlybraces.ai/register" className="btn-secondary" style={{ width: "100%", marginTop: "1.5rem", padding: 12, fontSize: 14, justifyContent: "center", textDecoration: "none" }}>
+            Get Started Free
           </a>
+          <p style={{ fontSize: 11, color: "var(--text-tertiary)", marginTop: "0.5rem", textAlign: "center" }}>Pro features available — apply for beta access inside your account</p>
         </div>
 
         {/* Pro (featured) */}
@@ -89,9 +90,10 @@ export default function Pricing() {
             Rosie does the work. You review and move on.
           </p>
           {proFeatures.map((f) => <FeatureLine key={f.text} {...f} />)}
-          <a href="#cta" className="btn-primary" style={{ width: "100%", marginTop: "1.5rem", padding: 12, fontSize: 14, justifyContent: "center", textDecoration: "none" }}>
-            Start Pro free: beta access
+          <a href="https://intake.rosie.curlybraces.ai/register" className="btn-primary" style={{ width: "100%", marginTop: "1.5rem", padding: 12, fontSize: 14, justifyContent: "center", textDecoration: "none" }}>
+            Get Started Free
           </a>
+          <p style={{ fontSize: 11, color: "var(--text-tertiary)", marginTop: "0.5rem", textAlign: "center" }}>Pro features available — apply for beta access inside your account</p>
         </div>
       </div>
     </section>

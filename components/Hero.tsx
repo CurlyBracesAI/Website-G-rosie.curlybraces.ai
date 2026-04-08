@@ -30,10 +30,11 @@ export default function Hero() {
         From first contact to first session, Rosie captures every lead, drafts every follow-up, and hands off seamlessly to your EHR. Built for solo and group practices of all sizes.
       </p>
 
-      <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginBottom: "2.5rem" }}>
-        <a href="#cta" className="btn-primary">Start free trial</a>
+      <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginBottom: "1rem" }}>
+        <a href="https://intake.rosie.curlybraces.ai/register" className="btn-primary">Get Started Free</a>
         <a href="#how-it-works" className="btn-secondary">See how it works</a>
       </div>
+      <p style={{ fontSize: 11, color: "var(--text-tertiary)", textAlign: "center", marginBottom: "1.5rem" }}>Pro features available — apply for beta access inside your account</p>
 
       {/* Competitor pills with strikethrough */}
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "center" }}>
