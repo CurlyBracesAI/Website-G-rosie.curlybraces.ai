@@ -59,7 +59,7 @@ export default function Home() {
             <div className="hero-btns">
               <div>
                 <a href="https://intake.rosie.curlybraces.ai/register" className="btn-primary btn-lg" style={{ textDecoration: "none" }}>Get Started Free →</a>
-                <p style={{ fontSize: 11, color: "var(--text-tertiary)", marginTop: "0.5rem", textAlign: "center" }}>Pro features available — apply for beta access inside your account</p>
+                <p style={{ fontSize: 11, color: "var(--text-tertiary)", marginTop: "1rem", textAlign: "center" }}>Pro features available — apply for beta access inside your account</p>
               </div>
               <button className="btn-secondary btn-lg">See how it works</button>
             </div>
@@ -316,7 +316,6 @@ export default function Home() {
                 <div className="price-line" key={f}><div className="dash-icon">-</div>{f}</div>
               ))}
               <a href="https://intake.rosie.curlybraces.ai/register" className="btn-secondary price-btn" style={{ textDecoration: "none" }}>Get Started Free</a>
-              <p style={{ fontSize: 11, color: "var(--text-tertiary)", marginTop: "0.5rem", textAlign: "center" }}>Pro features available — apply for beta access inside your account</p>
             </div>
 
             {/* PRO */}
@@ -345,7 +344,6 @@ export default function Home() {
                 <div className="price-line" key={f}><div className="dash-icon">-</div>{f}</div>
               ))}
               <a href="https://intake.rosie.curlybraces.ai/register" className="btn-primary price-btn" style={{ textDecoration: "none" }}>Get Started Free →</a>
-              <p style={{ fontSize: 11, color: "var(--text-tertiary)", marginTop: "0.5rem", textAlign: "center" }}>Pro features available — apply for beta access inside your account</p>
             </div>
 
             {/* PRO+ */}
@@ -369,9 +367,9 @@ export default function Home() {
                 <div className="price-line" key={f}><div className="check-icon">✓</div>{f}</div>
               ))}
               <a href="https://intake.rosie.curlybraces.ai/register" className="btn-primary price-btn pro-plus-btn" style={{ textDecoration: "none" }}>Get Started Free →</a>
-              <p style={{ fontSize: 11, color: "var(--text-tertiary)", marginTop: "0.5rem", textAlign: "center" }}>Pro features available — apply for beta access inside your account</p>
             </div>
           </div>
+          <p style={{ fontSize: 12, color: "var(--text-tertiary)", marginTop: "1.5rem", textAlign: "center" }}>Pro features available — apply for beta access inside your account after signing up</p>
         </section>
       </div>
 
@@ -518,9 +516,9 @@ export default function Home() {
           </p>
           <div style={{ textAlign: "center" }}>
             <a href="https://intake.rosie.curlybraces.ai/register" className="btn-primary btn-lg" style={{ textDecoration: "none" }}>Get Started Free →</a>
-            <p style={{ fontSize: 11, color: "var(--text-tertiary)", marginTop: "0.5rem" }}>Pro features available — apply for beta access inside your account</p>
+            <p style={{ fontSize: 11, color: "var(--text-tertiary)", marginTop: "1.25rem" }}>Pro features available — apply for beta access inside your account</p>
+            <p className="fine" style={{ marginTop: "0.75rem" }}>By signing up you agree to our Terms of Service and Privacy Policy.</p>
           </div>
-          <p className="fine">By signing up you agree to our Terms of Service and Privacy Policy.</p>
         </div>
       </section>
 
