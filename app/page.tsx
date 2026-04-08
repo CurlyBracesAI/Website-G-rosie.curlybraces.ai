@@ -24,7 +24,10 @@ export default function Home() {
           <a href="#features">Features</a>
           <a href="#pricing">Pricing</a>
           <a href="#contact">Contact</a>
-          <a href="https://intake.rosie.curlybraces.ai/" className="btn-primary" style={{ textDecoration: "none", color: "#fff" }}>Get Started Free</a>
+          <a href="https://intake.rosie.curlybraces.ai/" className="btn-split-pill" style={{ textDecoration: "none" }}>
+            <span className="btn-split-badge"><IcStar /> Beta</span>
+            <span className="btn-split-label">Get Started Free →</span>
+          </a>
         </div>
       </nav>
 
@@ -34,27 +37,10 @@ export default function Home() {
 
           {/* LEFT: copy */}
           <div className="hero-copy">
-            <div className="hero-icon-badges">
-              <span className="icon-badge">
-                <span className="icon-badge-tile tile-coral"><IcStar /></span>
-                <span><strong>Beta</strong>: Pro plan free while it lasts</span>
-              </span>
-              <span className="icon-badge">
-                <span className="icon-badge-tile tile-navy"><IcLock /></span>
-                <span><strong>HIPAA</strong>-compliant from day one</span>
-              </span>
-              <span className="icon-badge">
-                <span className="icon-badge-tile tile-emerald"><IcCheck /></span>
-                <span><strong>No</strong> credit card needed</span>
-              </span>
-            </div>
-
             <h1>Rosie AI: Patient Onboarding CRM Assistant, Built for<br />Psychotherapy &amp; Wellness Practices</h1>
+            <p className="hero-pain">How much is losing new patients to slow follow-up costing your practice every month?</p>
             <p className="hero-sub">
-              From first contact to first session, Rosie AI captures every lead, drafts every follow-up,
-              manages the workflow and hands off seamlessly to your EHR.
-              <br />
-              Tailored AI for solo and group practices.
+              Rosie AI captures every lead, drafts every follow-up, manages the intake workflow, and hands off seamlessly to your EHR — HIPAA-compliant from day one. Built for solo and group practices.
             </p>
 
             <div className="hero-btns">
@@ -169,7 +155,7 @@ export default function Home() {
             <span className="label">How it works</span>
             <h2>First contact to first session, on autopilot</h2>
             <p>
-            Based on a simple linear workflow, Rosie captures the lead's information, drafts outreach emails, reminds when calls should take place, logs notes, and keeps the process on schedule.
+            Based on simple linear workflows, Rosie captures the lead's information, drafts outreach emails, reminds when calls should take place, logs notes, and keeps the process on schedule.
           </p>
           </div>
 
@@ -204,6 +190,56 @@ export default function Home() {
           </div>
 
         </section>
+      </div>
+
+      {/* FEATURE SPOTLIGHT */}
+      <div className="section-bg section-bg-warm">
+      <section className="section" id="detail-view">
+        <div className="section-head">
+          <span className="label">In detail</span>
+          <h2>See exactly what Rosie captures</h2>
+          <p>Close-up views of the structured data and automated logging that keep your intake running without intervention.</p>
+        </div>
+
+        {/* Row 1: copy + timeline screenshot with inlay */}
+        <div className="spotlight-row">
+          <div className="spotlight-copy">
+            <span className="label">Timeline &amp; follow-up</span>
+            <h3>Your workflow, enforced automatically</h3>
+            <p>Rosie tracks every stage and pauses when human input is needed — so nothing slips through the cracks.</p>
+            <ul className="spotlight-check-list">
+              <li>Stage-gated workflow: each step unlocks only when the prior one is complete</li>
+              <li>Urgent alerts surface at exactly the right moment in the sequence</li>
+              <li>27-event timeline: every email, call, note, and status change logged</li>
+              <li>AI drafts the next email or SMS — you approve before it sends</li>
+            </ul>
+          </div>
+          <div className="spotlight-inlay-wrap">
+            <img src="/screenshots/screen-07.png" alt="Rosie activity timeline with stage alert" loading="lazy" />
+            <div className="spotlight-inlay">
+              <img src="/screenshots/screen-14.png" alt="Intake details form — urgency, insurance, session type" loading="lazy" />
+            </div>
+          </div>
+        </div>
+
+        {/* Row 2: patient detail screenshot + copy */}
+        <div className="spotlight-row">
+          <div className="spotlight-frame">
+            <img src="/screenshots/screen-04.png" alt="Patient detail — info, intake context, and AI-logged notes" loading="lazy" />
+          </div>
+          <div className="spotlight-copy">
+            <span className="label">Patient records</span>
+            <h3>Every patient, fully documented</h3>
+            <p>Three-panel layout: patient info, structured intake details, and a live notes feed — all on one screen, zero re-entry.</p>
+            <ul className="spotlight-check-list">
+              <li>Referral source, urgency, insurance, and session type captured at intake</li>
+              <li>AI-generated call notes appended automatically after each interaction</li>
+              <li>Availability preferences stored so you schedule with confidence</li>
+              <li>One-click to Book Consultation or Promote to Patient when ready</li>
+            </ul>
+          </div>
+        </div>
+      </section>
       </div>
 
       <hr className="divider" />
@@ -499,47 +535,48 @@ export default function Home() {
         </section>
       </div>
 
-      <hr className="divider" />
-
       {/* CONTACT */}
-      <section className="section" id="contact">
-        <div className="section-head">
-          <span className="label">Get in touch</span>
-          <h2>We&apos;d love to hear from you</h2>
-          <p>Questions about Rosie, beta access, or your practice? Reach out — we respond fast.</p>
-        </div>
-
-        <div className="contact-grid">
-          <div className="contact-card">
-            <span className="tile-icon tile-coral" style={{ width: 44, height: 44, borderRadius: 12, fontSize: 20 }}><IcPhone /></span>
-            <div className="contact-card-body">
-              <div className="contact-card-label">Call us</div>
-              <a href="tel:9173422080" className="contact-card-value">917-342-2080</a>
-            </div>
+      <div className="section-bg section-bg-navy">
+        <section className="section" id="contact">
+          <div className="section-head">
+            <span className="label">Get in touch</span>
+            <h2>We&apos;d love to hear from you</h2>
+            <p>Questions about Rosie, beta access, or your practice? Reach out — we respond fast.</p>
           </div>
 
-          <div className="contact-card">
-            <span className="tile-icon tile-sky" style={{ width: 44, height: 44, borderRadius: 12, fontSize: 20 }}><IcChat /></span>
-            <div className="contact-card-body">
-              <div className="contact-card-label">Email us</div>
-              <a href="mailto:support@curlybraces.ai" className="contact-card-value">support@curlybraces.ai</a>
+          <div className="contact-grid">
+            <div className="contact-card">
+              <span className="tile-icon tile-coral" style={{ width: 48, height: 48, borderRadius: 13, fontSize: 22 }}><IcPhone /></span>
+              <div className="contact-card-body">
+                <div className="contact-card-label">Talk to the team</div>
+                <div className="contact-card-value">Got questions? We pick up. Speak directly to someone who knows Rosie inside out.</div>
+              </div>
+              <a href="tel:9173422080" className="contact-card-btn">Call 917-342-2080 →</a>
+            </div>
+
+            <div className="contact-card">
+              <span className="tile-icon tile-sky" style={{ width: 48, height: 48, borderRadius: 13, fontSize: 22 }}><IcChat /></span>
+              <div className="contact-card-body">
+                <div className="contact-card-label">Email us directly</div>
+                <div className="contact-card-value">Send us anything — pricing questions, HIPAA concerns, onboarding help. We reply same day.</div>
+              </div>
+              <a href="mailto:support@curlybraces.ai" className="contact-card-btn">support@curlybraces.ai →</a>
+            </div>
+
+            <div className="contact-card">
+              <span className="tile-icon tile-violet" style={{ width: 48, height: 48, borderRadius: 13, fontSize: 22 }}><IcEdit /></span>
+              <div className="contact-card-body">
+                <div className="contact-card-label">Send an enquiry</div>
+                <div className="contact-card-value">Prefer to write it out? Tell us about your practice and we&apos;ll get back to you quickly.</div>
+              </div>
+              <a href="mailto:support@curlybraces.ai?subject=Rosie%20Enquiry&body=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20Rosie." className="contact-card-btn contact-card-btn-ghost">Open enquiry form →</a>
             </div>
           </div>
-
-          <div className="contact-card">
-            <span className="tile-icon tile-violet" style={{ width: 44, height: 44, borderRadius: 12, fontSize: 20 }}><IcEdit /></span>
-            <div className="contact-card-body">
-              <div className="contact-card-label">Send a message</div>
-              <a href="mailto:support@curlybraces.ai?subject=Rosie%20Enquiry&body=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20Rosie." className="contact-card-value">Open enquiry form →</a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <hr className="divider" />
+        </section>
+      </div>
 
       {/* FINAL CTA */}
-      <section className="section">
+      <section className="section section-slim">
         <div className="cta-box">
           <span className="icon-badge" style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', borderRadius: 10, padding: '7px 16px 7px 7px' }}>
             <span className="icon-badge-tile tile-coral" style={{ width: 26, height: 26, borderRadius: 7, fontSize: 14 }}><IcStar /></span>
