@@ -23,6 +23,7 @@ export default function Home() {
           <a href="#how-it-works">How it works</a>
           <a href="#features">Features</a>
           <a href="#pricing">Pricing</a>
+          <a href="#contact">Contact</a>
           <a href="https://intake.rosie.curlybraces.ai/" className="btn-primary" style={{ textDecoration: "none", color: "#fff" }}>Get Started Free</a>
         </div>
       </nav>
@@ -497,6 +498,43 @@ export default function Home() {
           </div>
         </section>
       </div>
+
+      <hr className="divider" />
+
+      {/* CONTACT */}
+      <section className="section" id="contact">
+        <div className="section-head">
+          <span className="label">Get in touch</span>
+          <h2>We&apos;d love to hear from you</h2>
+          <p>Questions about Rosie, beta access, or your practice? Reach out — we respond fast.</p>
+        </div>
+
+        <div className="contact-grid">
+          <div className="contact-card">
+            <span className="tile-icon tile-coral" style={{ width: 44, height: 44, borderRadius: 12, fontSize: 20 }}><IcPhone /></span>
+            <div className="contact-card-body">
+              <div className="contact-card-label">Call us</div>
+              <a href="tel:9173422080" className="contact-card-value">917-342-2080</a>
+            </div>
+          </div>
+
+          <div className="contact-card">
+            <span className="tile-icon tile-sky" style={{ width: 44, height: 44, borderRadius: 12, fontSize: 20 }}><IcChat /></span>
+            <div className="contact-card-body">
+              <div className="contact-card-label">Email us</div>
+              <a href="mailto:support@curlybraces.ai" className="contact-card-value">support@curlybraces.ai</a>
+            </div>
+          </div>
+
+          <div className="contact-card">
+            <span className="tile-icon tile-violet" style={{ width: 44, height: 44, borderRadius: 12, fontSize: 20 }}><IcEdit /></span>
+            <div className="contact-card-body">
+              <div className="contact-card-label">Send a message</div>
+              <a href="mailto:support@curlybraces.ai?subject=Rosie%20Enquiry&body=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20Rosie." className="contact-card-value">Open enquiry form →</a>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <hr className="divider" />
 
