@@ -37,7 +37,7 @@ export default function Home() {
 
           {/* LEFT: copy */}
           <div className="hero-copy">
-            <h1>Rosie AI: Patient Onboarding CRM, AI Assistant Built in for<br />Psychotherapy &amp; Wellness Practices</h1>
+            <h1>Rosie AI: Patient Onboarding CRM for<br />Psychotherapy &amp; Wellness Practices</h1>
             <p className="hero-pain">How much is losing new patients to slow follow-up costing your practice every month?</p>
             <p className="hero-sub">
               Rosie AI captures every lead, drafts every follow-up, manages the intake workflow, and hands off seamlessly to your EHR — HIPAA-compliant from day one. Built for solo and group practices.
