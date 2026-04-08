@@ -23,7 +23,7 @@ export default function Home() {
           <a href="#how-it-works">How it works</a>
           <a href="#features">Features</a>
           <a href="#pricing">Pricing</a>
-          <a href="https://intake.rosie.curlybraces.ai/" className="btn-primary" style={{ textDecoration: "none" }}>Get Started Free</a>
+          <a href="https://intake.rosie.curlybraces.ai/" className="btn-primary" style={{ textDecoration: "none", color: "#fff" }}>Get Started Free</a>
         </div>
       </nav>
 
@@ -314,7 +314,7 @@ export default function Home() {
               {['AI automation & Rosie AI', 'Automated follow-up sequences', 'Calendar sync', 'In-app calling', 'Bolt-on modules'].map(f => (
                 <div className="price-line" key={f}><div className="dash-icon">-</div>{f}</div>
               ))}
-              <a href="https://intake.rosie.curlybraces.ai/" className="btn-secondary price-btn" style={{ textDecoration: "none", marginTop: "1.25rem", display: "block" }}>Get Started Free</a>
+              <a href="https://intake.rosie.curlybraces.ai/" className="btn-secondary price-btn" style={{ textDecoration: "none", marginTop: "1.25rem", display: "block", background: "var(--text-tertiary, #94a3b8)", color: "#fff", borderColor: "transparent" }}>Get Started Free</a>
             </div>
 
             {/* PRO */}
@@ -342,7 +342,7 @@ export default function Home() {
               {['Calendar sync (Google & Outlook)', 'In-app calling', 'Bolt-on modules'].map(f => (
                 <div className="price-line" key={f}><div className="dash-icon">-</div>{f}</div>
               ))}
-              <a href="https://intake.rosie.curlybraces.ai/" className="btn-primary price-btn" style={{ textDecoration: "none", marginTop: "1.25rem", display: "block" }}>Get Started Free →</a>
+              <a href="https://intake.rosie.curlybraces.ai/" className="btn-primary price-btn" style={{ textDecoration: "none", marginTop: "1.25rem", display: "block", background: "var(--coral-500)", borderColor: "transparent" }}>Get Started Free →</a>
             </div>
 
             {/* PRO+ */}
@@ -379,7 +379,7 @@ export default function Home() {
           <span className="label">Bolt-on modules</span>
           <h2>Grow with Rosie, at your own pace</h2>
           <p>
-            Start with onboarding your patients, then let Rosie grow alongside your practice. Every module below is on our roadmap. Activate what you need, when you need it. No forced upgrades, no bloated all-in-one you&apos;ll never fully use.
+            Start with onboarding your patients, then let Rosie grow alongside your practice. Every module below is on our roadmap. Activate what you need, when you need it. No forced upgrades, no bloated all-in-one you&apos;ll never use.
           </p>
         </div>
 
