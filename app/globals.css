@@ -318,11 +318,11 @@ p  { font-size: var(--fs-body); line-height: 1.75; color: var(--text-secondary);
   position: absolute;
   bottom: -1px;
   left: 0; right: 0;
-  height: 60px;
+  height: 140px;
   background: linear-gradient(to bottom, transparent, #ffffff);
   pointer-events: none;
 }
-.hero { text-align: center; padding: 6.5rem 2rem 5rem; max-width: var(--layout-max); margin: 0 auto; position: relative; z-index: 1; }
+.hero { text-align: center; padding: 6.5rem 2rem 7.5rem; max-width: var(--layout-max); margin: 0 auto; position: relative; z-index: 1; }
 .hero h1 { margin-bottom: 1.25rem; color: #fff; }
 .hero h1 em { font-style: normal; color: var(--coral-400, #f4714f); }
 .hero-pain { font-size: 17px; font-style: italic; font-weight: 500; color: var(--coral-400); margin: 1.1rem 0 0.6rem; line-height: 1.45; max-width: 540px; }
