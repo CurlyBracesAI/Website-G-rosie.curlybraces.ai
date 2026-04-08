@@ -48,7 +48,7 @@ export default function Home() {
               </span>
             </div>
 
-            <h1>Rosie AI: Patient Onboarding CRM Assistant Built for<br />Psychotherapy &amp; Wellness Practices</h1>
+            <h1>Rosie AI: Patient Onboarding CRM Assistant, Built for<br />Psychotherapy &amp; Wellness Practices</h1>
             <p className="hero-sub">
               From first contact to first session, Rosie AI captures every lead, drafts every follow-up,
               manages the workflow and hands off seamlessly to your EHR.
@@ -166,7 +166,7 @@ export default function Home() {
             <span className="label">How it works</span>
             <h2>First contact to first session, on autopilot</h2>
             <p>
-            Based on a simple linear workflow, Rosie captures the lead's information, drafts outreach emails, reminds when calls should take place, logs notes, and keep the process on schedule.
+            Based on a simple linear workflow, Rosie captures the lead's information, drafts outreach emails, reminds when calls should take place, logs notes, and keeps the process on schedule.
           </p>
           </div>
 
