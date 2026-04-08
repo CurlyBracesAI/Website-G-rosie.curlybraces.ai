@@ -27,66 +27,77 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* HERO */}
+      {/* HERO — split layout with dashboard bleed */}
       <div className="hero-wrap">
-        <section className="hero">
+        <section className="hero hero-split">
 
-          {/* Hero icon badges - larger tile style */}
-          <div className="hero-icon-badges">
-            <span className="icon-badge">
-              <span className="icon-badge-tile tile-coral"><IcStar /></span>
-              <span>
-                <strong>Beta</strong>: Pro plan free while it lasts
+          {/* LEFT: copy */}
+          <div className="hero-copy">
+            <div className="hero-icon-badges">
+              <span className="icon-badge">
+                <span className="icon-badge-tile tile-coral"><IcStar /></span>
+                <span><strong>Beta</strong>: Pro plan free while it lasts</span>
               </span>
-            </span>
-            <span className="icon-badge">
-              <span className="icon-badge-tile tile-navy"><IcLock /></span>
-              <span>
-                <strong>HIPAA</strong>-compliant from day one
+              <span className="icon-badge">
+                <span className="icon-badge-tile tile-navy"><IcLock /></span>
+                <span><strong>HIPAA</strong>-compliant from day one</span>
               </span>
-            </span>
-            <span className="icon-badge">
-              <span className="icon-badge-tile tile-emerald"><IcCheck /></span>
-              <span>
-                <strong>No</strong> credit card needed
+              <span className="icon-badge">
+                <span className="icon-badge-tile tile-emerald"><IcCheck /></span>
+                <span><strong>No</strong> credit card needed</span>
               </span>
-            </span>
+            </div>
+
+            <h1>Rosie: Patient Onboarding CRM Built for<br />Psychotherapy &amp; Wellness Practices</h1>
+            <p className="hero-sub">
+              From first contact to first session, Rosie AI captures every lead, drafts every follow-up,
+              manages the workflow and hands off seamlessly to your EHR.
+              <br />
+              Tailored AI for solo and group practices.
+            </p>
+
+            <div className="hero-btns">
+              <button className="btn-primary btn-lg">Start free trial →</button>
+              <button className="btn-secondary btn-lg">See how it works</button>
+            </div>
           </div>
 
-          <h1>Rosie: Patient Onboarding CRM Built for<br />Psychotherapy &amp; Wellness Practices</h1>
-          <p className="hero-sub">
-            From first contact to first session, Rosie AI captures every lead, drafts every follow-up,
-            manages the workflow and hands off seamlessly to your EHR.
-            <br />
-            Tailored AI for solo and group practices.
-          </p>
-
-          <div className="hero-btns">
-            <button className="btn-primary btn-lg">Start free trial →</button>
-            <button className="btn-secondary btn-lg">See how it works</button>
-          </div>
-
-          {/* Replacing bitty pills with graphic tile grid */}
-          <div className="tile-grid-3">
-            {[
-              { tile: 'tile-coral',   icon: <IcBuilding />, title: 'No enterprise pricing',    desc: 'Priced for real practices, not hospitals' },
-              { tile: 'tile-violet',  icon: <IcBrain />,    title: 'No generic CRMs',          desc: 'Built for therapy intake, not sales' },
-              { tile: 'tile-sky',     icon: <IcGrad />,     title: 'No steep learning curves', desc: 'Up and running in under an hour' },
-              { tile: 'tile-amber',   icon: <IcZap />,      title: 'No missing workflows',     desc: 'Every intake stage is covered' },
-              { tile: 'tile-emerald', icon: <IcUsers />,    title: 'No minimum user counts',   desc: 'Solo to group, same price logic' },
-              { tile: 'tile-navy',    icon: <IcLock />,     title: 'No paywalled entry point', desc: 'Free tier, always. No bait and switch' },
-            ].map(({ tile, icon, title, desc }) => (
-              <div className="tile-card" key={title}>
-                <span className={`tile-icon ${tile}`}>{icon}</span>
-                <span className="tile-card-text">
-                  <span className="tile-card-title">{title}</span>
-                  <span className="tile-card-desc">{desc}</span>
-                </span>
+          {/* RIGHT: dashboard screenshot — bleeds to right viewport edge */}
+          <div className="hero-bleed-col">
+            <div className="browser-frame hero-bleed-browser">
+              <div className="browser-bar">
+                <span className="browser-dot browser-dot-red" />
+                <span className="browser-dot browser-dot-yellow" />
+                <span className="browser-dot browser-dot-green" />
+                <span className="browser-url-bar">app.rosie.curlybraces.ai · Dashboard</span>
               </div>
-            ))}
+              <img src="/screenshots/screen-01.png" alt="Rosie dashboard — full intake pipeline view" loading="eager" />
+            </div>
           </div>
 
         </section>
+      </div>
+
+      {/* DIFFERENTIATOR TILES — white strip below hero */}
+      <div className="hero-tiles-strip">
+        <div className="tile-grid-3">
+          {[
+            { tile: 'tile-coral',   icon: <IcBuilding />, title: 'No enterprise pricing',    desc: 'Priced for real practices, not hospitals' },
+            { tile: 'tile-violet',  icon: <IcBrain />,    title: 'No generic CRMs',          desc: 'Built for therapy intake, not sales' },
+            { tile: 'tile-sky',     icon: <IcGrad />,     title: 'No steep learning curves', desc: 'Up and running in under an hour' },
+            { tile: 'tile-amber',   icon: <IcZap />,      title: 'No missing workflows',     desc: 'Every intake stage is covered' },
+            { tile: 'tile-emerald', icon: <IcUsers />,    title: 'No minimum user counts',   desc: 'Solo to group, same price logic' },
+            { tile: 'tile-navy',    icon: <IcLock />,     title: 'No paywalled entry point', desc: 'Free tier, always. No bait and switch' },
+          ].map(({ tile, icon, title, desc }) => (
+            <div className="tile-card" key={title}>
+              <span className={`tile-icon ${tile}`}>{icon}</span>
+              <span className="tile-card-text">
+                <span className="tile-card-title">{title}</span>
+                <span className="tile-card-desc">{desc}</span>
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* STATS BAR */}
@@ -110,31 +121,39 @@ export default function Home() {
 
       {/* THE PROBLEM */}
       <section className="section" id="problem">
-        <div className="section-head">
-          <span className="label">The problem</span>
-          <h2>Your EHR starts at session one.<br />What about before?</h2>
-          <p>
-            Most HIPAA-compliant CRMs are built and priced for larger healthcare enterprises.
-            Rosie is purpose-built for small and medium psychotherapy and wellness practices.
-            Designed for onboarding, to be used before you even meet your patients.
-          </p>
-        </div>
 
-        <div className="tile-grid-2">
-          {[
-            { tile: 'tile-sky',    icon: <IcSnowflake />, title: 'Leads go cold',          body: "You're busy! Clinicians miss follow-ups. Prospective clients move on. No one tracks the gap." },
-            { tile: 'tile-amber',  icon: <IcClipboard />, title: 'Spreadsheets & paper',   body: 'Intake tracking lives in notebooks and shared docs. Nothing is automated or consistent.' },
-            { tile: 'tile-coral',  icon: <IcWrench />,    title: 'No pre-patient tooling', body: "Practice management systems don't manage outreach. General CRMs don't understand therapy intake." },
-            { tile: 'tile-violet', icon: <IcMoney />,     title: 'Expensive alternatives', body: 'Enterprise tools charge per-seat minimums with no free entry point for small practices.' },
-          ].map(({ tile, icon, title, body }) => (
-            <div className="tile-card tile-card-tall" key={title}>
-              <span className={`tile-icon ${tile}`}>{icon}</span>
-              <span className="tile-card-text">
-                <span className="tile-card-title">{title}</span>
-                <span className="tile-card-desc">{body}</span>
-              </span>
+        {/* Two-column layout: left = copy + 2×2 cards, right = tall timeline screenshot */}
+        <div className="problem-layout">
+          <div className="problem-left">
+            <div className="problem-section-head">
+              <span className="label">The problem</span>
+              <h2>Your EHR starts at session one.<br />What about before?</h2>
+              <p>
+                Most HIPAA-compliant CRMs are built and priced for larger healthcare enterprises.
+                Rosie is purpose-built for small and medium psychotherapy and wellness practices.
+                Designed for onboarding, to be used before you even meet your patients.
+              </p>
             </div>
-          ))}
+            <div className="problem-cards-2x2">
+              {[
+                { tile: 'tile-sky',    icon: <IcSnowflake />, title: 'Leads go cold',          body: "You're busy! Clinicians miss follow-ups. Prospective clients move on. No one tracks the gap." },
+                { tile: 'tile-amber',  icon: <IcClipboard />, title: 'Spreadsheets & paper',   body: 'Intake tracking lives in notebooks and shared docs. Nothing is automated or consistent.' },
+                { tile: 'tile-coral',  icon: <IcWrench />,    title: 'No pre-patient tooling', body: "Practice management systems don't manage outreach. General CRMs don't understand therapy intake." },
+                { tile: 'tile-violet', icon: <IcMoney />,     title: 'Expensive alternatives', body: 'Enterprise tools charge per-seat minimums with no free entry point for small practices.' },
+              ].map(({ tile, icon, title, body }) => (
+                <div className="tile-card tile-card-tall" key={title}>
+                  <span className={`tile-icon ${tile}`}>{icon}</span>
+                  <span className="tile-card-text">
+                    <span className="tile-card-title">{title}</span>
+                    <span className="tile-card-desc">{body}</span>
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="timeline-right-panel">
+            <img src="/screenshots/screen-08.png" alt="Rosie activity timeline — chronological intake log showing all outreach events" loading="lazy" />
+          </div>
         </div>
       </section>
 
@@ -166,6 +185,21 @@ export default function Home() {
               </div>
             ))}
           </div>
+
+          {/* Stages timeline screenshot */}
+          <div className="screenshot-panel">
+            <div className="browser-frame">
+              <div className="browser-bar">
+                <span className="browser-dot browser-dot-red" />
+                <span className="browser-dot browser-dot-yellow" />
+                <span className="browser-dot browser-dot-green" />
+                <span className="browser-url-bar">app.rosie.curlybraces.ai · Intake · Andy Collectot · Stages</span>
+              </div>
+              <img src="/screenshots/screen-05.png" alt="Rosie 7-step intake stages — Welcome through Consultation" loading="lazy" />
+            </div>
+            <p className="screenshot-caption">Rosie tracks each lead through 7 structured stages — and tells you exactly where every intake stands</p>
+          </div>
+
         </section>
       </div>
 
@@ -208,6 +242,20 @@ export default function Home() {
               email referencing those details and suggested two Tuesday slots. Ready to{'\u00a0'}send?
             </div>
           </div>
+        </div>
+
+        {/* AI recommendation panel screenshot */}
+        <div className="screenshot-panel" style={{ marginTop: '2.5rem' }}>
+          <div className="browser-frame">
+            <div className="browser-bar">
+              <span className="browser-dot browser-dot-red" />
+              <span className="browser-dot browser-dot-yellow" />
+              <span className="browser-dot browser-dot-green" />
+              <span className="browser-url-bar">app.rosie.curlybraces.ai · Rosie AI Assistant · Analyze</span>
+            </div>
+            <img src="/screenshots/screen-06.png" alt="Rosie AI recommendation — Pause Follow-ups with 85% confidence and full reasoning" loading="lazy" />
+          </div>
+          <p className="screenshot-caption">Rosie surfaces the right action at the right time — with her reasoning visible, so you stay in control</p>
         </div>
 
         {/* Feature tiles - replacing rosie-feats */}
@@ -494,3 +542,4 @@ export default function Home() {
     </>
   );
 }
+
