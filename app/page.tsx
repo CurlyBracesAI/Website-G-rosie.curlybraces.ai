@@ -48,7 +48,7 @@ export default function Home() {
               </span>
             </div>
 
-            <h1>Rosie AI: Patient Onboarding CRM Built for<br />Psychotherapy &amp; Wellness Practices</h1>
+            <h1>Rosie AI: Patient Onboarding CRM Assistant Built for<br />Psychotherapy &amp; Wellness Practices</h1>
             <p className="hero-sub">
               From first contact to first session, Rosie AI captures every lead, drafts every follow-up,
               manages the workflow and hands off seamlessly to your EHR.
@@ -131,7 +131,7 @@ export default function Home() {
               <p>
                 Most HIPAA-compliant CRMs are built and priced for larger healthcare enterprises.
                 Rosie is purpose-built for small and medium psychotherapy and wellness practices.
-                Designed for onboarding, to be used before you even meet your patients.
+                Designed for onboarding, to be used before you even meet your patients, to the point of handing over to EHR.
               </p>
             </div>
             <div className="problem-cards-2x2">
