@@ -44,7 +44,7 @@ export default function Home() {
               Rosie AI fixes that.
             </p>
             <p className="hero-sub">
-              Rosie AI captures every lead, drafts every follow-up, manages the intake workflow, and hands off seamlessly to your EHR — HIPAA-compliant from day one. Built for solo and group practices.
+              Rosie AI captures every lead, drafts every follow-up, manages the intake workflow, and hands off seamlessly to your EHR. HIPAA-compliant from day one, built for solo and group practices.
             </p>
 
             <div className="hero-btns">
