@@ -41,7 +41,7 @@ export default function Home() {
             <p className="hero-pain">
               Are new patient inquiries falling through the cracks?<br />
               <span className="hero-pain-bold">Delayed responses lead to lost patients.</span><br />
-              Rosie AI fixes that.
+              Rosie AI takes care of it.
             </p>
             <p className="hero-sub">
               Rosie AI captures every lead, drafts every follow-up, manages the intake workflow, and hands off seamlessly to your EHR. HIPAA-compliant from day one, built for solo and group practices.
@@ -98,7 +98,7 @@ export default function Home() {
         <div className="stats-inner">
           {[
             { num: '85%', label: 'Less admin time per inquiry' },
-            { num: '< 2 min', label: 'Avg. response time' },
+            { num: '< 24 hrs', label: 'Avg. response time' },
             { num: '0 leads', label: 'Fall through the cracks' },
             { num: '100%', label: 'HIPAA-compliant from day one' },
           ].map(({ num, label }) => (
