@@ -564,6 +564,8 @@ p  { font-size: var(--fs-body); line-height: 1.75; color: var(--text-secondary);
   background: var(--bg-primary); border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xl); padding: 1.85rem;
 }
+.price-card.free { border: 1px solid #cbd5e1; }
+.price-title { display: block; white-space: nowrap; font-size: 0.9em; }
 .price-card.featured {
   border: 2px solid var(--coral-500);
   box-shadow: 0 6px 28px rgba(229,85,53,0.14);

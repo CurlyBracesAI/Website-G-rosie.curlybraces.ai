@@ -340,7 +340,7 @@ export default function Home() {
 
           <div className="pricing-grid pricing-grid-4col">
             {/* FREE */}
-            <div className="price-card">
+            <div className="price-card free">
               <div className="featured-accent free-accent">Always free, no card needed</div>
               <div className="card-header">
                 <span className="label" style={{ margin: 0 }}>Free</span>
@@ -350,7 +350,7 @@ export default function Home() {
                 </span>
               </div>
               <div className="price-amount">$0</div>
-              <p className="price-desc">Everything in one place. You run it manually. Rosie holds the data.</p>
+              <p className="price-desc"><strong className="price-title">Your whole practice, in one place.</strong><br />You run it manually. Rosie holds the data.</p>
               {['Unlimited lead profiles', 'Manual intake entry', 'All leads in one dashboard', 'HIPAA-compliant storage', 'EHR handoff notes'].map(f => (
                 <div className="price-line" key={f}><div className="check-icon">✓</div>{f}</div>
               ))}
@@ -371,7 +371,7 @@ export default function Home() {
                 </span>
               </div>
               <div className="price-amount">$19 <span>/ seat / month</span></div>
-              <p className="price-desc">Rosie does the work. You review and move on.</p>
+              <p className="price-desc"><strong className="price-title">Rosie AI works, you review and move on.</strong><br />Automate intake from first contact to booked session.</p>
               {[
                 'Everything in Free',
                 'Automated lead capture from all sources',
@@ -399,7 +399,7 @@ export default function Home() {
                 </span>
               </div>
               <div className="price-amount">$29 <span>/ seat / month</span></div>
-              <p className="price-desc">Everything in Pro, plus deep integrations and calling.</p>
+              <p className="price-desc"><strong className="price-title">Every integration, fully connected.</strong><br />Everything in Pro, plus deep integrations and calling.</p>
               {[
                 'Everything in Pro',
                 'Calendar sync (Google & Outlook)',
@@ -422,7 +422,7 @@ export default function Home() {
                 </span>
               </div>
               <div className="price-amount">$49 <span>/ seat / month</span></div>
-              <p className="price-desc">Know your market, own your growth. See how you compare, where patients come from, and where to focus next.</p>
+              <p className="price-desc"><strong className="price-title">Know your market, own your growth.</strong><br />See how you compare, where patients come from, and where to focus next.</p>
               {[
                 'Everything in Pro+',
                 'EHR data pull & analysis',
