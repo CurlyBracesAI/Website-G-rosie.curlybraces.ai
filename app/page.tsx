@@ -201,21 +201,21 @@ export default function Home() {
       <section className="section" id="detail-view">
         <div className="section-head">
           <span className="label">In detail</span>
-          <h2>See exactly what Rosie captures</h2>
-          <p>Close-up views of the structured data and automated logging that keep your intake running without intervention.</p>
+          <h2>Nothing falls through the cracks. Ever.</h2>
+          <p>Every inquiry tracked, every follow-up timed, every patient detail logged — so your team always knows exactly what to do next.</p>
         </div>
 
         {/* Row 1: copy + timeline screenshot with inlay */}
         <div className="spotlight-row">
           <div className="spotlight-copy">
             <span className="label">Timeline &amp; follow-up</span>
-            <h3>Your workflow, enforced automatically</h3>
-            <p>Rosie tracks every stage and pauses when human input is needed — so nothing slips through the cracks.</p>
+            <h3>The right action, at the right moment</h3>
+            <p>Rosie keeps every intake on track — automatically. When human input is needed, she stops and flags it. When it's not, she moves things forward without being asked.</p>
             <ul className="spotlight-check-list">
-              <li>Stage-gated workflow: each step unlocks only when the prior one is complete</li>
-              <li>Urgent alerts surface at exactly the right moment in the sequence</li>
-              <li>27-event timeline: every email, call, note, and status change logged</li>
-              <li>AI drafts the next email or SMS — you approve before it sends</li>
+              <li>Each stage unlocks only when the previous one is complete — no skipped steps</li>
+              <li>Urgent cases surface automatically, before they go cold</li>
+              <li>Every email, call, note, and status change logged in a single timeline</li>
+              <li>AI drafts the next message — you approve in one click and move on</li>
             </ul>
           </div>
           <div className="spotlight-inlay-wrap">
@@ -233,13 +233,13 @@ export default function Home() {
           </div>
           <div className="spotlight-copy">
             <span className="label">Patient records</span>
-            <h3>Every patient, fully documented</h3>
-            <p>Three-panel layout: patient info, structured intake details, and a live notes feed — all on one screen, zero re-entry.</p>
+            <h3>Everything you need, before the first session</h3>
+            <p>By the time a patient reaches your clinician, Rosie has already built their profile — referral source, urgency, insurance, availability, and session history, all in one place.</p>
             <ul className="spotlight-check-list">
-              <li>Referral source, urgency, insurance, and session type captured at intake</li>
-              <li>AI-generated call notes appended automatically after each interaction</li>
-              <li>Availability preferences stored so you schedule with confidence</li>
-              <li>One-click to Book Consultation or Promote to Patient when ready</li>
+              <li>Referral source tracked from first inquiry — so you know which channels work</li>
+              <li>AI logs call notes automatically — no manual write-up after every interaction</li>
+              <li>Availability captured upfront — schedule with confidence, not guesswork</li>
+              <li>One click to Book Consultation or Promote to Patient when the time is right</li>
             </ul>
           </div>
         </div>
