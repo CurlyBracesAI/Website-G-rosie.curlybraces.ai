@@ -37,7 +37,7 @@ export default function Home() {
 
           {/* LEFT: copy */}
           <div className="hero-copy">
-            <h1>Grow Your Practice with Rosie AI: The Intake & Marketing CRM Built for Therapy Practices</h1>
+            <h1>Grow Your Practice with Rosie AI: The Intake & Growth Platform Built for Therapy Practices</h1>
             <p className="hero-pain">
               Are new patient inquiries falling through the cracks?<br />
               <span className="hero-pain-bold">Delayed responses lead to lost patients.</span><br />
@@ -133,6 +133,7 @@ export default function Home() {
                 { tile: 'tile-amber',  icon: <IcClipboard />, title: 'Spreadsheets & paper',   body: 'Intake tracking lives in notebooks and shared docs. Nothing is automated or consistent.' },
                 { tile: 'tile-coral',  icon: <IcWrench />,    title: 'No pre-patient tooling', body: "Practice management systems don't manage outreach. General CRMs don't understand therapy intake." },
                 { tile: 'tile-violet', icon: <IcMoney />,     title: 'Expensive alternatives', body: 'Enterprise tools charge per-seat minimums with no free entry point for small practices.' },
+                { tile: 'tile-emerald', icon: <IcBarChart />, title: 'No visibility beyond your own walls', body: "You know your own data. But which referral channels bring the highest-value patients? How does your Psychology Today profile compare to competitors nearby? That blind spot costs you." },
               ].map(({ tile, icon, title, body }) => (
                 <div className="tile-card tile-card-tall" key={title}>
                   <span className={`tile-icon ${tile}`}>{icon}</span>
@@ -317,6 +318,19 @@ export default function Home() {
               </span>
             </div>
           ))}
+          <div className="tile-card tile-card-tall">
+            <span className="tile-icon tile-sky"><IcBarChart /></span>
+            <span className="tile-card-text">
+              <span className="tile-card-title">
+                Practice growth intelligence
+                <span className="icon-badge" style={{ padding: '3px 8px 3px 4px', fontSize: 11, borderRadius: 6, marginLeft: 8, verticalAlign: 'middle' }}>
+                  <span className="icon-badge-tile tile-sky" style={{ width: 16, height: 16, borderRadius: 4, fontSize: 10 }}><IcBarChart /></span>
+                  Grow tier
+                </span>
+              </span>
+              <span className="tile-card-desc">Know which channels convert, which patients stay, and how you stack up against local competitors — so you know exactly where to focus next.</span>
+            </span>
+          </div>
         </div>
       </section>
       </div>
@@ -354,7 +368,7 @@ export default function Home() {
               {['Unlimited lead profiles', 'Manual intake entry', 'All leads in one dashboard', 'HIPAA-compliant storage', 'EHR handoff notes'].map(f => (
                 <div className="price-line" key={f}><div className="check-icon">✓</div>{f}</div>
               ))}
-              {['AI automation & Rosie AI', 'Automated follow-up sequences', 'Calendar sync', 'In-app calling', 'Bolt-on modules', 'Grow your practice'].map(f => (
+              {['AI automation & Rosie AI', 'Automated follow-up sequences', 'Calendar sync', 'In-app calling', 'Bolt-on modules'].map(f => (
                 <div className="price-line" key={f}><div className="dash-icon">-</div>{f}</div>
               ))}
               <a href="https://intake.rosie.curlybraces.ai/" className="btn-secondary price-btn" style={{ textDecoration: "none", marginTop: "1.25rem", display: "block", background: "var(--text-tertiary, #94a3b8)", color: "#fff", borderColor: "transparent" }}>Get Started Free</a>
@@ -382,7 +396,7 @@ export default function Home() {
               ].map(f => (
                 <div className="price-line" key={f}><div className="check-icon">✓</div>{f}</div>
               ))}
-              {['Calendar sync (Google & Outlook)', 'In-app calling', 'Bolt-on modules', 'Grow your practice'].map(f => (
+              {['Calendar sync (Google & Outlook)', 'In-app calling', 'Bolt-on modules'].map(f => (
                 <div className="price-line" key={f}><div className="dash-icon">-</div>{f}</div>
               ))}
               <a href="https://intake.rosie.curlybraces.ai/" className="btn-primary price-btn" style={{ textDecoration: "none", marginTop: "1.25rem", display: "block", background: "var(--coral-500)", borderColor: "transparent" }}>Get Started Free →</a>
@@ -408,7 +422,6 @@ export default function Home() {
               ].map(f => (
                 <div className="price-line" key={f}><div className="check-icon">✓</div>{f}</div>
               ))}
-              <div className="price-line"><div className="dash-icon">-</div>Grow your practice</div>
             </div>
 
             {/* GROW */}
@@ -422,7 +435,7 @@ export default function Home() {
                 </span>
               </div>
               <div className="price-amount">$49 <span>/ seat / month</span></div>
-              <p className="price-desc"><strong className="price-title">Know your market, own your growth.</strong>See comparisons, where patients come from, and where to focus next.</p>
+              <p className="price-desc"><strong className="price-title">Know your market, own your growth.</strong>Full funnel visibility from first inquiry to patient revenue.</p>
               {[
                 'Everything in Pro+',
                 'EHR data pull & analysis',
@@ -432,7 +445,6 @@ export default function Home() {
                 'Re-engagement campaigns for lapsed patients',
                 'Marketing spend recommendations',
                 'Practice growth dashboard',
-                'Grow your practice',
               ].map(f => (
                 <div className="price-line" key={f}><div className="check-icon">✓</div>{f}</div>
               ))}
@@ -543,7 +555,7 @@ export default function Home() {
             <span className="icon-badge-tile tile-coral" style={{ width: 26, height: 26, borderRadius: 7, fontSize: 14 }}><IcStar /></span>
             Beta: limited spots available
           </span>
-          <h2>Start with intake.<br />Stay for everything else.</h2>
+          <h2>Start with intake.<br />Grow with intelligence.</h2>
           <p>
             Free forever on the basic plan. Pro is free for all beta practices. No credit card.
             No minimum users. HIPAA-compliant from day one.
