@@ -752,8 +752,8 @@ p  { font-size: var(--fs-body); line-height: 1.75; color: var(--text-secondary);
   margin-top: 3.5rem;
 }
 .spotlight-row + .spotlight-row { margin-top: 4rem; }
-.spotlight-copy h3 { font-size: 26px; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem; line-height: 1.25; }
-.spotlight-copy > p { font-size: 15px; color: var(--text-secondary); line-height: 1.65; margin: 0.5rem 0 0; }
+.spotlight-copy h3 { font-size: 32px; font-weight: 700; color: var(--text-primary); margin-bottom: 0.65rem; line-height: 1.2; }
+.spotlight-copy > p { font-size: 17px; color: var(--text-secondary); line-height: 1.75; margin: 0.65rem 0 0; }
 .spotlight-frame { border-radius: var(--radius-lg); border: 1px solid var(--border-subtle); overflow: hidden; box-shadow: 0 4px 20px rgba(30,41,59,0.1); }
 .spotlight-frame img { display: block; width: 100%; }
 .spotlight-inlay-wrap { position: relative; border-radius: var(--radius-lg); border: 1px solid var(--border-subtle); overflow: hidden; box-shadow: 0 4px 20px rgba(30,41,59,0.1); }
@@ -767,9 +767,9 @@ p  { font-size: var(--fs-body); line-height: 1.75; color: var(--text-secondary);
   box-shadow: 0 24px 48px rgba(0,0,0,0.28), 0 6px 16px rgba(0,0,0,0.14), 0 0 0 1px rgba(0,0,0,0.07);
 }
 .spotlight-inlay img { display: block; width: 100%; }
-.spotlight-check-list { list-style: none; margin: 1rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.6rem; }
-.spotlight-check-list li { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 14px; color: var(--text-secondary); line-height: 1.55; }
-.spotlight-check-list li::before { content: '✓'; color: var(--coral-500); font-weight: 700; font-size: 12px; min-width: 16px; margin-top: 2px; }
+.spotlight-check-list { list-style: none; margin: 1.25rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 1rem; }
+.spotlight-check-list li { display: flex; align-items: flex-start; gap: 0.65rem; font-size: 16px; color: var(--text-secondary); line-height: 1.65; }
+.spotlight-check-list li::before { content: '✓'; color: var(--coral-500); font-weight: 700; font-size: 13px; min-width: 16px; margin-top: 3px; }
 @media (max-width: 768px) {
   .spotlight-row { grid-template-columns: 1fr; gap: 2rem; }
 }
