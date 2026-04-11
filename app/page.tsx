@@ -338,7 +338,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="pricing-grid pricing-grid-2x2">
+          <div className="pricing-grid pricing-grid-4col">
             {/* FREE */}
             <div className="price-card">
               <div className="featured-accent free-accent">Always free, no card needed</div>
