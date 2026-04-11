@@ -37,7 +37,7 @@ export default function Home() {
 
           {/* LEFT: copy */}
           <div className="hero-copy">
-            <h1>Rosie AI: The Intake & Marketing CRM Built for Therapy Practices</h1>
+            <h1>Grow Your Practice with Rosie AI: The Intake & Marketing CRM Built for Therapy Practices</h1>
             <p className="hero-pain">
               Are new patient inquiries falling through the cracks?<br />
               <span className="hero-pain-bold">Delayed responses lead to lost patients.</span><br />
