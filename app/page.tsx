@@ -328,11 +328,13 @@ export default function Home() {
         <section className="section" id="pricing">
           <div className="section-head">
             <span className="label">Pricing</span>
-            <h2>Start free. Upgrade when you&apos;re ready.</h2>
+            <h2>Grow with Rosie, at your own pace.</h2>
             <p>
-              A free tier, always. Pro is free for all beta practices.
-              <br />
-              For as long as you&apos;re with us.
+              Start with onboarding your patients, then let Rosie grow alongside your practice.
+              Activate what you need, when you need it. No forced upgrades, no bloated all-in-one you&apos;ll never use.
+            </p>
+            <p style={{ marginTop: "0.5rem", color: "var(--text-tertiary)", fontSize: 14 }}>
+              A free tier, always. Pro is free for all beta practices — for as long as you&apos;re with us.
             </p>
           </div>
 
@@ -432,14 +434,7 @@ export default function Home() {
               ))}
             </div>
           </div>
-          <div style={{ textAlign: "center", marginTop: "2rem" }}>
-            <h3 style={{ fontWeight: 700, fontSize: 20, color: "var(--text-primary)" }}>Grow with Rosie, at your own pace.</h3>
-            <p style={{ color: "var(--text-secondary)", maxWidth: 560, margin: "0.5rem auto 1rem" }}>
-              Start with onboarding your patients, then let Rosie grow alongside your practice.
-              Activate what you need, when you need it. No forced upgrades, no bloated all-in-one you&apos;ll never use.
-            </p>
-            <p style={{ fontSize: 15, color: "var(--text-tertiary)", fontWeight: 500 }}>Pro features available — apply for beta access inside your account after signing up</p>
-          </div>
+          <p style={{ fontSize: 15, color: "var(--text-tertiary)", marginTop: "1.5rem", textAlign: "center", fontWeight: 500 }}>Pro features available — apply for beta access inside your account after signing up</p>
         </section>
       </div>
 
