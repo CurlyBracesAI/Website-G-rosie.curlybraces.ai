@@ -336,7 +336,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="pricing-grid pricing-grid-3">
+          <div className="pricing-grid pricing-grid-2x2">
             {/* FREE */}
             <div className="price-card">
               <div className="featured-accent free-accent">Always free, no card needed</div>
@@ -403,6 +403,30 @@ export default function Home() {
                 'Calendar sync (Google & Outlook)',
                 'In-app calling (call transcription)',
                 'Bolt-on modules available',
+              ].map(f => (
+                <div className="price-line" key={f}><div className="check-icon">✓</div>{f}</div>
+              ))}
+            </div>
+
+            {/* GROW */}
+            <div className="price-card grow">
+              <div className="featured-accent grow-accent">In the pipeline</div>
+              <div className="card-header">
+                <span className="label" style={{ margin: 0 }}>Grow</span>
+                <span className="icon-badge" style={{ padding: '5px 10px 5px 5px', fontSize: 12, borderRadius: 8 }}>
+                  <span className="icon-badge-tile tile-sky" style={{ width: 20, height: 20, borderRadius: 5, fontSize: 11 }}><IcBarChart /></span>
+                  Coming soon
+                </span>
+              </div>
+              <div className="price-amount">$49 <span>/ seat / month</span></div>
+              <p className="price-desc">Turn your EHR data into growth. Know which platforms convert, which retain, and where to focus next.</p>
+              {[
+                'Everything in Pro+',
+                'EHR data pull & analysis',
+                'Channel performance tracking (Zocdoc, Psychology Today, etc.)',
+                'Conversion & retention analytics',
+                'Marketing spend recommendations',
+                'Practice growth dashboard',
               ].map(f => (
                 <div className="price-line" key={f}><div className="check-icon">✓</div>{f}</div>
               ))}
