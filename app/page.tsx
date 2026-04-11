@@ -15,7 +15,7 @@ export default function Home() {
         <div className="nav-left">
           <div className="nav-logo">
             <div className="nav-logo-dot" />
-            Rosie
+            Rosie AI
           </div>
           <span className="nav-by">by <a href="https://curlybraces.ai" target="_blank" rel="noopener noreferrer">{'{'}curlybraces.ai{'}'}</a></span>
         </div>
