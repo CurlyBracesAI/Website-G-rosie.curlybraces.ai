@@ -243,6 +243,28 @@ export default function Home() {
             </ul>
           </div>
         </div>
+
+        {/* Row 3: copy right, image left */}
+        <div className="spotlight-row">
+          <div className="spotlight-frame">
+            <img src="/screenshots/screen-01.png" alt="Practice growth intelligence — referral source and channel performance" loading="lazy" />
+          </div>
+          <div className="spotlight-copy">
+            <span className="label">Practice growth</span>
+            <span className="icon-badge" style={{ display: 'inline-flex', padding: '3px 10px 3px 4px', fontSize: 11, borderRadius: 6, marginBottom: '0.75rem' }}>
+              <span className="icon-badge-tile tile-sky" style={{ width: 16, height: 16, borderRadius: 4, fontSize: 10 }}><IcBarChart /></span>
+              Grow tier — coming soon
+            </span>
+            <h3>Know which patients are worth chasing</h3>
+            <p>Rosie tracks every inquiry back to its source — Zocdoc, Psychology Today, word of mouth, GP referral. Over time, you&apos;ll see exactly which channels bring patients who book, show up, and stay. Stop guessing where to spend your marketing budget.</p>
+            <ul className="spotlight-check-list">
+              <li>Referral source captured at first inquiry — automatically</li>
+              <li>Full funnel visibility: inquiry → consultation → first session</li>
+              <li>Competitive profile monitoring — see how you rank locally</li>
+              <li>Re-engage lapsed patients with one-click outreach campaigns</li>
+            </ul>
+          </div>
+        </div>
       </section>
       </div>
 
