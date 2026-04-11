@@ -132,7 +132,6 @@ export default function Home() {
                 { tile: 'tile-sky',    icon: <IcSnowflake />, title: 'Leads go cold',          body: "You're busy! Clinicians miss follow-ups. Prospective clients move on. No one tracks the gap." },
                 { tile: 'tile-amber',  icon: <IcClipboard />, title: 'Spreadsheets & paper',   body: 'Intake tracking lives in notebooks and shared docs. Nothing is automated or consistent.' },
                 { tile: 'tile-coral',  icon: <IcWrench />,    title: 'No pre-patient tooling', body: "Practice management systems don't manage outreach. General CRMs don't understand therapy intake." },
-                { tile: 'tile-violet', icon: <IcMoney />,     title: 'Expensive alternatives', body: 'Enterprise tools charge per-seat minimums with no free entry point for small practices.' },
                 { tile: 'tile-emerald', icon: <IcBarChart />, title: 'No visibility beyond your own walls', body: "You know your own data. But which referral channels bring the highest-value patients? How does your Psychology Today profile compare to competitors nearby? That blind spot costs you." },
               ].map(({ tile, icon, title, body }) => (
                 <div className="tile-card tile-card-tall" key={title}>
@@ -308,7 +307,6 @@ export default function Home() {
             { tile: 'tile-violet', icon: <IcBrain />,    title: 'Autonomous planning',     desc: 'Rosie reviews your intake pipeline and proactively recommends next steps for each lead.' },
             { tile: 'tile-coral',  icon: <IcEdit />,     title: 'Correspondence drafting', desc: 'Every email and SMS drafted with clinical tone, correct stage language, and personal context.' },
             { tile: 'tile-sky',    icon: <IcCompass />,  title: 'Guided onboarding',       desc: 'New staff ask Rosie; she walks them through the intake protocol step by step.' },
-            { tile: 'tile-amber',  icon: <IcCalendar />, title: 'Calendar sync',           desc: 'Confirmed appointments pushed automatically to Google Calendar or Outlook. Pro+ feature.' },
           ].map(({ tile, icon, title, desc }) => (
             <div className="tile-card tile-card-tall" key={title}>
               <span className={`tile-icon ${tile}`}>{icon}</span>
