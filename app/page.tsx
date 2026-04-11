@@ -421,12 +421,14 @@ export default function Home() {
                 </span>
               </div>
               <div className="price-amount">$49 <span>/ seat / month</span></div>
-              <p className="price-desc">Turn your EHR data into growth. Know which platforms convert, which retain, and where to focus next.</p>
+              <p className="price-desc">Know your market, own your growth. See how you compare, where patients come from, and where to focus next.</p>
               {[
                 'Everything in Pro+',
                 'EHR data pull & analysis',
-                'Channel performance tracking (Zocdoc, Psychology Today, etc.)',
-                'Conversion & retention analytics',
+                'Full funnel attribution — inquiry to revenue',
+                'Competitive intelligence (Psychology Today, Zocdoc, Google)',
+                'Profile performance vs. local competitors',
+                'Re-engagement campaigns for lapsed patients',
                 'Marketing spend recommendations',
                 'Practice growth dashboard',
               ].map(f => (
