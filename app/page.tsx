@@ -460,7 +460,7 @@ export default function Home() {
                 'EHR data pull & analysis',
                 'Full funnel attribution — inquiry to revenue',
                 'Competitive intelligence (Psychology Today, Zocdoc, Google)',
-                'Profile performance vs. local competitors',
+                'Profile performance vs. similar practices',
                 'Re-engagement campaigns for lapsed patients',
                 'Marketing spend recommendations',
                 'Practice growth dashboard',
