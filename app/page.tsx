@@ -40,7 +40,7 @@ export default function Home() {
             <h1>Grow Your Practice with Rosie AI: The Intake & Growth Platform Built for Therapy Practices</h1>
             <p className="hero-pain">
               Are new patient inquiries falling through the cracks, leads dissappearing, therapist missing targets, slow growth?<br />
-              <span className="hero-pain-bold">Rosie AI takes care of it all with competive intelligence.</span><br />
+              <span className="hero-pain-bold">Rosie AI takes care of it all, with competive intelligence.</span><br />
             </p>
             <p className="hero-sub">
               Rosie AI captures every lead, drafts every follow-up, manages the intake workflow, and hands off seamlessly to your EHR. HIPAA-compliant from day one, built for solo and group practices.
@@ -123,7 +123,7 @@ export default function Home() {
               <p>
                 Most HIPAA-compliant CRMs are built and priced for larger healthcare enterprises.
                 Rosie is purpose-built for small and medium psychotherapy and wellness practices.
-                Designed for onboarding, to be used before you even meet your patients, to the point of handing over to EHR.
+                Designed for onboarding and growth, to be used even before you even meet your patients, to the point of handing over to EHR.
               </p>
             </div>
             <div className="problem-cards-2x2">
