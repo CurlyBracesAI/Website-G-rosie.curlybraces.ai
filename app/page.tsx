@@ -254,7 +254,7 @@ export default function Home() {
               <span className="icon-badge-tile tile-sky" style={{ width: 16, height: 16, borderRadius: 4, fontSize: 10 }}><IcBarChart /></span>
               Grow tier — coming soon
             </span>
-            <h3>Know which patients are most convertible and where to focus your marketing budget</h3>
+            <h3>Know which patients are most compatible with your practice and where to focus your marketing budget</h3>
             <p>Rosie tracks every inquiry back to its source — Zocdoc, Psychology Today, word of mouth, GP referral. Over time, you&apos;ll see exactly which channels bring patients who book, show up, and stay. Stop guessing where to spend your marketing budget.</p>
             <ul className="spotlight-check-list">
               <li>Referral source captured at first inquiry — automatically</li>
