@@ -40,8 +40,7 @@ export default function Home() {
             <h1>Grow Your Practice with Rosie AI: The Intake & Growth Platform Built for Therapy Practices</h1>
             <p className="hero-pain">
               Are new patient inquiries falling through the cracks, slow growth, and lost patients?<br />
-              <span className="hero-pain-bold">Delayed responses lead to lost patients and slow growth.</span><br />
-              Rosie AI takes care of it with competive intelligence.
+              <span className="hero-pain-bold">Rosie AI takes care of it with competive intelligence.</span><br />
             </p>
             <p className="hero-sub">
               Rosie AI captures every lead, drafts every follow-up, manages the intake workflow, and hands off seamlessly to your EHR. HIPAA-compliant from day one, built for solo and group practices.
