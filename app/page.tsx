@@ -102,7 +102,7 @@ export default function Home() {
               <span className="label">The Problem</span>
               <h2>EHRs manage your patients. PMS manage your practice. Rosie is engineered to grow them both.</h2>
               <p>
-                Electronic Health Records and Practice Management Systems handle your clinical documentation, scheduling and billing. Neither was built to find new patients, convert inquiries into sessions, or tell you which marketing channels are worth your money. That gap is where practices lose growth — and where Rosie lives.
+                Electronic Health Records and Practice Management Systems handle your clinical documentation, scheduling and billing. Neither was built to find new patients, convert inquiries into sessions, or tell you which marketing channels are worth your money. This is where Rosie lives.
               </p>
             </div>
             <div className="problem-cards-2x2">
