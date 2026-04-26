@@ -301,35 +301,6 @@ export default function Home() {
           <p className="screenshot-caption">Rosie surfaces the right action at the right time — with her reasoning visible, so you stay in control</p>
         </div>
 
-        {/* Feature tiles - replacing rosie-feats */}
-        <div className="tile-grid-2" style={{ marginTop: '2.5rem' }}>
-          {[
-            { tile: 'tile-violet', icon: <IcBrain />,    title: 'Autonomous planning',     desc: 'Rosie reviews your intake pipeline and proactively recommends next steps for each lead.' },
-            { tile: 'tile-coral',  icon: <IcEdit />,     title: 'Correspondence drafting', desc: 'Every email and SMS drafted with clinical tone, correct stage language, and personal context.' },
-            { tile: 'tile-sky',    icon: <IcCompass />,  title: 'Guided onboarding',       desc: 'New staff ask Rosie; she walks them through the intake protocol step by step.' },
-          ].map(({ tile, icon, title, desc }) => (
-            <div className="tile-card tile-card-tall" key={title}>
-              <span className={`tile-icon ${tile}`}>{icon}</span>
-              <span className="tile-card-text">
-                <span className="tile-card-title">{title}</span>
-                <span className="tile-card-desc">{desc}</span>
-              </span>
-            </div>
-          ))}
-          <div className="tile-card tile-card-tall">
-            <span className="tile-icon tile-sky"><IcBarChart /></span>
-            <span className="tile-card-text">
-              <span className="tile-card-title">
-                Practice growth intelligence
-                <span className="icon-badge" style={{ padding: '3px 8px 3px 4px', fontSize: 11, borderRadius: 6, marginLeft: 8, verticalAlign: 'middle' }}>
-                  <span className="icon-badge-tile tile-sky" style={{ width: 16, height: 16, borderRadius: 4, fontSize: 10 }}><IcBarChart /></span>
-                  Grow tier
-                </span>
-              </span>
-              <span className="tile-card-desc">Know which channels convert, which patients stay, and how you stack up against local competitors — so you know exactly where to focus next.</span>
-            </span>
-          </div>
-        </div>
       </section>
       </div>
 
