@@ -1,5 +1,5 @@
 import {
-  IcBuilding, IcBrain, IcGrad, IcZap, IcUsers, IcLock, IcSnowflake,
+  IcBrain, IcSnowflake,
   IcClipboard, IcWrench, IcMoney, IcCompass, IcCalendar, IcBook,
   IcChat, IcBarChart, IcAward, IcPhone, IcMic, IcShield, IcHeart,
   IcPerson, IcLink, IcTag, IcGift, IcEdit, IcArrowRight,
@@ -15,7 +15,7 @@ export default function Home() {
         <div className="nav-left">
           <div className="nav-logo">
             <div className="nav-logo-dot" />
-            Rosie AI
+            RosieAI
           </div>
           <span className="nav-by">by <a href="https://curlybraces.ai" target="_blank" rel="noopener noreferrer">{'{'}curlybraces.ai{'}'}</a></span>
         </div>
@@ -37,13 +37,16 @@ export default function Home() {
 
           {/* LEFT: copy */}
           <div className="hero-copy">
-            <h1>Advance Your Practice with Rosie AI: The Intake & Growth Platform Built for Therapy Practices</h1>
+            <h1>
+              Build Your Practice with RosieAI:
+              <span className="hero-heading-sub">The Intake & Growth Platform Built for Psychotherapy and Wellness Practices</span>
+            </h1>
             <p className="hero-pain">
               Are new patient inquiries falling through the cracks, leads dissappearing, therapist missing targets, slow growth?<br />
-              <span className="hero-pain-bold">Rosie AI takes care of it all, with competive intelligence.</span><br />
+              <span className="hero-pain-bold">RosieAI takes care of it all, with competive intelligence.</span><br />
             </p>
             <p className="hero-sub">
-              Rosie AI captures every lead, drafts every follow-up, manages the intake workflow, and hands off seamlessly to your EHR. HIPAA-compliant from day one, built for solo and group practices.
+              RosieAI captures every lead, drafts every follow-up, manages the intake workflow, and hands off seamlessly to your EHR. HIPAA-compliant from day one, built for solo and group practices.
             </p>
 
             <div className="hero-btns">
@@ -68,28 +71,6 @@ export default function Home() {
           </div>
 
         </section>
-      </div>
-
-      {/* DIFFERENTIATOR TILES — white strip below hero */}
-      <div className="hero-tiles-strip">
-        <div className="tile-grid-3">
-          {[
-            { tile: 'tile-amber',   icon: <IcZap />,      title: 'No missing workflows',     desc: 'Every intake stage is covered' },
-            { tile: 'tile-coral',   icon: <IcBuilding />, title: 'No enterprise pricing',    desc: 'Priced for real practices, not hospitals' },
-            { tile: 'tile-sky',     icon: <IcGrad />,     title: 'No steep learning curves', desc: 'Up and running in under an hour' },
-            { tile: 'tile-emerald', icon: <IcUsers />,    title: 'No minimum user counts',   desc: 'Solo to group, same price logic' },
-            { tile: 'tile-violet',  icon: <IcBrain />,    title: 'No generic CRMs',          desc: 'Built for therapy intake, not sales' },
-            { tile: 'tile-navy',    icon: <IcLock />,     title: 'No paywalled entry point', desc: 'Free tier, always. No bait and switch' },
-          ].map(({ tile, icon, title, desc }) => (
-            <div className="tile-card" key={title}>
-              <span className={`tile-icon ${tile}`}>{icon}</span>
-              <span className="tile-card-text">
-                <span className="tile-card-title">{title}</span>
-                <span className="tile-card-desc">{desc}</span>
-              </span>
-            </div>
-          ))}
-        </div>
       </div>
 
       {/* STATS BAR */}
@@ -118,12 +99,10 @@ export default function Home() {
         <div className="problem-layout">
           <div className="problem-left">
             <div className="problem-section-head">
-              <span className="label">The problem</span>
-              <h2>Your EHR starts at session one.<br />What about before?</h2>
+              <span className="label">The Problem</span>
+              <h2>Electronic Health Records manage your patients. Practice Management Systems manage your practice. Rosie is engineered to grow them both.</h2>
               <p>
-                Most HIPAA-compliant CRMs are built and priced for larger healthcare enterprises.
-                Rosie is purpose-built for small and medium psychotherapy and wellness practices.
-                Designed for onboarding and growth, to be used even before you even meet your patients, to the point of handing over to EHR.
+                EHRs and Practice Management Systems handle your clinical documentation, scheduling and billing. Neither was built to find new patients, convert inquiries into sessions, or tell you which marketing channels are worth your money. That gap is where practices lose growth — and where Rosie lives.
               </p>
             </div>
             <div className="problem-cards-2x2">
@@ -315,9 +294,9 @@ export default function Home() {
               <span className="browser-dot browser-dot-red" />
               <span className="browser-dot browser-dot-yellow" />
               <span className="browser-dot browser-dot-green" />
-              <span className="browser-url-bar">app.rosie.curlybraces.ai · Rosie AI Assistant · Analyze</span>
+              <span className="browser-url-bar">app.rosie.curlybraces.ai · RosieAI Assistant · Analyze</span>
             </div>
-            <img src="/screenshots/screen-06.png" alt="Rosie AI recommendation — Pause Follow-ups with 85% confidence and full reasoning" loading="lazy" />
+            <img src="/screenshots/screen-06.png" alt="RosieAI recommendation — Pause Follow-ups with 85% confidence and full reasoning" loading="lazy" />
           </div>
           <p className="screenshot-caption">Rosie surfaces the right action at the right time — with her reasoning visible, so you stay in control</p>
         </div>
@@ -387,7 +366,7 @@ export default function Home() {
               {['Unlimited lead profiles', 'Manual intake entry', 'All leads in one dashboard', 'HIPAA-compliant storage', 'EHR handoff notes'].map(f => (
                 <div className="price-line" key={f}><div className="check-icon">✓</div>{f}</div>
               ))}
-              {['AI automation & Rosie AI', 'Automated follow-up sequences', 'Calendar sync', 'In-app calling', 'Bolt-on modules'].map(f => (
+              {['AI automation & RosieAI', 'Automated follow-up sequences', 'Calendar sync', 'In-app calling', 'Bolt-on modules'].map(f => (
                 <div className="price-line" key={f}><div className="dash-icon">-</div>{f}</div>
               ))}
               <a href="https://intake.rosie.curlybraces.ai/" className="btn-secondary price-btn" style={{ textDecoration: "none", marginTop: "1.25rem", display: "block", background: "var(--text-tertiary, #94a3b8)", color: "#fff", borderColor: "transparent" }}>Get Started Free</a>
@@ -404,12 +383,12 @@ export default function Home() {
                 </span>
               </div>
               <div className="price-amount">$19 <span>/ seat / month</span></div>
-              <p className="price-desc"><strong className="price-title">Rosie AI works, you review and move on.</strong>Automate intake from first contact to booked session.</p>
+              <p className="price-desc"><strong className="price-title">RosieAI works, you review and move on.</strong>Automate intake from first contact to booked session.</p>
               {[
                 'Everything in Free',
                 'Automated lead capture from all sources',
                 'Full AI follow-up sequences',
-                'Rosie AI assistant & chatbot',
+                'RosieAI assistant & chatbot',
                 'Autonomous intake planning',
                 'Inbound email intake',
               ].map(f => (
