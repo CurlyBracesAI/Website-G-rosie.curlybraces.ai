@@ -39,7 +39,7 @@ export default function Home() {
           <div className="hero-copy">
             <h1>
               Build Your Practice with RosieAI:
-              <span className="hero-heading-sub">The Intake & Growth Platform Built for Psychotherapy and Wellness Practices</span>
+              <span className="hero-heading-sub">The Intake & Growth Platform  Engineered for Psychotherapy and Wellness Practices</span>
             </h1>
             <p className="hero-pain">
               Are new patient inquiries falling through the cracks, leads dissappearing, therapist missing targets, slow growth?<br />
