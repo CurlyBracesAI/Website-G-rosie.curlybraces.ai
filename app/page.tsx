@@ -111,7 +111,9 @@ export default function Home() {
                 { tile: 'tile-sky',    icon: <IcSnowflake />, title: 'Are your leads going cold before anyone follows up?',          body: "You're busy! Clinicians miss follow-ups. Prospective clients move on. No one tracks the gap." },
                 { tile: 'tile-amber',  icon: <IcClipboard />, title: 'Still tracking intake in spreadsheets and paper notes?',   body: 'Intake tracking lives in notebooks and shared docs. Nothing is automated or consistent.' },
                 { tile: 'tile-coral',  icon: <IcWrench />,    title: 'No system built for pre-patient outreach?', body: "Practice management systems don't manage outreach. General CRMs don't understand therapy intake." },
-                { tile: 'tile-emerald', icon: <IcBarChart />, title: 'Flying blind on which referral channels actually work?', body: "You know your own data. But which referral channels bring the highest-value patients? How does your Psychology Today profile compare to competitors nearby? That blind spot costs you." },
+                { tile: 'tile-emerald', icon: <IcBarChart />, title: 'Flying blind on which referral channels actually work?', body: "You know your own numbers. But which referral channels bring patients who actually stay? And how visible is your practice to someone searching for a therapist right now? That blind spot costs you." },
+                { tile: 'tile-sky', icon: <IcCompass />, title: 'How easy is it for a new patient to find and choose your practice?', body: "Your online presence across Psychology Today, Zocdoc, and Google may be working against you — and you'd never know it." },
+                { tile: 'tile-coral', icon: <IcLink />, title: 'Losing patients between inquiry and first session?', body: 'Most practices have no system for the pre-patient phase. Leads arrive, nothing happens fast enough, and they move on.' },
               ].map(({ tile, icon, title, body }) => (
                 <div className="tile-card tile-card-tall" key={title}>
                   <span className={`tile-icon ${tile}`}>{icon}</span>
