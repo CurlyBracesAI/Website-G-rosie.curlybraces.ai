@@ -113,7 +113,7 @@ export default function Home() {
                 { tile: 'tile-coral',  icon: <IcWrench />,    title: 'No system built for pre-patient outreach?', body: "Practice management systems don't manage outreach. General CRMs don't understand therapy intake." },
                 { tile: 'tile-emerald', icon: <IcBarChart />, title: 'Flying blind on which referral channels actually work?', body: "You know your own numbers. But which referral channels bring patients who actually stay? And how visible is your practice to someone searching for a therapist right now? That blind spot costs you." },
                 { tile: 'tile-sky', icon: <IcCompass />, title: 'How easy is it for a new patient to find and choose your practice?', body: "Your online presence across Psychology Today, Zocdoc, and Google may be working against you — and you'd never know it." },
-                { tile: 'tile-coral', icon: <IcLink />, title: 'Losing patients between inquiry and first session?', body: 'Most practices have no system for the pre-patient phase. Leads arrive, nothing happens fast enough, and they move on.' },
+                { tile: 'tile-coral', icon: <IcLink />, title: 'What happened to all your lapsed patients?', body: "Every practice has former patients who stopped coming. Most have no system to re-engage them. That's revenue, and care, left on the table." },
               ].map(({ tile, icon, title, body }) => (
                 <div className="tile-card tile-card-tall" key={title}>
                   <span className={`tile-icon ${tile}`}>{icon}</span>
@@ -148,7 +148,7 @@ export default function Home() {
             {[
               { n: '1', title: 'Lead arrives', body: 'Via email, phone, or web form. Rosie captures and creates the intake automatically.' },
               { n: '2', title: 'Rosie gets to work', body: 'Reads emails and intake details, immediately building context around each new lead.' },
-              { n: '3', title: 'AI drafts outreach', body: 'Stage-appropriate email and SMS, reviewed and sent in one click. No writing from scratch.' },
+              { n: '3', title: 'AI drafts outreach', body: 'Stage-appropriate email, SMS, WhatsApp and in-app portal reviewed and sent in one click. No writing from scratch.' },
               { n: '4', title: 'Automated follow-up', body: '24hr, 48hr, 72hr sequences run automatically. Rosie flags anything that needs attention.' },
               { n: '5', title: 'Hand off', body: 'First session booked. Pass cleanly to your EHR or practice management system and move on.' },
             ].map(({ n, title, body }) => (
@@ -158,6 +158,17 @@ export default function Home() {
                 <p>{body}</p>
               </div>
             ))}
+          </div>
+          <div className="step-card step-banner">
+            <span className="step-banner-icon"><IcPhone /></span>
+            <span className="step-banner-copy">
+              <h3>Call directly, transcribed automatically</h3>
+              <p>Make calls from Rosie. Every conversation logged to the intake timeline instantly.</p>
+            </span>
+            <span className="icon-badge step-banner-badge">
+              <span className="icon-badge-tile tile-amber" style={{ width: 16, height: 16, borderRadius: 4, fontSize: 10 }}><IcPhone /></span>
+              Pro+ feature
+            </span>
           </div>
 
           {/* Stages timeline screenshot */}

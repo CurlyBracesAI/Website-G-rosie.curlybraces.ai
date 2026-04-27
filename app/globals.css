@@ -410,9 +410,9 @@ p  { font-size: var(--fs-body); line-height: 1.75; color: var(--text-secondary);
 /* ── Problem section: left = copy + 2×2 cards, right = tall timeline ── */
 .problem-layout {
   display: grid;
-  grid-template-columns: 1fr 38%;
-  gap: 3rem;
-  align-items: stretch;
+  grid-template-columns: minmax(0, 58%) minmax(320px, 1fr);
+  gap: 2rem;
+  align-items: start;
 }
 .problem-left {
   display: flex;
@@ -436,6 +436,7 @@ p  { font-size: var(--fs-body); line-height: 1.75; color: var(--text-secondary);
   position: relative;
   overflow: hidden;
   border-radius: 10px;
+  height: 640px;
 }
 .timeline-right-panel img {
   width: 100%;
@@ -520,6 +521,31 @@ p  { font-size: var(--fs-body); line-height: 1.75; color: var(--text-secondary);
 }
 .step-card h3 { color: #ffffff; position: relative; z-index: 1; }
 .step-card p  { color: rgba(255,255,255,0.55); position: relative; z-index: 1; }
+.step-banner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 14px;
+}
+.step-banner:hover { transform: none; }
+.step-banner-icon {
+  width: 42px; height: 42px; border-radius: var(--radius-md);
+  background: var(--coral-500); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; position: relative; z-index: 1;
+}
+.step-banner-copy { flex: 1; position: relative; z-index: 1; }
+.step-banner-copy h3 { margin-bottom: 0.25rem; }
+.step-banner-copy p { margin: 0; }
+.step-banner-badge {
+  display: inline-flex;
+  padding: 3px 10px 3px 4px;
+  font-size: 11px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
 .step-num {
   width: 32px; height: 32px; border-radius: 50%;
   background: var(--coral-500); color: #fff;
