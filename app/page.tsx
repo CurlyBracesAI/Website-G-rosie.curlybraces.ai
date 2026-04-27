@@ -100,17 +100,18 @@ export default function Home() {
           <div className="problem-left">
             <div className="problem-section-head">
               <span className="label">The Problem</span>
-              <h2>EHRs manage your patients. PMS manage your practice. Rosie is engineered to grow your practice.</h2>
+              <h2>EHRs manage your patients. PMS manage your practice. Rosie is engineered to grow them both.</h2>
               <p>
                 Electronic Health Records and Practice Management Systems handle your clinical documentation, scheduling and billing. Neither was built to find new patients, convert inquiries into sessions, or tell you which marketing channels are worth your money. This is where Rosie lives.
               </p>
             </div>
+            <span className="label">Does this sound like your practice?</span>
             <div className="problem-cards-2x2">
               {[
-                { tile: 'tile-sky',    icon: <IcSnowflake />, title: 'Leads go cold',          body: "You're busy! Clinicians miss follow-ups. Prospective clients move on. No one tracks the gap." },
-                { tile: 'tile-amber',  icon: <IcClipboard />, title: 'Spreadsheets & paper',   body: 'Intake tracking lives in notebooks and shared docs. Nothing is automated or consistent.' },
-                { tile: 'tile-coral',  icon: <IcWrench />,    title: 'No pre-patient tooling', body: "Practice management systems don't manage outreach. General CRMs don't understand therapy intake." },
-                { tile: 'tile-emerald', icon: <IcBarChart />, title: 'No visibility beyond your own walls', body: "You know your own data. But which referral channels bring the highest-value patients? How does your Psychology Today profile compare to competitors nearby? That blind spot costs you." },
+                { tile: 'tile-sky',    icon: <IcSnowflake />, title: 'Are your leads going cold before anyone follows up?',          body: "You're busy! Clinicians miss follow-ups. Prospective clients move on. No one tracks the gap." },
+                { tile: 'tile-amber',  icon: <IcClipboard />, title: 'Still tracking intake in spreadsheets and paper notes?',   body: 'Intake tracking lives in notebooks and shared docs. Nothing is automated or consistent.' },
+                { tile: 'tile-coral',  icon: <IcWrench />,    title: 'No system built for pre-patient outreach?', body: "Practice management systems don't manage outreach. General CRMs don't understand therapy intake." },
+                { tile: 'tile-emerald', icon: <IcBarChart />, title: 'Flying blind on which referral channels actually work?', body: "You know your own data. But which referral channels bring the highest-value patients? How does your Psychology Today profile compare to competitors nearby? That blind spot costs you." },
               ].map(({ tile, icon, title, body }) => (
                 <div className="tile-card tile-card-tall" key={title}>
                   <span className={`tile-icon ${tile}`}>{icon}</span>
