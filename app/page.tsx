@@ -43,7 +43,7 @@ export default function Home() {
             </h1>
             <p className="hero-pain">
               Are new patient inquiries falling through the cracks, leads dissappearing, therapist missing targets, slow growth?<br />
-              <span className="hero-pain-bold">RosieAI takes care of it all, with competive intelligence.</span><br />
+              <span className="hero-pain-bold">RosieAI takes care of it all.</span><br />
             </p>
             <p className="hero-sub">
               RosieAI captures every lead, drafts every follow-up, manages the intake workflow, and hands off seamlessly to your EHR. HIPAA-compliant from day one, built for solo and group practices.
