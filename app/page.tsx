@@ -38,7 +38,7 @@ export default function Home() {
           {/* LEFT: copy */}
           <div className="hero-copy">
             <h1>
-              Build Your Practice with RosieAI:
+              Expand Your Practice with RosieAI:
               <span className="hero-heading-sub">The Intake & Growth Platform  Engineered for Psychotherapy and Wellness Practices</span>
             </h1>
             <p className="hero-pain">
@@ -162,8 +162,8 @@ export default function Home() {
           <div className="step-card step-banner">
             <span className="step-banner-icon"><IcPhone /></span>
             <span className="step-banner-copy">
-              <h3>Call directly, transcribed automatically</h3>
-              <p>Make calls from Rosie. Every conversation logged to the intake timeline instantly.</p>
+              <h3>Call directly from within the platform, transcribed automatically</h3>
+              <p>Make calls from the Rosie platform. Every conversation is logged to the intake timeline instantly.</p>
             </span>
             <span className="icon-badge step-banner-badge">
               <span className="icon-badge-tile tile-amber" style={{ width: 16, height: 16, borderRadius: 4, fontSize: 10 }}><IcPhone /></span>
@@ -269,7 +269,7 @@ export default function Home() {
           <span className="label">Meet Rosie, your AI</span>
           <h2>Not just automation.<br />An AI trained on your intake process.</h2>
           <p>
-            Rosie isn&apos;t a generic chatbot. She&apos;s trained specifically on therapy intake
+            Rosie isn&apos;t a generic CRM or chatbot. She&apos;s trained specifically on therapy intake
             workflows: the stages, the scripts, the clinical sensitivity required. She plans, guides,
             drafts, and flags.
           </p>
@@ -347,7 +347,7 @@ export default function Home() {
                 </span>
               </div>
               <div className="price-amount">$0</div>
-              <p className="price-desc"><strong className="price-title">Your whole practice, in one place.</strong>You run it manually. Rosie holds the data.</p>
+              <p className="price-desc"><strong className="price-title">Your practice marketing, allin one place.</strong>You run it manually. Rosie holds the data.</p>
               {['Unlimited lead profiles', 'Manual intake entry', 'All leads in one dashboard', 'HIPAA-compliant storage', 'EHR handoff notes'].map(f => (
                 <div className="price-line" key={f}><div className="check-icon">✓</div>{f}</div>
               ))}
