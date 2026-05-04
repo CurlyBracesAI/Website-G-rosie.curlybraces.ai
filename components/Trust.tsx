@@ -38,7 +38,7 @@ export default function Trust() {
         marginTop: "2rem",
       }}>
         <blockquote style={{ fontStyle: "italic", fontSize: 15, color: "var(--text-primary)", lineHeight: 1.7, marginBottom: "0.5rem" }}>
-          &ldquo;Before Rosie, we were tracking everything in a spreadsheet. Leads would go cold and we wouldn&apos;t even know. Now every intake has a clear next step.&rdquo;
+          &ldquo;Before Rosie, we were tracking everything in a spreadsheet. Leads would go cold and we wouldn&apos;t even know. Now every onboarding journey has a clear next step.&rdquo;
         </blockquote>
         <cite style={{ fontSize: 13, color: "var(--text-secondary)", fontStyle: "normal" }}>
           Sean, The Flatiron Center for Psychotherapy · Beta customer

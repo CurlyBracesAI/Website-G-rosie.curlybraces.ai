@@ -1,6 +1,6 @@
 const freeFeatures = [
   { included: true,  text: "Unlimited lead profiles" },
-  { included: true,  text: "Manual intake entry" },
+  { included: true,  text: "Manual onboarding entry" },
   { included: true,  text: "All leads in one dashboard" },
   { included: true,  text: "HIPAA-compliant storage" },
   { included: true,  text: "EHR handoff notes" },
@@ -15,8 +15,8 @@ const proFeatures = [
   { included: true, text: "Automated lead capture from all sources" },
   { included: true, text: "Full AI follow-up sequences" },
   { included: true, text: "RosieAI assistant & chatbot" },
-  { included: true, text: "Autonomous intake planning" },
-  { included: true, text: "Inbound email intake" },
+  { included: true, text: "Autonomous onboarding planning" },
+  { included: true, text: "Inbound email onboarding" },
   { included: true, text: "Calendar sync (Google & Outlook)" },
   { included: true, text: "Bolt-on modules available" },
 ];

@@ -5,7 +5,7 @@ import './globals.css';
 const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-sans' });
 
 export const metadata: Metadata = {
-  title: 'RosieAI: Intake CRM for Therapy & Wellness Practices',
+  title: 'RosieAI: Onboarding CRM for Therapy & Wellness Practices',
   description:
     'From first contact to first session. Rosie captures every lead, drafts every follow-up, and hands off seamlessly to your EHR. HIPAA-compliant.',
   manifest: '/site.webmanifest',

@@ -2,12 +2,12 @@ const steps = [
   {
     num: "1",
     title: "Lead arrives",
-    body: "Via email, phone, or web form. Rosie captures and creates the intake automatically.",
+    body: "Via email, phone, or web form. Rosie captures and creates the onboarding record automatically.",
   },
   {
     num: "2",
     title: "Rosie gets to work",
-    body: "Reads emails and intake details, immediately building context around each new lead.",
+    body: "Reads emails and onboarding details, immediately building context around each new lead.",
   },
   {
     num: "3",

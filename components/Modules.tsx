@@ -21,7 +21,7 @@ export default function Modules() {
       <span className="section-label">Bolt-on modules</span>
       <h2>Grow with Rosie</h2>
       <p>
-        Start with intake. Add what you need, when you need it. Each module is an optional paid add-on that plugs into your existing Rosie workflow, available on Pro.
+        Start with onboarding. Add what you need, when you need it. Each module is an optional paid add-on that plugs into your existing Rosie workflow, available on Pro.
       </p>
       <span style={{
         fontSize: 14, fontWeight: 500,

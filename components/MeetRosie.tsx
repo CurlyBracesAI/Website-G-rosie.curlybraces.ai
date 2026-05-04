@@ -1,7 +1,7 @@
 const feats = [
   {
     title: "Autonomous planning",
-    body: "Rosie reviews your intake pipeline and proactively recommends next steps for each lead.",
+    body: "Rosie reviews your onboarding pipeline and proactively recommends next steps for each lead.",
   },
   {
     title: "Correspondence drafting",
@@ -9,7 +9,7 @@ const feats = [
   },
   {
     title: "Guided onboarding",
-    body: "New staff ask Rosie: she walks them through the intake protocol step by step.",
+    body: "New staff ask Rosie: she walks them through the onboarding protocol step by step.",
   },
   {
     title: "Calendar sync",
@@ -21,9 +21,9 @@ export default function MeetRosie() {
   return (
     <section className="site-section" id="features">
       <span className="section-label">Meet Rosie, your AI</span>
-      <h2>Not just automation.<br />An AI trained on your intake process.</h2>
+      <h2>Not just automation.<br />An AI trained on your onboarding process.</h2>
       <p style={{ maxWidth: 560, marginTop: "0.5rem" }}>
-        Rosie isn&apos;t a generic chatbot. She&apos;s trained specifically on therapy intake workflows: the stages, the scripts, the clinical sensitivity required. She plans, guides, drafts, and flags.
+        Rosie isn&apos;t a generic chatbot. She&apos;s trained specifically on therapy onboarding workflows: the stages, the scripts, the clinical sensitivity required. She plans, guides, drafts, and flags.
       </p>
 
       {/* Chat preview */}
@@ -41,7 +41,7 @@ export default function MeetRosie() {
           padding: "10px 14px", borderRadius: "12px 12px 12px 3px",
           fontSize: 13, lineHeight: 1.6, marginBottom: 10, maxWidth: "88%",
         }}>
-          You have 3 intakes that need attention today. Sarah K. hasn&apos;t responded in 48hrs. I&apos;ve drafted a follow-up for your review. Want me to walk you through the others?
+          You have 3 onboarding journeys that need attention today. Sarah K. hasn&apos;t responded in 48hrs. I&apos;ve drafted a follow-up for your review. Want me to walk you through the others?
         </div>
 
         <p style={{ fontSize: 11, fontWeight: 600, color: "var(--text-tertiary)", marginBottom: 5, textAlign: "right", lineHeight: 1 }}>You</p>
@@ -51,7 +51,7 @@ export default function MeetRosie() {
           fontSize: 13, lineHeight: 1.6, marginBottom: 10,
           maxWidth: "88%", marginLeft: "auto",
         }}>
-          Yes, and can you pull up Marcus&apos;s intake notes?
+          Yes, and can you pull up Marcus&apos;s onboarding notes?
         </div>
 
         <p style={{ fontSize: 11, fontWeight: 600, color: "var(--green-600)", marginBottom: 5, lineHeight: 1 }}>Rosie</p>

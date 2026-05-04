@@ -38,15 +38,15 @@ export default function Home() {
           {/* LEFT: copy */}
           <div className="hero-copy">
             <h1>
-              Expand Your Practice with RosieAI:
-              <span className="hero-heading-sub">The Intake & Growth Platform  Engineered for Psychotherapy and Wellness Practices</span>
+              Expand Your Practice<br />with<br />RosieAI:
+              <span className="hero-heading-sub">The Onboarding & Growth Platform<br />Engineered for Psychotherapy<br />and Wellness Practices</span>
             </h1>
             <p className="hero-pain">
               Are new patient inquiries falling through the cracks, leads dissappearing, therapist missing targets, slow growth?<br />
               <span className="hero-pain-bold">RosieAI takes care of it all.</span><br />
             </p>
             <p className="hero-sub">
-              RosieAI captures every lead, drafts every follow-up, manages the intake workflow, and hands off seamlessly to your EHR. HIPAA-compliant from day one, built for solo and group practices.
+              RosieAI captures every lead, drafts every follow-up, manages the client onboarding journey, and hands off seamlessly to your EHR. HIPAA-compliant from day one, built for solo and group practices.
             </p>
 
             <div className="hero-btns">
@@ -66,7 +66,7 @@ export default function Home() {
                 <span className="browser-dot browser-dot-green" />
                 <span className="browser-url-bar">app.rosie.curlybraces.ai · Dashboard</span>
               </div>
-              <img src="/screenshots/screen-01.png" alt="Rosie dashboard — full intake pipeline view" loading="eager" />
+              <img src="/screenshots/screen-01.png" alt="Rosie dashboard — full onboarding pipeline view" loading="eager" />
             </div>
           </div>
 
@@ -109,8 +109,8 @@ export default function Home() {
             <div className="problem-cards-2x2">
               {[
                 { tile: 'tile-sky',    icon: <IcSnowflake />, title: 'Are your leads going cold before anyone follows up?',          body: "You're busy! Clinicians miss follow-ups. Prospective clients move on. No one tracks the gap." },
-                { tile: 'tile-amber',  icon: <IcClipboard />, title: 'Still tracking intake in spreadsheets and paper notes?',   body: 'Intake tracking lives in notebooks and shared docs. Nothing is automated or consistent.' },
-                { tile: 'tile-coral',  icon: <IcWrench />,    title: 'No system built for pre-patient outreach?', body: "Practice management systems don't manage outreach. General CRMs don't understand therapy intake." },
+                { tile: 'tile-amber',  icon: <IcClipboard />, title: 'Still tracking onboarding in spreadsheets and paper notes?',   body: 'Onboarding tracking lives in notebooks and shared docs. Nothing is automated or consistent.' },
+                { tile: 'tile-coral',  icon: <IcWrench />,    title: 'No system built for pre-patient outreach?', body: "Practice management systems don't manage outreach. General CRMs don't understand therapy onboarding." },
                 { tile: 'tile-emerald', icon: <IcBarChart />, title: 'Flying blind on which referral channels actually work?', body: "You know your own numbers. But which referral channels bring patients who actually stay? And how visible is your practice to someone searching for a therapist right now? That blind spot costs you." },
                 { tile: 'tile-sky', icon: <IcCompass />, title: 'How easy is it for a new patient to find and choose your practice?', body: "Your online presence across Psychology Today, Zocdoc, and Google may be working against you — and you'd never know it." },
                 { tile: 'tile-coral', icon: <IcLink />, title: 'What happened to all your lapsed patients?', body: "Every practice has former patients who stopped coming. Most have no system to re-engage them. That's revenue, and care, left on the table." },
@@ -126,7 +126,7 @@ export default function Home() {
             </div>
           </div>
           <div className="timeline-right-panel">
-            <img src="/screenshots/screen-08.png" alt="Rosie activity timeline — chronological intake log showing all outreach events" loading="lazy" />
+            <img src="/screenshots/screen-08.png" alt="Rosie activity timeline — chronological onboarding log showing all outreach events" loading="lazy" />
           </div>
         </div>
       </section>
@@ -146,8 +146,8 @@ export default function Home() {
 
           <div className="steps-grid">
             {[
-              { n: '1', title: 'Lead arrives', body: 'Via email, phone, or web form. Rosie captures and creates the intake automatically.' },
-              { n: '2', title: 'Rosie gets to work', body: 'Reads emails and intake details, immediately building context around each new lead.' },
+              { n: '1', title: 'Lead arrives', body: 'Via email, phone, or web form. Rosie captures and creates the onboarding record automatically.' },
+              { n: '2', title: 'Rosie gets to work', body: 'Reads emails and onboarding details, immediately building context around each new lead.' },
               { n: '3', title: 'AI drafts outreach', body: 'Stage-appropriate email, SMS, WhatsApp and in-app portal reviewed and sent in one click. No writing from scratch.' },
               { n: '4', title: 'Automated follow-up', body: '24hr, 48hr, 72hr sequences run automatically. Rosie flags anything that needs attention.' },
               { n: '5', title: 'Hand off', body: 'First session booked. Pass cleanly to your EHR or practice management system and move on.' },
@@ -163,7 +163,7 @@ export default function Home() {
             <span className="step-banner-icon"><IcPhone /></span>
             <span className="step-banner-copy">
               <h3>Call directly from within the platform, transcribed automatically</h3>
-              <p>Make calls from the Rosie platform. Every conversation is logged to the intake timeline instantly.</p>
+              <p>Make calls from the Rosie platform. Every conversation is logged to the onboarding timeline instantly.</p>
             </span>
             <span className="icon-badge step-banner-badge">
               <span className="icon-badge-tile tile-amber" style={{ width: 16, height: 16, borderRadius: 4, fontSize: 10 }}><IcPhone /></span>
@@ -178,11 +178,11 @@ export default function Home() {
                 <span className="browser-dot browser-dot-red" />
                 <span className="browser-dot browser-dot-yellow" />
                 <span className="browser-dot browser-dot-green" />
-                <span className="browser-url-bar">app.rosie.curlybraces.ai · Intake · Andy Collectot · Stages</span>
+                <span className="browser-url-bar">app.rosie.curlybraces.ai · Onboarding · Andy Collectot · Stages</span>
               </div>
-              <img src="/screenshots/screen-05.png" alt="Rosie 7-step intake stages — Welcome through Consultation" loading="lazy" />
+              <img src="/screenshots/screen-05.png" alt="Rosie 7-step onboarding stages — Welcome through Consultation" loading="lazy" />
             </div>
-            <p className="screenshot-caption">Rosie tracks each lead through multiple structured stages — and tells you exactly where every intake stands</p>
+            <p className="screenshot-caption">Rosie tracks each lead through multiple structured stages — and tells you exactly where every onboarding journey stands</p>
           </div>
 
         </section>
@@ -202,7 +202,7 @@ export default function Home() {
           <div className="spotlight-copy">
             <span className="label">Timeline &amp; follow-up</span>
             <h3>The right action, at the right moment</h3>
-            <p>Rosie keeps every intake on track — automatically. When human input is needed, she stops and flags it. When it's not, she moves things forward without being asked.</p>
+            <p>Rosie keeps every onboarding journey on track — automatically. When human input is needed, she stops and flags it. When it's not, she moves things forward without being asked.</p>
             <ul className="spotlight-check-list">
               <li>Each stage unlocks only when the previous one is complete — no skipped steps</li>
               <li>Urgent cases surface automatically, before they go cold</li>
@@ -213,7 +213,7 @@ export default function Home() {
           <div className="spotlight-inlay-wrap">
             <img src="/screenshots/screen-07.png" alt="Rosie activity timeline with stage alert" loading="lazy" />
             <div className="spotlight-inlay">
-              <img src="/screenshots/screen-14.png" alt="Intake details form — urgency, insurance, session type" loading="lazy" />
+              <img src="/screenshots/screen-14.png" alt="Onboarding details form — urgency, insurance, session type" loading="lazy" />
             </div>
           </div>
         </div>
@@ -221,7 +221,7 @@ export default function Home() {
         {/* Row 2: patient detail screenshot + copy */}
         <div className="spotlight-row">
           <div className="spotlight-frame">
-            <img src="/screenshots/screen-04.png" alt="Patient detail — info, intake context, and AI-logged notes" loading="lazy" />
+            <img src="/screenshots/screen-04.png" alt="Patient detail — info, onboarding context, and AI-logged notes" loading="lazy" />
           </div>
           <div className="spotlight-copy">
             <span className="label">Patient records</span>
@@ -267,9 +267,9 @@ export default function Home() {
       <section className="section" id="features">
         <div className="section-head">
           <span className="label">Meet Rosie, your AI</span>
-          <h2>Not just automation.<br />An AI trained on your intake process.</h2>
+          <h2>Not just automation.<br />An AI trained on your onboarding process.</h2>
           <p>
-            Rosie isn&apos;t a generic CRM or chatbot. She&apos;s trained specifically on therapy intake
+            Rosie isn&apos;t a generic CRM or chatbot. She&apos;s trained specifically on therapy onboarding
             workflows: the stages, the scripts, the clinical sensitivity required. She plans, guides,
             drafts, and flags.
           </p>
@@ -286,12 +286,12 @@ export default function Home() {
           <div className="chat-body">
             <div className="chat-label">Rosie</div>
             <div className="chat-bubble chat-rosie">
-              You have 3 intakes that need attention today. Sarah K. hasn&apos;t responded in 48hrs.
+              You have 3 onboarding journeys that need attention today. Sarah K. hasn&apos;t responded in 48hrs.
               I&apos;ve drafted a follow-up for your review. Want me to walk you through the others?
             </div>
             <div className="chat-label-user">You</div>
             <div className="chat-bubble chat-user">
-              Yes, and can you pull up Marcus&apos;s intake notes?
+              Yes, and can you pull up Marcus&apos;s onboarding notes?
             </div>
             <div className="chat-label">Rosie</div>
             <div className="chat-bubble chat-rosie" style={{ marginBottom: 0 }}>
@@ -348,7 +348,7 @@ export default function Home() {
               </div>
               <div className="price-amount">$0</div>
               <p className="price-desc"><strong className="price-title">Your practice marketing, allin one place.</strong>You run it manually. Rosie holds the data.</p>
-              {['Unlimited lead profiles', 'Manual intake entry', 'All leads in one dashboard', 'HIPAA-compliant storage', 'EHR handoff notes'].map(f => (
+              {['Unlimited lead profiles', 'Manual onboarding entry', 'All leads in one dashboard', 'HIPAA-compliant storage', 'EHR handoff notes'].map(f => (
                 <div className="price-line" key={f}><div className="check-icon">✓</div>{f}</div>
               ))}
               {['AI automation & RosieAI', 'Automated follow-up sequences', 'Calendar sync', 'In-app calling', 'Bolt-on modules'].map(f => (
@@ -368,14 +368,14 @@ export default function Home() {
                 </span>
               </div>
               <div className="price-amount">$19 <span>/ seat / month</span></div>
-              <p className="price-desc"><strong className="price-title">RosieAI works, you review and move on.</strong>Automate intake from first contact to booked session.</p>
+              <p className="price-desc"><strong className="price-title">RosieAI works, you review and move on.</strong>Automate onboarding from first contact to booked session.</p>
               {[
                 'Everything in Free',
                 'Automated lead capture from all sources',
                 'Full AI follow-up sequences',
                 'RosieAI assistant & chatbot',
-                'Autonomous intake planning',
-                'Inbound email intake',
+                'Autonomous onboarding planning',
+                'Inbound email onboarding',
               ].map(f => (
                 <div className="price-line" key={f}><div className="check-icon">✓</div>{f}</div>
               ))}
@@ -484,7 +484,7 @@ export default function Home() {
           <div className="quote-card">
             <blockquote>
               &ldquo;Before Rosie, we were tracking everything in a spreadsheet. Leads would go cold
-              and we wouldn&apos;t even know. Now every intake has a clear next step.&rdquo;
+              and we wouldn&apos;t even know. Now every onboarding journey has a clear next step.&rdquo;
             </blockquote>
             <cite>Sean, The Flatiron Center for Psychotherapy · Beta customer</cite>
           </div>
@@ -538,7 +538,7 @@ export default function Home() {
             <span className="icon-badge-tile tile-coral" style={{ width: 26, height: 26, borderRadius: 7, fontSize: 14 }}><IcStar /></span>
             Beta: limited spots available
           </span>
-          <h2>Start with intake.<br />Grow with intelligence.</h2>
+          <h2>Start with onboarding.<br />Grow with intelligence.</h2>
           <p>
             Free forever on the basic plan. Pro is free for all beta practices. No credit card.
             No minimum users. HIPAA-compliant from day one.

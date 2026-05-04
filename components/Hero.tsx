@@ -23,7 +23,7 @@ export default function Hero() {
       </div>
 
       <h1 style={{ marginBottom: "1.25rem" }}>
-        The intake CRM built for<br />therapy &amp; wellness practices
+        The onboarding CRM built for<br />therapy &amp; wellness practices
       </h1>
 
       <p style={{ fontSize: 18, lineHeight: 1.65, color: "var(--text-secondary)", maxWidth: 580, margin: "0 auto 2rem" }}>

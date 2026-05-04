@@ -43,7 +43,7 @@ export default function CtaSignup() {
         </span>
 
         <h2 style={{ margin: "0.75rem 0 0.5rem" }}>
-          Start with intake.<br />Stay for everything else.
+          Start with onboarding.<br />Stay for everything else.
         </h2>
         <p style={{ maxWidth: 480, margin: "0 auto 1.5rem" }}>
           Free forever on the basic plan. Pro is free for all beta practices. No credit card. No minimum users. HIPAA-compliant from day one.

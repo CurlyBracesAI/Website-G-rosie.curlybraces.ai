@@ -5,11 +5,11 @@ const problems = [
   },
   {
     title: "Spreadsheets & paper",
-    body: "Intake tracking lives in notebooks and shared docs. Nothing is automated or consistent.",
+    body: "Onboarding tracking lives in notebooks and shared docs. Nothing is automated or consistent.",
   },
   {
     title: "No pre-patient tooling",
-    body: "Practice management systems don't manage outreach. General CRMs don't understand therapy intake workflows.",
+    body: "Practice management systems don't manage outreach. General CRMs don't understand therapy onboarding workflows.",
   },
   {
     title: "Expensive alternatives",
