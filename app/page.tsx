@@ -325,7 +325,7 @@ export default function Home() {
 
       {/* PRICING */}
       <div className="section-bg section-bg-coral">
-        <section className="section" id="pricing">
+        <section className="section pricing-section" id="pricing">
           <div className="section-head">
             <span className="label">Pricing</span>
             <h2>Grow with Rosie, at your own pace.</h2>
@@ -333,110 +333,155 @@ export default function Home() {
               Start with onboarding your patients, then let Rosie grow alongside your practice.
               Activate what you need, when you need it. No forced upgrades, no bloated all-in-one you&apos;ll never use.
             </p>
-            <p style={{ marginTop: "0.5rem", color: "var(--text-tertiary)", fontSize: 14 }}>
-              A free tier, always. Pro is free for all beta practices — for as long as you&apos;re with us.
-            </p>
           </div>
 
-          <div className="pricing-grid pricing-grid-4col">
-            {/* FREE */}
+          <input className="pricing-toggle-input" type="radio" name="pricing-billing" id="pricing-monthly" defaultChecked />
+          <input className="pricing-toggle-input" type="radio" name="pricing-billing" id="pricing-annual" />
+          <div className="pricing-toggle" aria-label="Billing period">
+            <label htmlFor="pricing-monthly">Monthly</label>
+            <label htmlFor="pricing-annual">Annual <span>Save 15%</span></label>
+          </div>
+
+          <div className="pricing-grid pricing-grid-5col">
             <div className="price-card free">
-              <div className="featured-accent free-accent">Always free, no card needed</div>
               <div className="card-header">
-                <span className="label" style={{ margin: 0 }}>Free</span>
+                <span>
+                  <span className="label" style={{ margin: 0 }}>Free</span>
+                  <span className="price-limit">Forever</span>
+                </span>
                 <span className="icon-badge" style={{ padding: '5px 10px 5px 5px', fontSize: 12, borderRadius: 8 }}>
                   <span className="icon-badge-tile tile-sky" style={{ width: 20, height: 20, borderRadius: 5, fontSize: 11 }}><IcInfinity /></span>
                   Forever
                 </span>
               </div>
-              <div className="price-amount">$0</div>
-              <p className="price-desc"><strong className="price-title">Your practice marketing, allin one place.</strong>You run it manually. Rosie holds the data.</p>
+              <div className="price-amount">$0<span>/month</span></div>
               {['Unlimited lead profiles', 'Manual onboarding entry', 'All leads in one dashboard', 'HIPAA-compliant storage', 'EHR handoff notes'].map(f => (
                 <div className="price-line" key={f}><div className="check-icon">✓</div>{f}</div>
               ))}
-              {['AI automation & RosieAI', 'Automated follow-up sequences', 'Calendar sync', 'In-app calling', 'Bolt-on modules'].map(f => (
-                <div className="price-line" key={f}><div className="dash-icon">-</div>{f}</div>
+              {['AI automation', 'Automated follow-up', 'Calendar sync', 'In-app calling', 'Practice intelligence suite'].map(f => (
+                <div className="price-line price-line-muted" key={f}><div className="dash-icon">×</div>{f}</div>
               ))}
               <a href="https://intake.rosie.curlybraces.ai/" className="btn-secondary price-btn" style={{ textDecoration: "none", marginTop: "1.25rem", display: "block", background: "var(--text-tertiary, #94a3b8)", color: "#fff", borderColor: "transparent" }}>Get Started Free</a>
             </div>
 
-            {/* PRO */}
-            <div className="price-card featured">
-              <div className="featured-accent">Available now. Free during beta</div>
+            <div className="price-card">
               <div className="card-header">
-                <span className="label" style={{ margin: 0 }}>Pro</span>
-                <span className="icon-badge" style={{ padding: '5px 10px 5px 5px', fontSize: 12, borderRadius: 8 }}>
-                  <span className="icon-badge-tile tile-emerald" style={{ width: 20, height: 20, borderRadius: 5, fontSize: 11 }}><IcCheck /></span>
-                  Live in beta
+                <span>
+                  <span className="label" style={{ margin: 0 }}>Pro</span>
+                  <span className="price-limit">Up to 5 users</span>
                 </span>
               </div>
-              <div className="price-amount">$19 <span>/ seat / month</span></div>
-              <p className="price-desc"><strong className="price-title">RosieAI works, you review and move on.</strong>Automate onboarding from first contact to booked session.</p>
+              <div className="price-amount">
+                <span className="monthly-price">$95<span>/month</span></span>
+                <span className="annual-price">$81<span>/month</span></span>
+              </div>
+              <p className="annual-note">Billed $972/year</p>
               {[
                 'Everything in Free',
-                'Automated lead capture from all sources',
+                'Full AI intake automation',
                 'Full AI follow-up sequences',
-                'RosieAI assistant & chatbot',
-                'Autonomous onboarding planning',
+                'RosieAI assistant',
                 'Inbound email onboarding',
+                'Autonomous onboarding planning',
+                'Full practice intelligence suite (see below)',
               ].map(f => (
                 <div className="price-line" key={f}><div className="check-icon">✓</div>{f}</div>
               ))}
-              {['Calendar sync (Google & Outlook)', 'In-app calling', 'Bolt-on modules'].map(f => (
-                <div className="price-line" key={f}><div className="dash-icon">-</div>{f}</div>
-              ))}
-              <a href="https://intake.rosie.curlybraces.ai/" className="btn-primary price-btn" style={{ textDecoration: "none", marginTop: "1.25rem", display: "block", background: "var(--coral-500)", borderColor: "transparent" }}>Get Started Free →</a>
+              <a href="https://intake.rosie.curlybraces.ai/" className="btn-primary price-btn" style={{ textDecoration: "none", marginTop: "1.25rem", display: "block", background: "var(--coral-500)", borderColor: "transparent" }}>Get Started</a>
             </div>
 
-            {/* PRO+ */}
             <div className="price-card pro-plus">
-              <div className="featured-accent pro-plus-accent">Coming soon</div>
+              <div className="featured-accent pro-plus-accent">Most Popular</div>
               <div className="card-header">
-                <span className="label" style={{ margin: 0 }}>Pro+</span>
-                <span className="icon-badge" style={{ padding: '5px 10px 5px 5px', fontSize: 12, borderRadius: 8 }}>
-                  <span className="icon-badge-tile tile-amber" style={{ width: 20, height: 20, borderRadius: 5, fontSize: 11 }}><IcClock /></span>
-                  Coming soon
+                <span>
+                  <span className="label" style={{ margin: 0 }}>Pro+</span>
+                  <span className="price-limit">Up to 15 users</span>
                 </span>
+                <span className="popular-star">★</span>
               </div>
-              <div className="price-amount">$29 <span>/ seat / month</span></div>
-              <p className="price-desc"><strong className="price-title">Every integration, fully connected.</strong>Everything in Pro, plus deep integrations and calling.</p>
+              <div className="price-amount">
+                <span className="monthly-price">$295<span>/month</span></span>
+                <span className="annual-price">$251<span>/month</span></span>
+              </div>
+              <p className="annual-note">Billed $3,012/year</p>
               {[
                 'Everything in Pro',
                 'Calendar sync (Google & Outlook)',
-                'In-app calling (call transcription)',
-                'Bolt-on modules available',
+                'In-app calling with transcription',
+                'Full practice intelligence suite (see below)',
               ].map(f => (
                 <div className="price-line" key={f}><div className="check-icon">✓</div>{f}</div>
               ))}
+              <a href="https://intake.rosie.curlybraces.ai/" className="btn-primary price-btn pro-plus-btn" style={{ textDecoration: "none", marginTop: "1.25rem", display: "block", borderColor: "transparent" }}>Get Started</a>
             </div>
 
-            {/* GROW */}
-            <div className="price-card grow">
-              <div className="featured-accent grow-accent">In the pipeline</div>
+            <div className="price-card">
               <div className="card-header">
-                <span className="label" style={{ margin: 0 }}>Grow</span>
-                <span className="icon-badge" style={{ padding: '5px 10px 5px 5px', fontSize: 12, borderRadius: 8 }}>
-                  <span className="icon-badge-tile tile-sky" style={{ width: 20, height: 20, borderRadius: 5, fontSize: 11 }}><IcBarChart /></span>
-                  Coming soon
+                <span>
+                  <span className="label" style={{ margin: 0 }}>Practice+</span>
+                  <span className="price-limit">Up to 30 users</span>
                 </span>
               </div>
-              <div className="price-amount">$49 <span>/ seat / month</span></div>
-              <p className="price-desc"><strong className="price-title">Know your market, own your growth.</strong>Full funnel visibility from first inquiry to patient revenue.</p>
+              <div className="price-amount">
+                <span className="monthly-price">$595<span>/month</span></span>
+                <span className="annual-price">$506<span>/month</span></span>
+              </div>
+              <p className="annual-note">Billed $6,072/year</p>
               {[
                 'Everything in Pro+',
-                'EHR data pull & analysis',
-                'Full funnel attribution — inquiry to revenue',
-                'Competitive intelligence (Psychology Today, Zocdoc, Google)',
-                'Profile performance vs. similar practices',
-                'Re-engagement campaigns for lapsed patients',
-                'Marketing spend recommendations',
-                'Practice growth dashboard',
+                'Priority support',
+                'Dedicated onboarding',
+                'Full practice intelligence suite (see below)',
               ].map(f => (
                 <div className="price-line" key={f}><div className="check-icon">✓</div>{f}</div>
+              ))}
+              <a href="https://intake.rosie.curlybraces.ai/" className="btn-primary price-btn" style={{ textDecoration: "none", marginTop: "1.25rem", display: "block", background: "var(--coral-500)", borderColor: "transparent" }}>Get Started</a>
+            </div>
+
+            <div className="price-card enterprise">
+              <div className="card-header">
+                <span>
+                  <span className="label" style={{ margin: 0 }}>Enterprise</span>
+                  <span className="price-limit">Multi-location groups</span>
+                </span>
+              </div>
+              <div className="price-amount price-custom">Custom<span> pricing</span></div>
+              {[
+                'Everything in Practice+',
+                'Multi-location dashboard',
+                'Custom integrations',
+                'Dedicated account manager',
+                'SLA & compliance documentation',
+              ].map(f => (
+                <div className="price-line" key={f}><div className="check-icon">✓</div>{f}</div>
+              ))}
+              <a href="mailto:support@curlybraces.ai?subject=Rosie%20Enterprise" className="btn-secondary price-btn" style={{ textDecoration: "none", marginTop: "1.25rem", display: "block" }}>Talk to us →</a>
+            </div>
+          </div>
+
+          <div className="intelligence-callout">
+            <div className="section-head">
+              <h3>Every paid plan includes the full Rosie Practice Intelligence Suite</h3>
+              <p>The analytics layer that other tools charge $249/month for separately — included in every Rosie paid plan, from $95/month.</p>
+            </div>
+            <div className="intelligence-grid">
+              {[
+                ['📊', 'EHR data pull & analysis'],
+                ['🔍', 'Full funnel attribution — inquiry to revenue'],
+                ['🗺️', 'Competitive intelligence (Psychology Today, Zocdoc, Google)'],
+                ['📈', 'Profile performance vs. similar practices'],
+                ['💬', 'Re-engagement campaigns for lapsed patients'],
+                ['💰', 'Marketing spend recommendations'],
+                ['🏥', 'Practice growth dashboard'],
+                ['📉', 'Referral source tracking & channel ROI'],
+              ].map(([icon, text]) => (
+                <div className="intelligence-line" key={text}>
+                  <span>{icon}</span>
+                  {text}
+                </div>
               ))}
             </div>
           </div>
-          <p style={{ fontSize: 15, color: "var(--text-tertiary)", marginTop: "1.5rem", textAlign: "center", fontWeight: 500 }}>Pro features available — apply for beta access inside your account after signing up</p>
         </section>
       </div>
 
@@ -550,9 +595,6 @@ export default function Home() {
             <a href="https://intake.rosie.curlybraces.ai/" className="btn-primary btn-lg" style={{ textDecoration: "none" }}>Get Started Free →</a>
             <p style={{ fontSize: 11, color: "var(--text-tertiary)", marginTop: "1.25rem" }}>Pro features available — apply for beta access inside your account</p>
             <p className="fine" style={{ marginTop: "0.75rem" }}>By signing up you agree to our Terms of Service and Privacy Policy.</p>
-            <p className="cta-footnote" id="roi-footnote">
-              <sup>*</sup>Average new patient value: $1,200-1,800 (8-12 sessions at $150/session). Rosie Pro: $19/user/month. A 5-user practice pays $95/month. Six months = $570. One recovered intake more than covers it.
-            </p>
           </div>
         </div>
       </section>
@@ -565,6 +607,9 @@ export default function Home() {
               <div className="footer-brand-dot" />
               Rosie
             </div>
+            <p className="footer-footnote" id="roi-footnote">
+              <sup>*</sup>Average new patient value: $1,200–1,800 (8–12 sessions at $150/session). Rosie Pro: $95/month. Six months = $570. One recovered intake more than covers it.
+            </p>
             <div className="footer-sub">
               Part of <a href="https://curlybraces.ai" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--coral-500)', fontWeight: 600 }}>{'{'}curlybraces.ai{'}'}</a> · © 2026 CurlyBraces AI
             </div>
