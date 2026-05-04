@@ -550,6 +550,9 @@ export default function Home() {
             <a href="https://intake.rosie.curlybraces.ai/" className="btn-primary btn-lg" style={{ textDecoration: "none" }}>Get Started Free →</a>
             <p style={{ fontSize: 11, color: "var(--text-tertiary)", marginTop: "1.25rem" }}>Pro features available — apply for beta access inside your account</p>
             <p className="fine" style={{ marginTop: "0.75rem" }}>By signing up you agree to our Terms of Service and Privacy Policy.</p>
+            <p className="cta-footnote" id="roi-footnote">
+              <sup>*</sup>Average new patient value: $1,200-1,800 (8-12 sessions at $150/session). Rosie Pro: $19/user/month. A 5-user practice pays $95/month. Six months = $570. One recovered intake more than covers it.
+            </p>
           </div>
         </div>
       </section>
@@ -562,9 +565,6 @@ export default function Home() {
               <div className="footer-brand-dot" />
               Rosie
             </div>
-            <p className="footer-footnote" id="roi-footnote">
-              <sup>*</sup>Average new patient value: $1,200-1,800 (8-12 sessions at $150/session). Rosie Pro: $19/user/month. A 5-user practice pays $95/month. Six months = $570. One recovered intake more than covers it.
-            </p>
             <div className="footer-sub">
               Part of <a href="https://curlybraces.ai" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--coral-500)', fontWeight: 600 }}>{'{'}curlybraces.ai{'}'}</a> · © 2026 CurlyBraces AI
             </div>
