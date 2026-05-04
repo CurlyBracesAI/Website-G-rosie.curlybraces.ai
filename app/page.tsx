@@ -38,8 +38,8 @@ export default function Home() {
           {/* LEFT: copy */}
           <div className="hero-copy">
             <h1>
-              Expand Your Practice<br />with<br />RosieAI:
-              <span className="hero-heading-sub">The Onboarding & Growth Platform<br />Engineered for Psychotherapy<br />and Wellness Practices</span>
+              Expand Your Practice with RosieAI:
+              <span className="hero-heading-sub">The Onboarding & Growth Platform Engineered for Psychotherapy and Wellness Practices</span>
             </h1>
             <p className="hero-pain">
               Are new patient inquiries falling through the cracks, leads dissappearing, therapist missing targets, slow growth?<br />
