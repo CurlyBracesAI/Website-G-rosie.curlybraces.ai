@@ -477,21 +477,20 @@ export default function Home() {
           <div className="intelligence-callout">
             <div className="section-head">
               <h3>Every paid plan includes the full Rosie Practice Intelligence Suite</h3>
-              <p>The analytics layer that other tools charge $249/month for separately — included in every Rosie paid plan, from $95/month.</p>
             </div>
             <div className="intelligence-grid">
               {[
-                { icon: <IcBarChart />, text: 'EHR data pull & analysis' },
-                { icon: <IcLink />, text: 'Full funnel attribution — inquiry to revenue' },
-                { icon: <IcCompass />, text: 'Competitive intelligence (Psychology Today, Zocdoc, Google)' },
-                { icon: <IcAward />, text: 'Profile performance vs. similar practices' },
-                { icon: <IcChat />, text: 'Re-engagement campaigns for lapsed patients' },
-                { icon: <IcMoney />, text: 'Marketing spend recommendations' },
-                { icon: <IcBrain />, text: 'Practice growth dashboard' },
-                { icon: <IcTag />, text: 'Referral source tracking & channel ROI' },
-              ].map(({ icon, text }) => (
+                { tile: 'tile-emerald', icon: <IcBarChart />, text: 'EHR data pull & analysis' },
+                { tile: 'tile-coral', icon: <IcLink />, text: 'Full funnel attribution — inquiry to revenue' },
+                { tile: 'tile-sky', icon: <IcCompass />, text: 'Competitive intelligence (Psychology Today, Zocdoc, Google)' },
+                { tile: 'tile-amber', icon: <IcAward />, text: 'Profile performance vs. similar practices' },
+                { tile: 'tile-violet', icon: <IcChat />, text: 'Re-engagement campaigns for lapsed patients' },
+                { tile: 'tile-coral', icon: <IcMoney />, text: 'Marketing spend recommendations' },
+                { tile: 'tile-sky', icon: <IcBrain />, text: 'Practice growth dashboard' },
+                { tile: 'tile-emerald', icon: <IcTag />, text: 'Referral source tracking & channel ROI' },
+              ].map(({ tile, icon, text }) => (
                 <div className="intelligence-line" key={text}>
-                  <span className="intelligence-icon">{icon}</span>
+                  <span className={`intelligence-icon ${tile}`}>{icon}</span>
                   {text}
                 </div>
               ))}

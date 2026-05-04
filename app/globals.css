@@ -768,20 +768,18 @@ p  { font-size: var(--fs-body); line-height: 1.75; color: var(--text-secondary);
   font-weight: 600;
 }
 .intelligence-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 9px;
-  background: var(--coral-50);
-  color: var(--coral-600);
-  display: inline-flex;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  color: #fff;
+  display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  border: 1px solid rgba(229,85,53,0.16);
 }
 .intelligence-icon svg {
-  width: 17px;
-  height: 17px;
+  width: 22px;
+  height: 22px;
 }
 @media (max-width: 640px) {
   .pricing-toggle { width: 100%; justify-content: center; }
