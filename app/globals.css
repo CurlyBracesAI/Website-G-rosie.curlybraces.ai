@@ -339,7 +339,7 @@ p  { font-size: var(--fs-body); line-height: 1.75; color: var(--text-secondary);
 .hero.hero-split {
   text-align: left;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   padding: 0;
   max-width: none;
   margin: 0;
@@ -385,7 +385,7 @@ p  { font-size: var(--fs-body); line-height: 1.75; color: var(--text-secondary);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 2.5rem;
+  padding-top: 5rem;
 }
 .hero-bleed-browser {
   border-radius: 12px 0 0 12px !important;
@@ -398,19 +398,21 @@ p  { font-size: var(--fs-body); line-height: 1.75; color: var(--text-secondary);
 .hero-bleed-browser .browser-bar { border-radius: 12px 0 0 0; }
 .hero-roi-note {
   align-self: stretch;
-  margin: 1rem 0 0;
+  margin: 1.1rem 0 0;
   max-width: 620px;
-  font-size: 15px;
-  line-height: 1.6;
-  color: rgba(255,255,255,0.64);
+  font-size: 17px;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.65;
+  color: var(--coral-400);
 }
 .hero-roi-note a {
-  color: rgba(255,255,255,0.78);
+  color: var(--coral-400);
   font-style: italic;
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: none;
 }
-.hero-roi-note a:hover { color: #fff; }
+.hero-roi-note a:hover { color: var(--coral-500); }
 .hero-roi-note sup { font-size: 0.7em; line-height: 0; }
 
 /* ── Hero Tiles Strip (below hero-wrap on white) ── */
