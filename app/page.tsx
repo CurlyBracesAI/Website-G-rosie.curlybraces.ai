@@ -383,10 +383,13 @@ export default function Home() {
                 'RosieAI assistant',
                 'Inbound email onboarding',
                 'Autonomous onboarding planning',
-                'Full practice intelligence suite (see below)',
+                'Calendar sync (Google & Outlook)',
+                'In-app calling with transcription',
+                'Full Practice Intelligence Suite (see below)',
               ].map(f => (
                 <div className="price-line" key={f}><div className="check-icon">✓</div>{f}</div>
               ))}
+              <p className="price-usage-note">Calls, SMS and WhatsApp charged per use.</p>
               <a href="https://intake.rosie.curlybraces.ai/" className="btn-primary price-btn" style={{ textDecoration: "none", marginTop: "1.25rem", display: "block", background: "var(--coral-500)", borderColor: "transparent" }}>Get Started</a>
             </div>
 
@@ -405,13 +408,19 @@ export default function Home() {
               </div>
               <p className="annual-note">Billed $3,012/year</p>
               {[
-                'Everything in Pro',
+                'Everything in Free',
+                'Full AI intake automation',
+                'Full AI follow-up sequences',
+                'RosieAI assistant',
+                'Inbound email onboarding',
+                'Autonomous onboarding planning',
                 'Calendar sync (Google & Outlook)',
                 'In-app calling with transcription',
-                'Full practice intelligence suite (see below)',
+                'Full Practice Intelligence Suite (see below)',
               ].map(f => (
                 <div className="price-line" key={f}><div className="check-icon">✓</div>{f}</div>
               ))}
+              <p className="price-usage-note">Calls, SMS and WhatsApp charged per use.</p>
               <a href="https://intake.rosie.curlybraces.ai/" className="btn-primary price-btn pro-plus-btn" style={{ textDecoration: "none", marginTop: "1.25rem", display: "block", borderColor: "transparent" }}>Get Started</a>
             </div>
 
@@ -428,13 +437,19 @@ export default function Home() {
               </div>
               <p className="annual-note">Billed $6,072/year</p>
               {[
-                'Everything in Pro+',
-                'Priority support',
-                'Dedicated onboarding',
-                'Full practice intelligence suite (see below)',
+                'Everything in Free',
+                'Full AI intake automation',
+                'Full AI follow-up sequences',
+                'RosieAI assistant',
+                'Inbound email onboarding',
+                'Autonomous onboarding planning',
+                'Calendar sync (Google & Outlook)',
+                'In-app calling with transcription',
+                'Full Practice Intelligence Suite (see below)',
               ].map(f => (
                 <div className="price-line" key={f}><div className="check-icon">✓</div>{f}</div>
               ))}
+              <p className="price-usage-note">Calls, SMS and WhatsApp charged per use.</p>
               <a href="https://intake.rosie.curlybraces.ai/" className="btn-primary price-btn" style={{ textDecoration: "none", marginTop: "1.25rem", display: "block", background: "var(--coral-500)", borderColor: "transparent" }}>Get Started</a>
             </div>
 
@@ -466,17 +481,17 @@ export default function Home() {
             </div>
             <div className="intelligence-grid">
               {[
-                ['📊', 'EHR data pull & analysis'],
-                ['🔍', 'Full funnel attribution — inquiry to revenue'],
-                ['🗺️', 'Competitive intelligence (Psychology Today, Zocdoc, Google)'],
-                ['📈', 'Profile performance vs. similar practices'],
-                ['💬', 'Re-engagement campaigns for lapsed patients'],
-                ['💰', 'Marketing spend recommendations'],
-                ['🏥', 'Practice growth dashboard'],
-                ['📉', 'Referral source tracking & channel ROI'],
-              ].map(([icon, text]) => (
+                { icon: <IcBarChart />, text: 'EHR data pull & analysis' },
+                { icon: <IcLink />, text: 'Full funnel attribution — inquiry to revenue' },
+                { icon: <IcCompass />, text: 'Competitive intelligence (Psychology Today, Zocdoc, Google)' },
+                { icon: <IcAward />, text: 'Profile performance vs. similar practices' },
+                { icon: <IcChat />, text: 'Re-engagement campaigns for lapsed patients' },
+                { icon: <IcMoney />, text: 'Marketing spend recommendations' },
+                { icon: <IcBrain />, text: 'Practice growth dashboard' },
+                { icon: <IcTag />, text: 'Referral source tracking & channel ROI' },
+              ].map(({ icon, text }) => (
                 <div className="intelligence-line" key={text}>
-                  <span>{icon}</span>
+                  <span className="intelligence-icon">{icon}</span>
                   {text}
                 </div>
               ))}
@@ -595,6 +610,9 @@ export default function Home() {
             <a href="https://intake.rosie.curlybraces.ai/" className="btn-primary btn-lg" style={{ textDecoration: "none" }}>Get Started Free →</a>
             <p style={{ fontSize: 11, color: "var(--text-tertiary)", marginTop: "1.25rem" }}>Pro features available — apply for beta access inside your account</p>
             <p className="fine" style={{ marginTop: "0.75rem" }}>By signing up you agree to our Terms of Service and Privacy Policy.</p>
+            <p className="cta-footnote" id="roi-footnote">
+              <sup>*</sup>Average new patient value: $1,200–1,800 (8–12 sessions at $150/session). Rosie Pro: $95/month. Six months = $570. One recovered intake more than covers it.
+            </p>
           </div>
         </div>
       </section>
@@ -607,9 +625,6 @@ export default function Home() {
               <div className="footer-brand-dot" />
               Rosie
             </div>
-            <p className="footer-footnote" id="roi-footnote">
-              <sup>*</sup>Average new patient value: $1,200–1,800 (8–12 sessions at $150/session). Rosie Pro: $95/month. Six months = $570. One recovered intake more than covers it.
-            </p>
             <div className="footer-sub">
               Part of <a href="https://curlybraces.ai" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--coral-500)', fontWeight: 600 }}>{'{'}curlybraces.ai{'}'}</a> · © 2026 CurlyBraces AI
             </div>
