@@ -68,6 +68,9 @@ export default function Home() {
               </div>
               <img src="/screenshots/screen-01.png" alt="Rosie dashboard — full onboarding pipeline view" loading="eager" />
             </div>
+            <p className="hero-roi-note">
+              One recovered intake covers six months of Rosie. The average practice loses 3-5 leads a month to slow follow-up. <a href="#roi-footnote">Do the math<sup>*</sup></a>
+            </p>
           </div>
 
         </section>
@@ -559,6 +562,9 @@ export default function Home() {
               <div className="footer-brand-dot" />
               Rosie
             </div>
+            <p className="footer-footnote" id="roi-footnote">
+              <sup>*</sup>Average new patient value: $1,200-1,800 (8-12 sessions at $150/session). Rosie Pro: $19/user/month. A 5-user practice pays $95/month. Six months = $570. One recovered intake more than covers it.
+            </p>
             <div className="footer-sub">
               Part of <a href="https://curlybraces.ai" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--coral-500)', fontWeight: 600 }}>{'{'}curlybraces.ai{'}'}</a> · © 2026 CurlyBraces AI
             </div>
